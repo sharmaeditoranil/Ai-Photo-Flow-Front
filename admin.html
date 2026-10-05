@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Lead Portal & CRM — Ai PhotoFlow Admin</title>
+  <meta name="description" content="Ai PhotoFlow internal studio lead management portal. Track user registrations, 14-day trial downloads, and export studio leads.">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-auth-gate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 7, 10, 0.98);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .admin-auth-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(0, 194, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Admin Password Gate -->
+  <div id="admin-gate" class="admin-auth-gate">
+    <div class="admin-auth-box">
+      <img src="assets/images/app-icon.png" alt="Ai PhotoFlow Logo" style="width: 54px; height: 54px; margin: 0 auto 1rem; border-radius: 12px;">
+      <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem;">Anil Sharma Studio Admin</h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        Enter Master Key to access registered user leads and trial downloads
+      </p>
+      <form id="admin-gate-form">
+        <input type="password" id="admin-pass" class="form-input" placeholder="Enter Studio Master Password" required autofocus style="margin-bottom: 1rem; text-align: center; font-size: 1.1rem; letter-spacing: 0.1em;">
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Unlock Lead Dashboard →</button>
+      </form>
+      <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 1rem;">
+        Default Studio Pass: <code>quickart2026</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="Ai PhotoFlow Home">
+        <img src="assets/images/app-icon.png" alt="Ai PhotoFlow Logo">
+        <span>Ai <span class="brand-highlight">PhotoFlow</span></span>
+        <span class="brand-version">ADMIN</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Live Website</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="download.html">Downloads</a></li>
+          <li><a href="about.html">About Anil Sir</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="admin-export-csv-btn" class="btn btn-gold btn-sm">
+          📥 Export CSV
+        </button>
+        <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Lead Management Dashboard -->
+  <main class="container admin-section">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="badge badge-emerald">Real-Time Lead CRM</span>
+        <h1 style="font-size: 2.2rem; font-weight: 800; color: #fff; margin-top: 0.5rem;">
+          Studio Registrations & 14-Day Trials
+        </h1>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          Every user who registers or downloads the app appears here. Direct WhatsApp chat & instant CSV export.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button id="admin-clear-leads-btn" class="btn btn-outline btn-sm" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.4);">
+          Reset Local Leads
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="admin-stats-grid">
+      <div class="admin-stat-card" style="border-left: 4px solid var(--accent-cyan);">
+        <div id="admin-total-leads" class="admin-stat-val text-cyan">0</div>
+        <div class="admin-stat-label">Total Registered Leads</div>
+      </div>
+      <div class="admin-stat-card" style="border-left: 4px solid #10b981;">
+        <div id="admin-mac-leads" class="admin-stat-val" style="color: #34d399;">0</div>
+        <div class="admin-stat-label">Apple macOS Users</div>
+      </div>
+      <div class="admin-stat-card" style="border-left: 4px solid #fbbf24;">
+        <div id="admin-win-leads" class="admin-stat-val" style="color: #fbbf24;">0</div>
+        <div class="admin-stat-label">Windows 64-Bit Users</div>
+      </div>
+      <div class="admin-stat-card" style="border-left: 4px solid var(--accent-purple);">
+        <div class="admin-stat-val" style="color: #c084fc;">14 Days</div>
+        <div class="admin-stat-label">Active Trial Duration</div>
+      </div>
+    </div>
+
+    <!-- Controls & Search Bar -->
+    <div class="admin-controls-bar">
+      <input type="text" id="admin-search-input" class="admin-search-input" placeholder="🔍 Search by Name, Studio, Phone or Email...">
+      <div style="font-size: 0.85rem; color: var(--text-muted);">
+        Click <strong>💬 WhatsApp</strong> to chat with any studio directly.
+      </div>
+    </div>
+
+    <!-- Leads Table -->
+    <div class="leads-table-wrap">
+      <table class="leads-table">
+        <thead>
+          <tr>
+            <th>Lead ID</th>
+            <th>Photographer / Studio</th>
+            <th>Email Address</th>
+            <th>WhatsApp Mobile</th>
+            <th>OS Platform</th>
+            <th>Trial Key</th>
+            <th>Registered Date</th>
+          </tr>
+        </thead>
+        <tbody id="admin-leads-tbody">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Data Destination & Google Sheets Integration Guide -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; margin-top: 3rem;">
+      <h3 style="color: #fff; font-size: 1.25rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>📊</span> Where Does the Data Go & How to Connect to Google Sheets?
+      </h3>
+      <div style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7;">
+        <p style="margin-bottom: 0.85rem;">
+          <strong style="color: var(--accent-cyan);">1. Instant Local Storage:</strong> Every time a user fills the Sign In / Sign Up form or downloads the application, their lead record is saved in high-speed local browser storage (`photoFlowLeads`). It never gets lost and you can export all leads with 1 click to Excel/CSV anytime.
+        </p>
+        <p style="margin-bottom: 0.85rem;">
+          <strong style="color: #fbbf24;">2. Direct WhatsApp Follow-up:</strong> In the table above, clicking the green WhatsApp button next to any lead immediately opens WhatsApp with their phone number pre-filled so you or your Quick Art Academy team can call or message them.
+        </p>
+        <p>
+          <strong style="color: #34d399;">3. Cloud Webhook / Google Sheets:</strong> To forward registrations straight to your live Google Sheet or CRM in real-time, you can connect a free webhook URL (Google Apps Script / Make.com / Zapier) in <code>js/main.js</code> under <code>saveLeadRecord()</code>.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" style="margin-top: 4rem;">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 Ai PhotoFlow Enterprise (v1.0.0) • Anil Sharma Studio Portal</div>
+        <a href="index.html">← Return to Website</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Password Gate Check
+    const gate = document.getElementById('admin-gate');
+    const gateForm = document.getElementById('admin-gate-form');
+    const passInput = document.getElementById('admin-pass');
+
+    // Check if already authenticated this session
+    if (sessionStorage.getItem('adminAuthed') === 'true') {
+      gate.style.display = 'none';
+    }
+
+    gateForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (passInput.value === 'quickart2026' || passInput.value === 'anil2026') {
+        sessionStorage.setItem('adminAuthed', 'true');
+        gate.style.display = 'none';
+        showToast('Admin Portal Unlocked!', 'success');
+      } else {
+        alert('Incorrect Master Password. Try: quickart2026');
+      }
+    });
+  </script>
+</body>
+</html>

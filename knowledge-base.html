@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation & Knowledge Base — Ai PhotoFlow</title>
+  <meta name="description" content="Official documentation and knowledge base for Ai PhotoFlow Enterprise v1.0.0. User guides, LibRaw setups, color science tutorials, and troubleshooting.">
+  <meta name="google-site-verification" content="9b8ZB7eh2XdKGnmXKspshbUrd7aIoOIh8DKddCZvGXY" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .kb-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+      padding: 3rem 0 6rem;
+    }
+    .kb-sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .kb-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .kb-nav-link {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+    .kb-nav-link:hover, .kb-nav-link.active {
+      background: rgba(0, 194, 255, 0.12);
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+    .kb-content-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .kb-content-card h2 {
+      font-size: 1.75rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+    .kb-content-card h3 {
+      font-size: 1.25rem;
+      color: var(--accent-cyan);
+      margin: 1.75rem 0 0.75rem;
+    }
+    .kb-content-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .kb-content-card pre {
+      background: #06090e;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      color: #38bdf8;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    @media (max-width: 900px) {
+      .kb-layout {
+        grid-template-columns: 1fr;
+      }
+      .kb-sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="top-bar">
+    <span>✨ <strong>Ai PhotoFlow Enterprise v1.0.0</strong> is now live! Offline-first AI post-production built for Indian wedding photographers.</span>
+    <a href="download.html">Download v1.0.0 →</a>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="Ai PhotoFlow Home">
+        <img src="assets/images/app-icon.png" alt="Ai PhotoFlow Logo">
+        <span>Ai <span class="brand-highlight">PhotoFlow</span></span>
+        <span class="brand-version">v1.0</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="knowledge-base.html" class="active">Docs</a></li>
+          <li><a href="about.html">About Anil Sir</a></li>
+          <li><a href="download.html">Downloads</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="nav-user-status" class="user-status-pill">
+          <span class="badge-dot"></span>
+          <span id="nav-user-name">Studio Member</span>
+        </div>
+        <button id="nav-signin-btn" class="btn btn-outline btn-sm auth-trigger" data-auth-mode="signin">Sign In</button>
+        <a href="download.html" class="btn btn-primary btn-sm">Download App</a>
+        <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero-section" style="padding: 4rem 0 2rem;">
+    <div class="hero-glow-sphere"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge-wrap">
+          <span class="badge badge-emerald">Documentation & Knowledge Base</span>
+        </div>
+        <h1 class="hero-title">Master Your Studio Workflow</h1>
+        <p class="hero-subtitle">
+          Complete operational guides, LibRaw camera configuration, skin-tone calibration, 
+          and troubleshooting for Ai PhotoFlow Enterprise v1.0.0.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Knowledge Base Layout -->
+  <div class="container">
+    <div class="kb-layout">
+      <!-- Sidebar Navigation -->
+      <aside class="kb-sidebar">
+        <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;">
+          Documentation Index
+        </div>
+        <ul class="kb-nav-list">
+          <li><a href="#quickstart" class="kb-nav-link active">1. Quickstart & Installation</a></li>
+          <li><a href="#raw-ingestion" class="kb-nav-link">2. RAW Decoding & Ingestion</a></li>
+          <li><a href="#culling-engine" class="kb-nav-link">3. AI Culling & Blinks</a></li>
+          <li><a href="#duplicate-burst" class="kb-nav-link">4. Duplicate Winner Selection</a></li>
+          <li><a href="#color-engine" class="kb-nav-link">5. Color Engine & Vibrance</a></li>
+          <li><a href="#batch-export" class="kb-nav-link">6. Multi-Layer Export</a></li>
+          <li><a href="#licensing" class="kb-nav-link">7. Cryptographic Licensing</a></li>
+          <li><a href="#shortcuts" class="kb-nav-link">8. Keyboard Shortcuts</a></li>
+          <li><a href="#troubleshooting" class="kb-nav-link">9. Troubleshooting & FAQ</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main>
+        <!-- 1. Quickstart -->
+        <article id="quickstart" class="kb-content-card">
+          <h2>1. Quickstart & Installation Guide</h2>
+          <p>
+            Ai PhotoFlow is engineered as a standalone native desktop application with bundled local Python multiprocessing 
+            runtimes, OpenCV, and LibRaw binaries. No external Python installation is required.
+          </p>
+
+          <h3>macOS Setup (Apple Silicon M1 / M2 / M3 / M4)</h3>
+          <p>
+            1. Download <code>Ai PhotoFlow-1.0.0-arm64.dmg</code>.<br>
+            2. Double-click the DMG and drag <strong>Ai PhotoFlow</strong> into your <code>/Applications</code> folder.<br>
+            3. On first launch, if prompted by macOS Gatekeeper: Right-click &gt; Open, or allow in <em>System Settings &gt; Privacy & Security</em>.<br>
+            4. Launch the app and grant Read/Write disk permissions to your external editing SSDs.
+          </p>
+
+          <h3>Windows Setup (Windows 10 / 11 64-bit)</h3>
+          <p>
+            1. Download <code>Ai PhotoFlow Setup 1.0.0.exe</code>.<br>
+            2. Run the installer and choose your installation directory.<br>
+            3. If Windows SmartScreen displays "Windows protected your PC", click <em>More Info &gt; Run Anyway</em>.<br>
+            4. Launch Ai PhotoFlow from the desktop shortcut.
+          </p>
+        </article>
+
+        <!-- 2. RAW Ingestion -->
+        <article id="raw-ingestion" class="kb-content-card">
+          <h2>2. RAW Camera Ingestion & Tiered Previews</h2>
+          <p>
+            Ai PhotoFlow reads high-bitdepth RAW sensor data non-destructively. Your original camera files are NEVER modified, overwritten, or moved.
+          </p>
+
+          <h3>Supported Camera Formats</h3>
+          <p>
+            • <strong>Sony:</strong> .ARW, .SR2 (A7IV, A7RV, A1, A9III, FX3, A7SIII)<br>
+            • <strong>Canon:</strong> .CR2, .CR3 (EOS R5, R6 Mark II, R3, 5D Mark IV, 1DX)<br>
+            • <strong>Nikon:</strong> .NEF, .NRW (Z8, Z9, Z6III, D850)<br>
+            • <strong>Fujifilm:</strong> .RAF (X-T5, X-H2S, GFX 100II)<br>
+            • <strong>Adobe:</strong> .DNG (Leica, Drone, and converted files)<br>
+            • <strong>Standard:</strong> .JPG, .JPEG, .PNG, .TIFF, .WEBP
+          </p>
+
+          <h3>Two-Tier Preview Pipeline</h3>
+          <pre>
+1. Tier 1 (EXIF Buffer Extract): Sub-15ms generation for instant 10,000 photo grid scrolling.
+2. Tier 2 (Linear Proxy Cache): Half-sized linear proxies stored in .photoflow_cache/ for 100% pixel loupe inspection.
+          </pre>
+        </article>
+
+        <!-- 3. Culling Engine -->
+        <article id="culling-engine" class="kb-content-card">
+          <h2>3. AI Culling & Micro-Expression Detection</h2>
+          <p>
+            The culling engine evaluates each frame through a 4-tier computer vision pipeline:
+          </p>
+          <pre>
+[RAW / JPG Image]
+       │
+       ▼
+ [1. Sharpness & Motion Blur Analysis (Laplacian Variance + High-Freq Gradient)]
+       │
+       ▼
+ [2. Facial Recognition & Micro-Expression (Haar + Dlib Landmarks)]
+       │  ├── Eyes Open / Closed Ratio
+       │  └── Blinking & Squint Detection
+       ▼
+ [3. Dynamic Range & Exposure Clipping]
+       │  ├── Highlight Burn Check (Bridal Jewelry / Silk Whites)
+       │  └── Shadow Crush Check (Groom Tuxedo / Sherwani Blacks)
+       ▼
+ [Composite Quality Score: 0.0 - 100.0] ──> BEST / PICK / REVIEW / REJECT
+          </pre>
+
+          <h3>Eye Aspect Ratio (EAR) Thresholds</h3>
+          <p>
+            • <strong>EAR ≥ 0.25:</strong> Eyes Wide Open (High confidence)<br>
+            • <strong>0.18 ≤ EAR &lt; 0.25:</strong> Micro-squint or candid emotional moment (Review)<br>
+            • <strong>EAR &lt; 0.18:</strong> Closed Eyes / Flash Blinking (Auto-downgraded to Reject)
+          </p>
+        </article>
+
+        <!-- 4. Duplicate Burst Selection -->
+        <article id="duplicate-burst" class="kb-content-card">
+          <h2>4. Duplicate Burst Clustering & Winner Selector</h2>
+          <p>
+            When photographers capture rapid sequences of 3 to 10 frames, Ai PhotoFlow clusters them using a 3-layer perceptual similarity algorithm:
+          </p>
+          <p>
+            1. <strong>Temporal Delta:</strong> Δt ≤ 3.5 seconds based on camera EXIF timestamp.<br>
+            2. <strong>Structural Gradients:</strong> 64-bit dHash and pHash difference vectors.<br>
+            3. <strong>Color Consistency:</strong> Normalized HSV histogram intersection (Threshold T ≥ 0.90).
+          </p>
+          <p>
+            Within each burst cluster, the algorithm compares facial sharpness, smile confidence, and open eyes to select the <strong>Rank 1 Winner</strong>. In the <em>AI Best</em> view, only the winner appears, eliminating 70% of visual clutter.
+          </p>
+        </article>
+
+        <!-- 5. Color Engine -->
+        <article id="color-engine" class="kb-content-card">
+          <h2>5. AI Color Engine & +5% Vibrance Boost</h2>
+          <p>
+            Engineered by Anil Sharma specifically to overcome the challenges of Indian wedding lighting:
+          </p>
+          <h3>YCrCb Chrominance Isolation</h3>
+          <p>
+            Human skin pixels fall within the distinct chrominance coordinates: <code>Cr ∈ [133, 173]</code> and <code>Cb ∈ [77, 127]</code>. 
+            Ai PhotoFlow constructs a real-time mask around these pixels, locking original complexions before auto-color curves are applied.
+          </p>
+          <h3>Universal +5% Vibrance Boost</h3>
+          <pre>Vibrance_applied = clip(Vibrance_calculated + 5.0, 5.0, 35.0)</pre>
+          <p>
+            Boosts undersaturated background hues (mandap flowers, stage lighting, gold ornaments) by an extra 5% while preventing skin from turning orange or red.
+          </p>
+        </article>
+
+        <!-- 6. Batch Export -->
+        <article id="batch-export" class="kb-content-card">
+          <h2>6. Batch Multi-Layer Watermarking & Export</h2>
+          <p>
+            All exports preserve original camera files in read-only mode and output into organized directories:
+          </p>
+          <pre>
+[User Export Directory]
+ ├── /AI-Selected/    <-- Best photos (original resolution or resized)
+ ├── /AI-Edited/      <-- Non-destructively color-corrected and tuned
+ └── /Rejected/       <-- Optional archive for record verification
+          </pre>
+          <h3>Watermark Options</h3>
+          <p>
+            • Custom PNG logos with alpha transparency or typography text.<br>
+            • 9 anchor positions: Top-Left, Center, Bottom-Right, etc.<br>
+            • Anti-theft diagonal proofing watermark for client selection galleries.
+          </p>
+        </article>
+
+        <!-- 7. Licensing -->
+        <article id="licensing" class="kb-content-card">
+          <h2>7. Cryptographic Licensing & Hardware Binding</h2>
+          <p>
+            Licenses operate using cryptographic HMAC-SHA256 tokens bound to your machine's hardware fingerprint:
+          </p>
+          <p>
+            • <strong>License Format:</strong> <code>FLOW-XXXX-XXXX-XXXX-XXXX</code><br>
+            • <strong>Offline Verification:</strong> Completely valid in remote wedding venues without internet.<br>
+            • <strong>Anti-Clock Rollback:</strong> Protects trial and subscription validity against manual system clock changes.
+          </p>
+        </article>
+
+        <!-- 8. Keyboard Shortcuts -->
+        <article id="shortcuts" class="kb-content-card">
+          <h2>8. Single-Hand Ergonomic Shortcuts</h2>
+          <div class="shortcut-card-grid">
+            <div class="shortcut-item">
+              <div><strong style="color: #fff;">Pick Active Photo</strong></div>
+              <span class="shortcut-key">P</span>
+            </div>
+            <div class="shortcut-item">
+              <div><strong style="color: #fff;">Reject Active Photo</strong></div>
+              <span class="shortcut-key">X</span>
+            </div>
+            <div class="shortcut-item">
+              <div><strong style="color: #fff;">Unflag / Reset</strong></div>
+              <span class="shortcut-key">U</span>
+            </div>
+            <div class="shortcut-item">
+              <div><strong style="color: #fff;">Assign 1-5 Stars</strong></div>
+              <span class="shortcut-key">1 – 5</span>
+            </div>
+            <div class="shortcut-item">
+              <div><strong style="color: #fff;">Before / After Split</strong></div>
+              <span class="shortcut-key">Space</span>
+            </div>
+            <div class="shortcut-item">
+              <div><strong style="color: #fff;">100% Loupe Zoom</strong></div>
+              <span class="shortcut-key">Z</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 9. Troubleshooting -->
+        <article id="troubleshooting" class="kb-content-card">
+          <h2>9. Troubleshooting Common Issues</h2>
+          <h3>1. "File Format Not Recognized"</h3>
+          <p>
+            Verify that your camera uses standard uncompressed or lossless compressed RAW. High-efficiency Sony Lossless and Canon CR3 formats are fully supported in v1.0.0.
+          </p>
+          <h3>2. "Insufficient GPU Memory for Batch Export"</h3>
+          <p>
+            If your machine has less than 8GB of VRAM, navigate to <em>Settings &gt; Performance</em> and set Concurrent Worker Threads to <strong>2</strong> instead of Auto.
+          </p>
+          <h3>3. Need Priority Support?</h3>
+          <p>
+            Direct telephone and WhatsApp support available from Quick Art Academy team: <strong>📞 +91 9939800780</strong>.
+          </p>
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 Ai PhotoFlow Enterprise (v1.0.0). Created by Anil Sharma.</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="index.html">Home</a>
+          <a href="features.html">Features</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="download.html">Downloads</a>
+          <a href="about.html">About Anil Sharma</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="modal-close-btn">✕</button>
+      <div class="modal-header">
+        <img src="assets/images/app-icon.png" alt="Ai PhotoFlow Logo">
+        <h3>Studio Account Access</h3>
+        <p>Sign in to download the app and manage your hardware license</p>
+      </div>
+      <div class="modal-tabs">
+        <button id="tab-btn-signin" class="modal-tab-btn active">Sign In</button>
+        <button id="tab-btn-signup" class="modal-tab-btn">Create Account</button>
+      </div>
+      <form id="form-signin">
+        <div class="form-group">
+          <label class="form-label">Studio Email</label>
+          <input type="email" id="signin-email" class="form-input" required value="anil@quickartphotography.in">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="signin-password" class="form-input" required value="photoflow2026">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+          Sign In & Access Download →
+        </button>
+      </form>
+      <form id="form-signup" style="display: none;">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="signup-name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Studio Name</label>
+          <input type="text" id="signup-studio" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="signup-email" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="signup-password" class="form-input" required>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
+          Create Free Account & Download →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features & Technical Architecture — Ai PhotoFlow</title>
+  <meta name="description" content="In-depth technical architecture of Ai PhotoFlow: LibRaw decoding, Laplacian variance focus checks, EAR eye aspect ratio, YCrCb skin protection, +5% vibrance formula, and hardware cryptographic licensing.">
+  <meta name="google-site-verification" content="9b8ZB7eh2XdKGnmXKspshbUrd7aIoOIh8DKddCZvGXY" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .math-card {
+      background: rgba(10, 13, 20, 0.85);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: #38bdf8;
+      margin: 1.25rem 0;
+      overflow-x: auto;
+    }
+    .arch-diagram {
+      background: #06090e;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: #94a3b8;
+      line-height: 1.45;
+      overflow-x: auto;
+      margin: 2rem 0;
+      white-space: pre;
+    }
+    .feature-module-block {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .feature-module-block:last-child {
+      border-bottom: none;
+    }
+    .feature-split {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    @media (max-width: 992px) {
+      .feature-split {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <span>✨ <strong>Ai PhotoFlow Enterprise v1.0.0</strong> is now live! Offline-first AI post-production built for Indian wedding photographers.</span>
+    <a href="download.html">Download v1.0.0 →</a>
+  </div>
+
+  <!-- Ultra-Professional Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/app-icon.png" alt="Ai PhotoFlow Logo">
+        <span>Ai <span class="brand-highlight">PhotoFlow</span></span>
+        <span class="brand-version">v1.0</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html" class="active">Features</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="knowledge-base.html">Docs</a></li>
+          <li><a href="about.html">About Anil Sir</a></li>
+          <li><a href="download.html">Downloads</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="nav-signin-btn" class="btn btn-outline btn-sm auth-trigger" data-auth-mode="signin">Sign In</button>
+        <a href="download.html" class="btn btn-primary btn-sm">Download App</a>
+        <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="hero-section" style="padding: 4.5rem 0 2.5rem;">
+    <div class="hero-glow-sphere"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge-wrap">
+          <span class="badge badge-gold">The Technical Blueprint</span>
+        </div>
+        <h1 class="hero-title">10 Production Modules.<br><span class="text-gradient">Zero Shortcuts.</span></h1>
+        <p class="hero-subtitle">
+          Explore the exact algorithmic topology, computer vision metrics, color science pipelines, 
+          and cryptographic licensing that drive Ai PhotoFlow Enterprise v1.0.0.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architectural Topology Section -->
+  <section style="padding: 2rem 0 4rem;">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <span class="badge">System Topology</span>
+        <h2 class="section-title" style="margin-top: 0.5rem;">High-Performance Offline Architecture</h2>
+        <p class="section-desc">Electron Presentation Layer communicating over high-speed IPC & local REST with FastAPI multiprocessing workers.</p>
+      </div>
+
+      <div class="arch-diagram">
+┌────────────────────────────────────────────────────────────────────────┐
+│                   Desktop Presentation Layer                           │
+│        Electron + React 19 + TypeScript + Native Hardware APIs         │
+├────────────────────────────────────────────────────────────────────────┤
+│                          REST / HTTP & IPC                             │
+├────────────────────────────────────────────────────────────────────────┤
+│                   Local High-Performance Core Server                   │
+│             FastAPI + Multiprocessing Workers (Python 3.9+)            │
+├──────────────────┬──────────────────────┬──────────────────────────────┤
+│  SQLite Meta DB  │   RAW Decoding Pool  │    Async Task Job Queue      │
+│  (Indexed Files) │   (LibRaw / RawPy)   │    (Pause / Resume / Cancel) │
+├──────────────────┴──────────────────────┴──────────────────────────────┤
+│                            AI Model Matrix                             │
+│ ┌───────────────────┐  ┌───────────────────┐  ┌──────────────────────┐ │
+│ │  Sharpness & Blur │  │ Face & Eye Status │  │ Perceptual Clust.    │ │
+│ │  Laplacian Metric │  │ Haar + Landmarks  │  │ Dual-Hash & Color Hist│ │
+│ └───────────────────┘  └───────────────────┘  └──────────────────────┘ │
+│ ┌───────────────────┐  ┌───────────────────┐  ┌──────────────────────┐ │
+│ │ Scene Recognition │  │ YCrCb Skin Engine │  │ +5% Vibrance Engine  │ │
+│ │ Feature Descriptors│ │ Pure Light Cast WB│  │ S-Curve Tone Balancer│ │
+│ └───────────────────┘  └───────────────────┘  └──────────────────────┘ │
+├────────────────────────────────────────────────────────────────────────┤
+│                     Non-Destructive Processing Engine                  │
+│       OpenCV Accelerated Matrix Operations + Pillow SIMD + RawPy       │
+└────────────────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive: Module 1 & 2 -->
+  <section class="feature-module-block">
+    <div class="container">
+      <div class="feature-split">
+        <div>
+          <span class="badge badge-gold">Module 01</span>
+          <h2 style="font-size: 2rem; margin: 0.75rem 0 1rem;">Ingestion & High-Speed RAW Decoding</h2>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
+            Mounts original camera memory cards or hard disks in strictly <strong>Read-Only</strong> mode. 
+            Utilizes custom LibRaw C-bindings to achieve sub-15ms extraction of camera-generated EXIF preview buffers. 
+            Full-fidelity proxies are generated asynchronously in <code>.photoflow_cache/</code> for 100% pixel loupe zoom.
+          </p>
+          <ul class="problem-list">
+            <li class="problem-item">
+              <div class="problem-item-icon good"><span style="color: #10b981;">✓</span></div>
+              <div class="problem-item-text">
+                <strong>Universal Format Support:</strong>
+                <p>Sony (.ARW, .SR2), Canon (.CR2, .CR3), Nikon (.NEF, .NRW), Fujifilm (.RAF), Adobe (.DNG), and standard JPG/PNG/TIFF.</p>
+              </div>
+            </li>
+            <li class="problem-item">
+              <div class="problem-item-icon good"><span style="color: #10b981;">✓</span></div>
+              <div class="problem-item-text">
+                <strong>Two-Tier Fast Preview Cache:</strong>
+                <p>Tier 1 allows smooth 60fps scrolling through 10,000 photos instantly. Tier 2 loads linear proxies for focus confirmation.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: var(--radius-lg); padding: 2rem;">
+          <h4 style="color: var(--accent-cyan); margin-bottom: 1rem; font-size: 1.1rem;">⚡ LibRaw Ingestion Performance</h4>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent-cyan);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Tier 1 EXIF Extract</div>
+              <div style="font-size: 1.4rem; font-weight: 800; font-family: var(--font-mono); color: #fff;">11.4 ms / image</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Instant thumbnail generation for fluid grid scroll</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent-gold);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Tier 2 Full Proxy Decode</div>
+              <div style="font-size: 1.4rem; font-weight: 800; font-family: var(--font-mono); color: #fbbf24;">145 ms / image</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">High-DPI 100% zoom loupe cached non-destructively</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive: Module 2 & 3 -->
+  <section class="feature-module-block">
+    <div class="container">
+      <div class="feature-split">
+        <div>
+          <span class="badge">Module 02 & 03</span>
+          <h2 style="font-size: 2rem; margin: 0.75rem 0 1rem;">AI Culling & Duplicate Clustering Engine</h2>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
+            Evaluates focus crispness via modified Laplacian Variance and facial pupil high-frequency gradients. 
+            Simultaneously computes Eye Aspect Ratio (EAR) across all facial landmarks to catch blinks.
+          </p>
+
+          <h4 style="margin-top: 1.5rem; color: #fff;">1. Sharpness Laplacian Variance:</h4>
+          <div class="math-card">
+            σ²(∇² I) = Var( ΔI )  [Face-weighted Edge High-Pass]
+          </div>
+
+          <h4 style="margin-top: 1rem; color: #fff;">2. Eye Aspect Ratio (EAR) Formula:</h4>
+          <div class="math-card">
+            EAR = ( ||p₂ - p₆|| + ||p₃ - p₅|| ) / ( 2 · ||p₁ - p₄|| )
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--text-muted);">
+            If EAR &lt; 0.20 during flash bursts, the shot is automatically tagged as a blink and downgraded to REVIEW or REJECT.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem;">
+          <h4 style="color: #fff; margin-bottom: 1.25rem; font-size: 1.15rem;">Composite Scoring Thresholds</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-sm);">
+              <div>
+                <strong style="color: #34d399;">BEST (85 – 100)</strong>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Pin-sharp focus, wide open eyes, perfect lighting</div>
+              </div>
+              <span class="status-tag best">Rank 1</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(2, 132, 199, 0.1); border: 1px solid rgba(2, 132, 199, 0.3); border-radius: var(--radius-sm);">
+              <div>
+                <strong style="color: #38bdf8;">PICK (70 – 84)</strong>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">High quality, suitable for wedding album</div>
+              </div>
+              <span class="status-tag pick">Keep</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-sm);">
+              <div>
+                <strong style="color: #fbbf24;">REVIEW (50 – 69)</strong>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Minor motion, mixed lighting, or secondary pose</div>
+              </div>
+              <span class="status-tag review">Inspect</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: var(--radius-sm);">
+              <div>
+                <strong style="color: #f43f5e;">REJECT (&lt; 50)</strong>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Missed focus, closed eyes, extreme clipping</div>
+              </div>
+              <span class="status-tag reject">Discard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive: Module 5 AI Color Science & Vibrance Formula -->
+  <section class="feature-module-block">
+    <div class="container">
+      <div class="feature-split">
+        <div>
+          <span class="badge badge-gold">Module 05</span>
+          <h2 style="font-size: 2rem; margin: 0.75rem 0 1rem;">Skin-Tone Science & the +5% Vibrance Boost</h2>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
+            Why does foreign software burn Indian bridal portraits? Standard saturation scales all pixels equally. 
+            Ai PhotoFlow translates RGB into YCrCb space, isolating human skin pixels so facial tones stay creamy while embroidery pops.
+          </p>
+
+          <h4 style="margin-top: 1rem; color: #fff;">1. YCrCb Skin Chrominance Gate:</h4>
+          <div class="math-card">
+            Skin_Mask = (Cr ∈ [133, 173]) ∩ (Cb ∈ [77, 127])
+          </div>
+
+          <h4 style="margin-top: 1rem; color: #fff;">2. Universal +5% Vibrance Equation:</h4>
+          <div class="math-card">
+            Vibrance_applied = clip( Vibrance_calc + 5.0, 5.0, 35.0 )
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--text-secondary);">
+            The algorithm selectively boosts undersaturated hues (bridal flowers, stage decor, gold zardozi) 
+            while skipping pixels flagged in the skin mask.
+          </p>
+        </div>
+
+        <div>
+          <img src="assets/images/Bride_Solo_Makeup_01.jpg" alt="Bridal Skin Tone" style="border-radius: var(--radius-md); border: 1px solid var(--border-glow); box-shadow: var(--shadow-md);">
+          <div style="margin-top: 0.75rem; font-size: 0.82rem; color: var(--text-muted); text-align: center;">
+            Figure 5.1: Real-time skin chrominance isolation during high-key bridal preparation.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive: Module 7 Hardware Cryptographic Security -->
+  <section class="feature-module-block">
+    <div class="container">
+      <div class="feature-split">
+        <div>
+          <span class="badge">Module 07 & 08</span>
+          <h2 style="font-size: 2rem; margin: 0.75rem 0 1rem;">Hardware Fingerprint Cryptographic Keys</h2>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
+            To ensure zero software piracy while permitting 100% offline usage in remote banquet halls without Wi-Fi, 
+            Ai PhotoFlow binds each seat to three unalterable hardware primitives:
+          </p>
+
+          <div style="background: rgba(10, 13, 20, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.9rem;">
+              <li><strong style="color: var(--accent-cyan);">1. Motherboard UUID:</strong> <code>ioreg</code> on macOS / <code>wmic csproduct get uuid</code> on Windows</li>
+              <li><strong style="color: var(--accent-cyan);">2. CPU ID:</strong> Primary processor silicon architecture & serial register</li>
+              <li><strong style="color: var(--accent-cyan);">3. MAC Address:</strong> Primary physical network adapter hash</li>
+            </ul>
+          </div>
+
+          <div class="math-card">
+            Signature = HMAC_SHA256( Machine_UUID + CPU_ID + Expiry, Salt_32B )
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Licenses follow standard enterprise syntax: <code>FLOW-XXXX-XXXX-XXXX-XXXX</code>. 
+            Includes monotonic anti-clock-rollback protection to prevent system clock tampering.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: var(--radius-lg); padding: 2rem;">
+          <h4 style="color: #fff; margin-bottom: 1rem;">Offline License Key Validation</h4>
+          <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-cyan); background: #000; padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem;">
+            &gt; photoflow-cli --activate FLOW-9821-B42A-CC89-91EF<br>
+            [✓] Motherboard UUID: 4E53-90B1-AA<br>
+            [✓] HMAC Token: Valid (Expiry: Oct 2027)<br>
+            [✓] Anti-Rollback: Timestamp Locked<br>
+            STATUS: STUDIO ENTERPRISE ACTIVE
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-secondary);">
+            Studio administrators can unbind keys and transfer workstations up to 2 times per year without contacting support.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive: Module 9 Keyboard Shortcuts Sandbox -->
+  <section class="feature-module-block" id="shortcuts">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-emerald">Module 09</span>
+        <h2 class="section-title">Workflow Ergonomics & Single-Hand Shortcuts</h2>
+        <p class="section-desc">Keep your right hand on the arrow keys or mouse while your left hand drives instantaneous culling.</p>
+      </div>
+
+      <div class="shortcut-card-grid">
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">Pick Photo</div>
+            <div class="shortcut-category">Culling</div>
+          </div>
+          <span class="shortcut-key">P</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">Reject Photo</div>
+            <div class="shortcut-category">Culling</div>
+          </div>
+          <span class="shortcut-key">X</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">Unflag / Reset</div>
+            <div class="shortcut-category">Culling</div>
+          </div>
+          <span class="shortcut-key">U</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">1 to 5 Star Rating</div>
+            <div class="shortcut-category">Rating</div>
+          </div>
+          <span class="shortcut-key">1 – 5</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">Clear Star Rating</div>
+            <div class="shortcut-category">Rating</div>
+          </div>
+          <span class="shortcut-key">0</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">Toggle Before / After</div>
+            <div class="shortcut-category">Inspection</div>
+          </div>
+          <span class="shortcut-key">Space</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">Burst Compare View</div>
+            <div class="shortcut-category">Duplicate Inspection</div>
+          </div>
+          <span class="shortcut-key">C</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">Apply AI Auto-Edit</div>
+            <div class="shortcut-category">Color Science</div>
+          </div>
+          <span class="shortcut-key">E</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">100% Pixel Loupe Zoom</div>
+            <div class="shortcut-category">Focus Inspection</div>
+          </div>
+          <span class="shortcut-key">Z</span>
+        </div>
+
+        <div class="shortcut-item">
+          <div>
+            <div class="shortcut-label">Previous / Next Photo</div>
+            <div class="shortcut-category">Navigation</div>
+          </div>
+          <span class="shortcut-key">← / →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive: Module 10 Future Roadmap (V2 Engine) -->
+  <section class="feature-module-block" id="roadmap">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-gold">Module 10</span>
+        <h2 class="section-title">The V2 Engine Roadmap</h2>
+        <p class="section-desc">Upcoming capabilities already under active research in the Ai PhotoFlow core interface matrix.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem;">
+          <div class="badge" style="margin-bottom: 0.75rem;">Q1 2027</div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">AI Facial Blemish Retouching</h3>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+            Frequency separation AI automatically reduces transient acne and dark circles while preserving 100% natural skin texture and facial pores.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem;">
+          <div class="badge" style="margin-bottom: 0.75rem;">Q2 2027</div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Semantic AI Masking & Bokeh</h3>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+            Real-time neural segmentation separates couple, mandap background, and stage lighting for selective exposure balancing.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem;">
+          <div class="badge" style="margin-bottom: 0.75rem;">Q3 2027</div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Generative Photobomber Erase</h3>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+            One-click contextual erasure of stage cables, microphone stands, and stray videographers during key wedding ritual moments.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem;">
+          <div class="badge" style="margin-bottom: 0.75rem;">Q4 2027</div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Lightroom & Photoshop UXP Plugin</h3>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+            Direct .XMP sidecar generation permitting instant catalog import into Adobe Lightroom Classic with zero rendering delay.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Experience the Speed in Your Studio</h2>
+        <p>Download the native desktop software and test on your latest wedding shoot.</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="download.html" class="btn btn-primary btn-lg">Download Ai PhotoFlow (Mac / Win) →</a>
+          <a href="pricing.html" class="btn btn-outline btn-lg">View Studio Licensing Plans</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 Ai PhotoFlow Enterprise (v1.0.0). Created by Anil Sharma.</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="index.html">Home</a>
+          <a href="features.html">Features</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="download.html">Downloads</a>
+          <a href="about.html">About Anil Sharma</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="modal-close-btn">✕</button>
+      <div class="modal-header">
+        <img src="assets/images/app-icon.png" alt="Ai PhotoFlow Logo">
+        <h3>Studio Account Access</h3>
+        <p>Sign in to download the app and manage your hardware license</p>
+      </div>
+      <div class="modal-tabs">
+        <button id="tab-btn-signin" class="modal-tab-btn active">Sign In</button>
+        <button id="tab-btn-signup" class="modal-tab-btn">Create Account</button>
+      </div>
+      <form id="form-signin">
+        <div class="form-group">
+          <label class="form-label">Studio Email</label>
+          <input type="email" id="signin-email" class="form-input" required value="anil@quickartphotography.in">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="signin-password" class="form-input" required value="photoflow2026">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+          Sign In & Access Download →
+        </button>
+      </form>
+      <form id="form-signup" style="display: none;">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="signup-name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Studio Name</label>
+          <input type="text" id="signup-studio" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="signup-email" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="signup-password" class="form-input" required>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
+          Create Free Account & Download →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
