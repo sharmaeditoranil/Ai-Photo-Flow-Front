@@ -2,33 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sign In / Register — 14-Day Free Trial | Ai Photoflow AI Photo Editor & Photo Correction App</title>
-  <meta name="description" content="Sign in or register for Ai Photoflow to claim your unrestricted 14-day free trial. Experience the fastest AI photo editor, AI image editor, and photo correction app built to replace slow photo editing apps and AI Photoshop editor plugins.">
-  <meta name="keywords" content="Ai Photoflow login, ai photo editor sign in, ai image editor register, ai photoshop editor account, photo correction app trial, photo editing apps member">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us & Studio Demo — Quick Art Academy & Ai PhotoFlow | Siwan, Bihar</title>
+  <meta name="description" content="Get in touch with Anil Sharma and the Ai PhotoFlow team. Book a live studio demo, inquire about enterprise multi-seat licenses, or visit Quick Art Photography Academy in Siwan, Bihar.">
+  <meta name="keywords" content="Contact Ai PhotoFlow, Quick Art Photography Siwan phone number, Anil Sharma contact, book photo editing demo, studio license inquiry, Siwan Bihar academy">
   <meta name="google-site-verification" content="9b8ZB7eh2XdKGnmXKspshbUrd7aIoOIh8DKddCZvGXY" />
-  <link rel="canonical" href="https://photoflow.quickartphotography.in/login.html">
+  <link rel="canonical" href="https://photoflow.quickartphotography.in/contact.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact Us & Book Studio Demo — Ai PhotoFlow">
+  <meta property="og:description" content="Direct WhatsApp support with Anil Sharma (+91 9939800780). Siwan Campus & online support.">
+  <meta property="og:image" content="assets/images/app-icon.png">
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .auth-page-wrapper {
-      min-height: calc(100vh - 120px);
+    .contact-hero {
+      padding: 4.5rem 0 3rem;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(245, 158, 11, 0.12) 0%, transparent 60%);
+    }
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 3.5rem;
+      margin: 2rem 0 6rem;
+    }
+    .contact-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 2.75rem;
+      box-shadow: var(--shadow-lg), 0 0 40px rgba(245, 158, 11, 0.1);
+    }
+    .contact-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      transition: border-color 0.25s ease;
+    }
+    .info-card:hover {
+      border-color: var(--accent-cyan);
+    }
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .info-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 3rem 1.5rem;
-      position: relative;
+      font-size: 1.3rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .auth-card-standalone {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glow);
-      border-radius: var(--radius-lg);
-      width: 100%;
-      max-width: 640px;
-      padding: 2.75rem 2.25rem;
-      box-shadow: var(--shadow-lg), 0 0 50px rgba(0, 194, 255, 0.15);
-      position: relative;
-      z-index: 1;
+    @media (max-width: 992px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .contact-form-card {
+        padding: 2rem 1.5rem;
+      }
     }
   </style>
 </head>
@@ -36,11 +81,11 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    <span>🔥 <strong>14-Day Free Trial Live:</strong> Cull & Edit 10,000 RAW Photos in Under 15 Minutes.</span>
+    <span>🔥 <strong>v1.0.0 Live:</strong> 10,000 RAW Wedding Photos Culled & Edited in Under 15 Minutes.</span>
     <a href="download.html" class="top-bar-cta">Start 14-Day Free Trial →</a>
   </div>
 
-  <!-- Ultra-Professional Header -->
+  <!-- Ultra-Professional Header with High-End Mega Menu -->
   <header class="site-header">
     <div class="container nav-container">
       <a href="index.html" class="brand-logo" aria-label="Ai PhotoFlow Home">
@@ -109,7 +154,6 @@
                 </div>
               </div>
 
-              <!-- Spotlight Card inside Solutions Mega Menu -->
               <div class="megamenu-spotlight">
                 <div>
                   <div class="spotlight-badge">⭐ Studio Breakthrough</div>
@@ -190,7 +234,6 @@
                 </div>
               </div>
 
-              <!-- Spotlight Card inside Features Mega Menu -->
               <div class="megamenu-spotlight">
                 <div>
                   <div class="spotlight-badge">🚀 Benchmarked</div>
@@ -263,159 +306,162 @@
 
           <!-- 6. CONTACT -->
           <li class="nav-item">
-            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="contact.html" class="nav-link active">Contact</a>
           </li>
         </ul>
       </nav>
 
       <div class="nav-actions">
+        <button id="nav-signin-btn" class="btn btn-outline btn-sm auth-trigger" data-auth-mode="signin">Sign In</button>
         <a href="download.html" class="btn btn-primary btn-sm">Download App</a>
-        <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+        <button class="mobile-toggle" aria-label="Toggle navigation menu">☰</button>
       </div>
     </div>
   </header>
 
-  <!-- Main Auth Container -->
-  <div class="auth-page-wrapper">
-    <div class="hero-glow-sphere" style="top: 20px;"></div>
+  <!-- Contact Hero -->
+  <section class="contact-hero">
+    <div class="container">
+      <div class="badge badge-gold" style="margin-bottom: 1rem;">Direct Studio Support & Consultations</div>
+      <h1 style="font-size: clamp(2.2rem, 3.8vw, 3.6rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.25rem;">
+        Let's Connect. <span class="text-gradient">We're Here to Elevate Your Studio.</span>
+      </h1>
+      <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 760px; margin: 0 auto; line-height: 1.7;">
+        Have a question about Ai PhotoFlow licensing, need a 1-on-1 workflow demo, or want to visit our offline training academy in Siwan, Bihar? Reach out directly.
+      </p>
+    </div>
+  </section>
 
-    <div class="auth-card-standalone">
-      <div class="modal-header">
-        <img src="assets/images/app-icon.png" alt="Ai PhotoFlow Logo">
-        <h2 style="font-size: 1.6rem; color: #fff; margin-bottom: 0.25rem;">Studio Member Portal</h2>
-        <p>Sign in to <strong>Ai Photoflow</strong> — the #1 <strong>AI photo editor</strong>, <strong>AI image editor</strong>, and <strong>photo correction app</strong> to claim your 14-day trial</p>
-      </div>
+  <!-- Contact Layout -->
+  <section class="container">
+    <div class="contact-layout">
+      <!-- Contact & Demo Form -->
+      <div class="contact-form-card">
+        <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent-gold); letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+          Direct Inquiries
+        </div>
+        <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem; line-height: 1.3;">Book a Live Demo or Inquire About Studio Licenses</h2>
 
-      <div class="modal-tabs">
-        <button id="tab-btn-signin" class="modal-tab-btn active">Sign In</button>
-        <button id="tab-btn-signup" class="modal-tab-btn">Claim 14-Day Trial</button>
-      </div>
-
-      <!-- Sign In Form -->
-      <form id="form-signin">
-        <div class="form-group">
-          <label class="form-label" for="signin-email">Studio Email Address</label>
-          <input type="email" id="signin-email" class="form-input" placeholder="studio@quickartphotography.in" required value="anil@quickartphotography.in">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="signin-password">Password</label>
-          <input type="password" id="signin-password" class="form-input" placeholder="••••••••" required value="photoflow2026">
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 1rem;">
-          Sign In & Access Download →
-        </button>
-
-        <div style="margin-top: 1.5rem; text-align: center; font-size: 0.82rem; color: var(--text-muted);">
-          Protected by Hardware HMAC-SHA256 Token Security
-        </div>
-      </form>
-
-      <!-- Sign Up Form (Captures Lead for Admin Portal) -->
-      <form id="form-signup" style="display: none;">
-        <div class="form-group">
-          <label class="form-label" for="signup-name">Full Name</label>
-          <input type="text" id="signup-name" class="form-input" placeholder="e.g. Anil Sharma" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="signup-phone">WhatsApp Number (For License Key)</label>
-          <input type="tel" id="signup-phone" class="form-input" placeholder="e.g. 9939800780" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="signup-studio">Studio / Brand Name</label>
-          <input type="text" id="signup-studio" class="form-input" placeholder="e.g. Quick Art Photography" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="signup-email">Email Address</label>
-          <input type="email" id="signup-email" class="form-input" placeholder="name@yourstudio.com" required>
-        </div>
-        <button type="submit" class="btn btn-gold btn-lg" style="width: 100%; margin-top: 1rem;">
-          Activate 14-Day Trial & Download →
-        </button>
-      </form>
-
-      <!-- Post-Login Download Portal (Revealed Immediately Upon Login / Register) -->
-      <div id="login-download-portal" style="display: none; text-align: center;">
-        <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #34d399; font-size: 0.8rem; font-weight: 700; padding: 0.35rem 0.85rem; border-radius: 20px; margin-bottom: 1.25rem;">
-          <span style="font-size: 0.6rem;">●</span> Verified Studio Member • 14-Day License Active
-        </div>
-
-        <h2 id="login-welcome-name" style="font-size: 1.7rem; color: #fff; margin-bottom: 0.35rem;">
-          Welcome, <span class="text-gradient">Studio Member</span>!
-        </h2>
-        <p id="login-welcome-studio" style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1.5rem;">
-          Studio: <strong style="color: #fff;">Quick Art Photography</strong>
-        </p>
-
-        <!-- License Display -->
-        <div style="background: rgba(0, 0, 0, 0.45); border: 1px dashed var(--accent-cyan); border-radius: var(--radius-md); padding: 1.1rem; margin-bottom: 1.75rem; text-align: center;">
-          <div style="font-size: 0.72rem; color: var(--accent-cyan); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 0.35rem;">
-            14-Day Offline Trial Activation Key
+        <form id="contact-demo-form" onsubmit="event.preventDefault(); alert('Dhanyawad! Aapka inquiry message receive ho gaya hai. Anil Sir aur hamari team aapse 2 hours me WhatsApp par contact karegi.'); this.reset();">
+          <div class="form-row-dual" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Your Full Name *</label>
+              <input type="text" id="contact-name" class="form-input" placeholder="e.g. Anil Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-studio">Studio / Brand Name *</label>
+              <input type="text" id="contact-studio" class="form-input" placeholder="e.g. Royal Wedding Films" required>
+            </div>
           </div>
-          <div id="login-license-key-val" style="font-family: var(--font-mono); font-size: 1.2rem; color: #fff; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 0.6rem;">
-            APF-TRIAL-8942-2026
+
+          <div class="form-row-dual" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="contact-phone">WhatsApp / Mobile Number *</label>
+              <input type="tel" id="contact-phone" class="form-input" placeholder="+91 9939800780" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-city">City & State *</label>
+              <input type="text" id="contact-city" class="form-input" placeholder="e.g. Siwan, Bihar / Delhi / Mumbai" required>
+            </div>
           </div>
-          <button type="button" id="login-copy-key-btn" class="btn btn-outline btn-sm" style="font-size: 0.78rem; padding: 0.35rem 0.85rem;">
-            📋 Copy License Key
+
+          <div class="form-row-dual" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="contact-camera">Primary Camera Brand</label>
+              <select id="contact-camera" class="form-input" style="background: rgba(10, 13, 20, 0.95); color: #fff;">
+                <option value="Sony">Sony (A7IV, A7R V, FX3)</option>
+                <option value="Canon">Canon (R5, R6, 5D Mk IV)</option>
+                <option value="Nikon">Nikon (Z8, Z9, Z6 III)</option>
+                <option value="Fuji">Fujifilm / Lumix</option>
+                <option value="Other">Multi-Brand Fleet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-interest">Interest Type *</label>
+              <select id="contact-interest" class="form-input" style="background: rgba(10, 13, 20, 0.95); color: #fff;">
+                <option value="Trial">14-Day Free Trial Setup</option>
+                <option value="Individual">Personal License (₹799 / ₹1,499)</option>
+                <option value="Yearly">Yearly VIP Access (₹5,999)</option>
+                <option value="Studio">Multi-Seat Studio Enterprise</option>
+                <option value="Academy">Quick Art Academy Course in Siwan</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label" for="contact-message">How Can We Help You?</label>
+            <textarea id="contact-message" class="form-input" rows="4" placeholder="Tell us about your current editing bottlenecks, team size, or questions..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold" style="width: 100%; font-size: 1rem; padding: 0.9rem;">
+            Send Inquiry to Anil Sir & Team →
           </button>
-        </div>
+        </form>
+      </div>
 
-        <!-- The 2 Distinct Download Options -->
-        <div style="text-align: left; margin-bottom: 0.75rem;">
-          <h3 style="font-size: 1.1rem; color: #fff; font-weight: 700;">
-            Select Your Operating System to Download:
-          </h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted);">
-            Choose macOS or Windows. Both include bundled LibRaw 0.21 & local AI acceleration.
+      <!-- Contact Info & Direct Actions -->
+      <div class="contact-info-col">
+        <!-- WhatsApp Direct -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon icon-emerald">💬</div>
+            <div>
+              <h3 style="font-size: 1.15rem; color: #fff;">WhatsApp & Direct Calling</h3>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Instant response for studio inquiries</div>
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Speak directly with mentor Anil Sharma and our engineering support staff.
           </p>
+          <a href="https://wa.me/919939800780" target="_blank" class="whatsapp-direct-btn">
+            <span>💬 Chat on WhatsApp (+91 9939800780)</span>
+          </a>
         </div>
 
-        <div class="login-download-grid">
-          <!-- macOS Download Card -->
-          <div class="login-os-option-card">
+        <!-- Campus Location -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon icon-gold">📍</div>
             <div>
-              <div class="os-icon-box mac-icon-box">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.65-.98 1.7-.86 2.73 1.01.08 2.04-.52 2.57-1.23z"/>
-                </svg>
-              </div>
-              <h4>macOS (Apple Silicon)</h4>
-              <p>M1, M2, M3, M4 chips with Metal GPU culling</p>
-              <span class="file-tag">Ai-PhotoFlow-1.0.0-arm64.dmg (198 MB)</span>
+              <h3 style="font-size: 1.15rem; color: #fff;">Quick Art Photography Academy HQ</h3>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Siwan Campus & Offline Training Lab</div>
             </div>
-            <a href="assets/downloads/Ai-PhotoFlow-1.0.0-arm64.dmg" download class="btn btn-primary btn-sm login-download-btn postlogin-dl-btn" data-os="mac">
-              🍏 Download for macOS (.dmg)
-            </a>
           </div>
-
-          <!-- Windows Download Card -->
-          <div class="login-os-option-card">
-            <div>
-              <div class="os-icon-box win-icon-box">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.751"/>
-                </svg>
-              </div>
-              <h4>Windows 10 / 11</h4>
-              <p>64-bit installer with CUDA / DirectX acceleration</p>
-              <span class="file-tag">Ai-PhotoFlow-Setup-1.0.0.exe (182 MB)</span>
-            </div>
-            <a href="assets/downloads/Ai-PhotoFlow-Setup-1.0.0.exe" download class="btn btn-gold btn-sm login-download-btn postlogin-dl-btn" data-os="win">
-              🪟 Download for Windows (.exe)
-            </a>
+          <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+            <strong>Address:</strong> Ayodhya Puri, Near Lalit Bus Stand, Siwan, Bihar - 841226, India<br>
+            <strong>Working Hours:</strong> Mon – Sat: 9:00 AM – 7:00 PM (Sunday by appointment)<br>
+            <strong>Support Email:</strong> <a href="mailto:support@quickartphotography.in" style="color: var(--accent-cyan);">support@quickartphotography.in</a>
           </div>
+          <a href="https://maps.app.goo.gl/eRkAc7kia1D1s1zQ7" target="_blank" class="btn btn-outline btn-sm" style="width: 100%; text-align: center;">
+            View on Google Maps ↗
+          </a>
         </div>
 
-        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 1rem; font-size: 0.82rem;">
-          <a href="index.html" style="color: var(--text-muted); text-decoration: none;">← Return to Home</a>
-          <button type="button" id="login-signout-btn" style="background: none; border: none; color: var(--accent-rose); cursor: pointer; text-decoration: underline; font-size: 0.82rem;">
-            Sign Out / Switch Studio
-          </button>
+        <!-- Quick FAQ -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon icon-cyan">❓</div>
+            <div>
+              <h3 style="font-size: 1.15rem; color: #fff;">Frequently Asked Questions</h3>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Quick software answers</div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.84rem; color: var(--text-secondary);">
+            <div>
+              <strong style="color: #fff;">Can I test on my own client RAW files?</strong><br>
+              Yes! The 14-day free trial gives full unrestricted access to test on any Sony, Canon, or Nikon RAW project.
+            </div>
+            <div>
+              <strong style="color: #fff;">Does it require internet during wedding culling?</strong><br>
+              Zero internet required. The entire LibRaw and YCrCb AI pipeline runs 100% locally on your PC or Mac GPU.
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Footer -->
+  <!-- Comprehensive Professional Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-top">
@@ -425,9 +471,14 @@
             <span>Ai <span class="brand-highlight">PhotoFlow</span></span>
           </a>
           <p>
-            The world's fastest AI post-production desktop software engineered specifically for Indian and South-Asian wedding photography.
+            The breakthrough AI post-production desktop software engineered specifically for Indian & South-Asian wedding photography, portraits, and high-volume studios.
           </p>
-          <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+          <div class="footer-trust-badges">
+            <span class="trust-badge-pill">🔒 100% Offline GPU Processing</span>
+            <span class="trust-badge-pill">⚡ 11ms LibRaw Engine</span>
+            <span class="trust-badge-pill">🇮🇳 Indian Skin Tone AI</span>
+          </div>
+          <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem;">
             <a href="https://www.youtube.com/@QuickartPhotographyAcademy/videos" target="_blank" rel="noopener noreferrer" style="color: #f87171;" title="YouTube">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
@@ -438,7 +489,7 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             </a>
             <a href="https://wa.me/919939800780" target="_blank" rel="noopener noreferrer" style="color: #4ade80;" title="WhatsApp">
-              <span style="font-size: 1.1rem;">💬</span>
+              <span style="font-size: 1.15rem;">💬</span>
             </a>
           </div>
         </div>

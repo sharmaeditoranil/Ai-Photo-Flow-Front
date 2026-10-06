@@ -39,11 +39,32 @@ function initNavbar() {
     document.addEventListener('click', (e) => {
       if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
         navLinks.classList.remove('mobile-active');
+        document.querySelectorAll('.nav-item.is-open').forEach(el => el.classList.remove('is-open'));
       }
     });
-    navLinks.querySelectorAll('a').forEach(link => {
+
+    // Handle dropdown / megamenu toggling on mobile touch
+    const navDropdownItems = document.querySelectorAll('.nav-item.has-dropdown');
+    navDropdownItems.forEach(item => {
+      const trigger = item.querySelector('.nav-link');
+      if (trigger) {
+        trigger.addEventListener('click', (e) => {
+          if (window.innerWidth <= 1024) {
+            // On mobile, clicking the parent item toggles its sub-panel
+            if (!item.classList.contains('is-open')) {
+              e.preventDefault();
+              navDropdownItems.forEach(i => i.classList.remove('is-open'));
+              item.classList.add('is-open');
+            }
+          }
+        });
+      }
+    });
+
+    navLinks.querySelectorAll('.megamenu-card-item, .dropdown-panel a, .nav-item:not(.has-dropdown) a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('mobile-active');
+        navDropdownItems.forEach(i => i.classList.remove('is-open'));
       });
     });
   }
