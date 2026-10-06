@@ -87,19 +87,6 @@
       margin: 1.25rem 0;
       overflow-x: auto;
     }
-    .arch-diagram {
-      background: #06090e;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: #94a3b8;
-      line-height: 1.45;
-      overflow-x: auto;
-      margin: 2rem 0;
-      white-space: pre;
-    }
     .feature-module-block {
       padding: 4rem 0;
       border-bottom: 1px solid var(--border-subtle);
@@ -392,41 +379,115 @@
     </div>
   </section>
 
-  <!-- Architectural Topology Section -->
-  <section style="padding: 2rem 0 4rem;">
-    <div class="container">
-      <div class="section-header" style="margin-bottom: 2rem;">
-        <span class="badge">System Topology</span>
+  <!-- Architectural To      <div class="section-header" style="text-align: center; max-width: 820px; margin: 0 auto 2.5rem;">
+        <span class="badge badge-cyan">System Topology</span>
         <h2 class="section-title" style="margin-top: 0.5rem;">High-Performance Offline Architecture</h2>
         <p class="section-desc">Electron Presentation Layer communicating over high-speed IPC & local REST with FastAPI multiprocessing workers.</p>
       </div>
 
-      <div class="arch-diagram">
-┌────────────────────────────────────────────────────────────────────────┐
-│                   Desktop Presentation Layer                           │
-│        Electron + React 19 + TypeScript + Native Hardware APIs         │
-├────────────────────────────────────────────────────────────────────────┤
-│                          REST / HTTP & IPC                             │
-├────────────────────────────────────────────────────────────────────────┤
-│                   Local High-Performance Core Server                   │
-│             FastAPI + Multiprocessing Workers (Python 3.9+)            │
-├──────────────────┬──────────────────────┬──────────────────────────────┤
-│  SQLite Meta DB  │   RAW Decoding Pool  │    Async Task Job Queue      │
-│  (Indexed Files) │   (LibRaw / RawPy)   │    (Pause / Resume / Cancel) │
-├──────────────────┴──────────────────────┴──────────────────────────────┤
-│                            AI Model Matrix                             │
-│ ┌───────────────────┐  ┌───────────────────┐  ┌──────────────────────┐ │
-│ │  Sharpness & Blur │  │ Face & Eye Status │  │ Perceptual Clust.    │ │
-│ │  Laplacian Metric │  │ Haar + Landmarks  │  │ Dual-Hash & Color Hist│ │
-│ └───────────────────┘  └───────────────────┘  └──────────────────────┘ │
-│ ┌───────────────────┐  ┌───────────────────┐  ┌──────────────────────┐ │
-│ │ Scene Recognition │  │ YCrCb Skin Engine │  │ +5% Vibrance Engine  │ │
-│ │ Feature Descriptors│ │ Pure Light Cast WB│  │ S-Curve Tone Balancer│ │
-│ └───────────────────┘  └───────────────────┘  └──────────────────────┘ │
-├────────────────────────────────────────────────────────────────────────┤
-│                     Non-Destructive Processing Engine                  │
-│       OpenCV Accelerated Matrix Operations + Pillow SIMD + RawPy       │
-└────────────────────────────────────────────────────────────────────────┘
+      <!-- Modern Perfectly Centered & Responsive Architecture Topology Diagram -->
+      <div class="arch-topology-wrapper">
+        <!-- Layer 1: Desktop Presentation -->
+        <div class="arch-layer arch-layer-presentation">
+          <div class="arch-layer-header">
+            <span class="arch-layer-pill">Frontend Desktop Presentation Layer</span>
+            <h3 class="arch-layer-title">Electron Desktop UI Layer</h3>
+            <p class="arch-layer-sub">Electron • React 19 • TypeScript • Native Hardware APIs (macOS & Windows)</p>
+          </div>
+        </div>
+
+        <!-- Connector: IPC / Local REST -->
+        <div class="arch-connector-down">
+          <span class="arch-conn-line"></span>
+          <span class="arch-conn-pill">⚡ High-Speed IPC & Local REST Bridge (Sub-1ms Latency)</span>
+          <span class="arch-conn-line"></span>
+        </div>
+
+        <!-- Layer 2: Core Server & Micro-Services -->
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-pill">Offline Local Daemon</span>
+            <h3 class="arch-layer-title">Local High-Performance Core Server</h3>
+            <p class="arch-layer-sub">FastAPI + Multi-Core Parallel Process Workers (Python 3.9+)</p>
+          </div>
+
+          <div class="arch-sub-grid-3">
+            <div class="arch-sub-box">
+              <div class="arch-sub-icon">🗄️</div>
+              <div class="arch-sub-title">SQLite Meta DB</div>
+              <div class="arch-sub-desc">10,000+ Indexed RAW Exif, Ratings & Hash Cache</div>
+            </div>
+            <div class="arch-sub-box">
+              <div class="arch-sub-icon">⚡</div>
+              <div class="arch-sub-title">RAW Decoding Pool</div>
+              <div class="arch-sub-desc">Multi-Threaded LibRaw & RawPy C-Bindings</div>
+            </div>
+            <div class="arch-sub-box">
+              <div class="arch-sub-icon">🔄</div>
+              <div class="arch-sub-title">Async Task Queue</div>
+              <div class="arch-sub-desc">Background Job Dispatcher (Pause / Resume / Cancel)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector: Neural Pipeline -->
+        <div class="arch-connector-down">
+          <span class="arch-conn-line"></span>
+          <span class="arch-conn-pill">🧠 Neural Computer Vision Evaluation Pipeline</span>
+          <span class="arch-conn-line"></span>
+        </div>
+
+        <!-- Layer 3: AI Model Matrix -->
+        <div class="arch-layer arch-layer-ai">
+          <div class="arch-layer-header">
+            <span class="arch-layer-pill">Parallel Vision Inference</span>
+            <h3 class="arch-layer-title">AI Computer Vision Model Matrix</h3>
+            <p class="arch-layer-sub">100% Offline Local GPU & NPU Execution • Zero Cloud Latency</p>
+          </div>
+
+          <div class="arch-ai-grid-6">
+            <div class="arch-ai-card">
+              <div class="arch-ai-card-title">🔍 Sharpness & Blur Engine</div>
+              <div class="arch-ai-card-desc">Laplacian variance metric with high-frequency edge isolation</div>
+            </div>
+            <div class="arch-ai-card">
+              <div class="arch-ai-card-title">👁️ Face & Eye Blink Status</div>
+              <div class="arch-ai-card-desc">Haar cascades + 68 facial landmarks & Eye Aspect Ratio (EAR)</div>
+            </div>
+            <div class="arch-ai-card">
+              <div class="arch-ai-card-title">🎨 Perceptual Clustering</div>
+              <div class="arch-ai-card-desc">Dual-hash & color histogram matching for burst grouping</div>
+            </div>
+            <div class="arch-ai-card">
+              <div class="arch-ai-card-title">🌄 Scene Recognition</div>
+              <div class="arch-ai-card-desc">Mandap, Haldi, Stage, & Couple feature descriptors</div>
+            </div>
+            <div class="arch-ai-card">
+              <div class="arch-ai-card-title">✨ YCrCb Skin Engine</div>
+              <div class="arch-ai-card-desc">Separates luminance from chrominance to protect Indian skin</div>
+            </div>
+            <div class="arch-ai-card">
+              <div class="arch-ai-card-title">💎 +5% Universal Vibrance</div>
+              <div class="arch-ai-card-desc">S-curve tone balancer for gold jewelry & silk lehengas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector: Engine Acceleration -->
+        <div class="arch-connector-down">
+          <span class="arch-conn-line"></span>
+          <span class="arch-conn-pill">⚙️ Hardware-Accelerated Matrix Operations</span>
+          <span class="arch-conn-line"></span>
+        </div>
+
+        <!-- Layer 4: Final Processing Engine -->
+        <div class="arch-layer arch-layer-engine">
+          <div class="arch-layer-header">
+            <span class="arch-layer-pill">Non-Destructive Core</span>
+            <h3 class="arch-layer-title">Non-Destructive Processing Engine</h3>
+            <p class="arch-layer-sub">OpenCV Accelerated Matrix Operations • Pillow-SIMD • Apple Metal / NVIDIA CUDA Execution</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
