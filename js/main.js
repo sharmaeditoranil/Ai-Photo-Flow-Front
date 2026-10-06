@@ -930,8 +930,8 @@ function initDownloadFlow() {
 }
 
 function triggerDownload(os) {
-  const macPath = 'assets/downloads/Ai-PhotoFlow-1.0.0-arm64.dmg';
-  const winPath = 'assets/downloads/Ai-PhotoFlow-Setup-1.0.0.exe';
+  const macPath = 'https://drive.usercontent.google.com/download?id=132d-eGVm673RqYxOfnIugI6BMZnyYCpJ&export=download&authuser=0';
+  const winPath = 'https://drive.usercontent.google.com/download?id=1MWutBvnOpd_QwvLXFNMFOA8Uffgykos_&export=download&authuser=0';
 
   const targetPath = os === 'mac' ? macPath : winPath;
   const fileName = os === 'mac' ? 'Ai PhotoFlow-1.0.0-arm64.dmg' : 'Ai PhotoFlow Setup 1.0.0.exe';
@@ -940,10 +940,16 @@ function triggerDownload(os) {
 
   const link = document.createElement('a');
   link.href = targetPath;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
   link.download = fileName;
   document.body.appendChild(link);
   link.click();
-  document.body.removeChild(link);
+  setTimeout(() => {
+    if (document.body.contains(link)) {
+      document.body.removeChild(link);
+    }
+  }, 300);
 }
 
 /* ==========================================================================
