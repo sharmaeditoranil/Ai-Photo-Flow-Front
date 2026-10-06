@@ -89,6 +89,17 @@ function initNavbar() {
         closeMobileMenu();
       });
     });
+
+    // Auto-highlight active link based on current page URL
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links .nav-link').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
   }
 }
 
