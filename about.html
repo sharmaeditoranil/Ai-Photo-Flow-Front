@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>About Anil Sharma — Founder of Ai Photoflow | Creator of Next-Gen AI Photo Editor & AI Image Editor</title>
-  <meta name="description" content="Discover how Anil Sharma, Founder of Quick Art Photography & Academy, built Ai Photoflow — the breakthrough AI photo editor, AI image editor, and photo correction app that replaces 25+ hours in traditional photo editing apps and AI Photoshop editor workflows.">
-  <meta name="keywords" content="Anil Sharma, Ai Photoflow founder, ai photo editor creator, ai image editor, ai photoshop editor, photo editing apps mentor, photo correction app, Quick Art Photography Siwan">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Anil Sharma — Founder of Quick Art Photography & Creator of Ai Photoflow</title>
+  <meta name="description" content="Meet Anil Sharma, Founder of Quick Art Photography & Academy in Siwan, Bihar, and Creator of Ai Photoflow. Learn how a decade of cinematic wedding filmmaking inspired the revolutionary AI photo editor.">
+  <meta name="keywords" content="Anil Sharma, Quick Art Photography Siwan, Quick Art Photography Academy, Ai Photoflow founder, ai photo editor, ai photoshop editor, ai image editor, photo editing apps, wedding filmmaking mentor">
   <meta name="google-site-verification" content="9b8ZB7eh2XdKGnmXKspshbUrd7aIoOIh8DKddCZvGXY" />
   <link rel="canonical" href="https://photoflow.quickartphotography.in/about.html">
 
   <meta property="og:type" content="profile">
-  <meta property="og:title" content="Anil Sharma — Founder, Ai Photoflow & Creator of Breakthrough AI Photo Editor">
-  <meta property="og:description" content="Trained 10,000+ editors. Engineered Ai Photoflow — the revolutionary AI image editor and photo correction app that sorts 10,000 RAW photos in 15 minutes.">
-  <meta property="og:image" content="assets/images/anil-sharma-original.png">
+  <meta property="og:title" content="Anil Sharma — Founder, Quick Art Photography & Creator of Ai Photoflow">
+  <meta property="og:description" content="Don't just learn the software. Learn to feel the story. Discover Anil Sharma's journey from filmmaking studio to creating Ai PhotoFlow.">
+  <meta property="og:image" content="assets/images/anil-sharma.webp">
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="css/style.css">
@@ -21,7 +22,7 @@
       grid-template-columns: 1fr 1.25fr;
       gap: 4rem;
       align-items: center;
-      margin: 2rem 0 5rem;
+      margin: 2rem 0 4.5rem;
     }
     .about-portrait-card {
       position: relative;
@@ -29,12 +30,18 @@
       overflow: hidden;
       border: 2px solid var(--border-gold);
       box-shadow: var(--shadow-lg), 0 0 50px rgba(245, 158, 11, 0.2);
+      background: #0b0f17;
     }
     .about-portrait-card img {
       width: 100%;
-      height: 580px;
+      height: 540px;
       object-fit: cover;
-      object-position: top;
+      object-position: center top;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .about-portrait-card:hover img {
+      transform: scale(1.02);
     }
     .portrait-caption {
       position: absolute;
@@ -42,9 +49,137 @@
       left: 0;
       right: 0;
       padding: 1.5rem;
-      background: linear-gradient(180deg, transparent 0%, rgba(9, 12, 18, 0.96) 100%);
+      background: linear-gradient(180deg, transparent 0%, rgba(9, 12, 18, 0.95) 85%);
       color: #fff;
     }
+    .social-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.5rem;
+    }
+    .social-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: #e2e8f0;
+    }
+    .social-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+    .pill-yt:hover { border-color: rgba(239, 68, 68, 0.7); color: #f87171; background: rgba(239, 68, 68, 0.12); }
+    .pill-ig:hover { border-color: rgba(236, 72, 153, 0.7); color: #f472b6; background: rgba(236, 72, 153, 0.12); }
+    .pill-fb:hover { border-color: rgba(59, 130, 246, 0.7); color: #60a5fa; background: rgba(59, 130, 246, 0.12); }
+    .pill-wa:hover { border-color: rgba(34, 197, 94, 0.7); color: #4ade80; background: rgba(34, 197, 94, 0.12); }
+    .pill-maps:hover { border-color: rgba(245, 158, 11, 0.7); color: #fbbf24; background: rgba(245, 158, 11, 0.12); }
+    .pill-web:hover { border-color: rgba(6, 182, 212, 0.7); color: var(--accent-cyan); background: rgba(6, 182, 212, 0.12); }
+
+    .quote-box {
+      background: rgba(15, 23, 42, 0.75);
+      border-left: 4px solid var(--accent-gold);
+      padding: 1.4rem 1.6rem;
+      border-radius: var(--radius-sm);
+      margin: 1.5rem 0;
+      color: #f1f5f9;
+      font-size: 1.02rem;
+      line-height: 1.7;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.75rem;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      position: relative;
+    }
+    .pillar-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-gold);
+    }
+    .pillar-num {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      margin-bottom: 0.75rem;
+    }
+    .pillar-card h3 {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 0.65rem;
+    }
+    .pillar-card p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .vision-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 2.25rem;
+      position: relative;
+    }
+    .vision-card.mission {
+      border-top: 3px solid var(--accent-gold);
+    }
+    .vision-card.vision {
+      border-top: 3px solid var(--accent-cyan);
+    }
+    .vision-card h3 {
+      font-size: 1.4rem;
+      color: #fff;
+      margin: 0.5rem 0 1rem;
+    }
+    .vision-card p {
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .vision-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 0;
+    }
+    .vision-list li {
+      display: flex;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .vision-list li span:first-child {
+      color: var(--accent-cyan);
+      font-weight: 800;
+    }
+
     .timeline-block {
       border-left: 2px solid var(--accent-cyan);
       padding-left: 2rem;
@@ -85,8 +220,9 @@
       color: var(--text-secondary);
       line-height: 1.6;
     }
+
     @media (max-width: 992px) {
-      .about-hero-grid {
+      .about-hero-grid, .vision-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
       }
@@ -119,7 +255,7 @@
           <li><a href="features.html">Features</a></li>
           <li><a href="pricing.html">Pricing</a></li>
           <li><a href="knowledge-base.html">Docs</a></li>
-          <li><a href="about.html" class="active">About Anil Sir</a></li>
+          <li><a href="about.html" class="active">About Founder</a></li>
           <li><a href="download.html">Downloads</a></li>
         </ul>
       </nav>
@@ -132,14 +268,14 @@
     </div>
   </header>
 
-  <!-- About Hero Section (WITH ORIGINAL ANIL SHARMA PORTRAIT) -->
+  <!-- About Hero Section (WITH OFFICIAL ANIL SHARMA PORTRAIT & AUTHENTIC MESSAGE) -->
   <section class="container" style="padding-top: 3.5rem;">
     <div class="about-hero-grid">
       <!-- Portrait Card -->
       <div class="about-portrait-card">
-        <img src="assets/images/anil-sharma-original.png" alt="Anil Sharma - Founder of Quick Art Photography & Creator of Ai PhotoFlow">
+        <img src="assets/images/anil-sharma.webp" alt="Anil Sharma - Founder & Lead Instructor, Quick Art Photography & Academy">
         <div class="portrait-caption">
-          <h3 style="font-size: 1.4rem; color: #fbbf24;">Anil Sharma</h3>
+          <h3 style="font-size: 1.4rem; color: #fbbf24; margin-bottom: 0.2rem;">Anil Sharma</h3>
           <p style="font-size: 0.88rem; color: #cbd5e1;">Founder & Lead Mentor • Quick Art Photography & Academy</p>
           <div style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 0.25rem;">Creator of Ai PhotoFlow Enterprise</div>
         </div>
@@ -147,55 +283,194 @@
 
       <!-- Bio Story -->
       <div>
-        <div class="badge badge-gold" style="margin-bottom: 1rem;">The Creator Behind The Tech</div>
-        <h1 style="font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.5rem;">
-          "I Spent 25 Hours Culling Every Wedding. <span class="text-gradient">So I Built The 15-Minute Engine."</span>
+        <div class="badge badge-gold" style="margin-bottom: 1rem;">The Founder & Lead Mentor</div>
+        <h1 style="font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.25rem;">
+          "Don't just learn the software. <span class="text-gradient">Learn to feel the story."</span>
         </h1>
+        <div style="font-size: 1rem; color: #fbbf24; font-weight: 600; margin-bottom: 1.25rem;">
+          Anil Sharma · Founder & Lead Instructor | Quick Art Photography & Academy, Siwan
+        </div>
 
-        <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
-          Founded by professional editor, filmmaker, and educator <strong>Anil Sharma</strong>, 
-          <strong>Quick Art Photography</strong> and <strong>Quick Art Photography Academy</strong> in Siwan, Bihar 
-          have spent more than a decade delivering world-class wedding cinematography and mentoring thousands of visual storytellers. 
-          Recognizing the painful limits of existing <strong>photo editing apps</strong> and slow <strong>AI Photoshop editor</strong> plugins, 
-          Anil Sharma developed <strong>Ai Photoflow</strong> — the ultimate <strong>AI photo editor</strong>, high-speed <strong>AI image editor</strong>, 
-          and intelligent <strong>photo correction app</strong> built to automate sorting, culling, and skin-tone perfection in just 15 minutes.
+        <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+          Anil Sharma started in the editing suite over a decade ago. Having directed and edited hundreds of 
+          cinematic wedding films, commercial adverts, and creative video campaigns, he noticed a major disconnect 
+          in conventional training institutes:
+        </p>
+
+        <div class="quote-box">
+          "Most editing courses only teach software shortcuts. They tell you which button to press, but they never 
+          teach you why to make a cut, how to hold an emotional frame, or how to negotiate with high-paying 
+          wedding clients. At Quick Art, students step into a real production studio from Day One."
+        </div>
+
+        <p style="font-size: 0.98rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
+          Under his personal 1-on-1 mentorship, students assemble broadcast-grade wedding teaser sequences, master 
+          DaVinci Resolve color wheels, sculpt rich audio landscapes, and build the creative confidence required 
+          to establish profitable studios or work as senior post-production artists.
         </p>
 
         <p style="font-size: 0.98rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">
-          After directing and post-producing over 500 weddings and training more than <strong>10,000 editors</strong>, 
-          Anil Sharma realized that human fatigue during post-production was the single biggest bottleneck for photographers. 
-          Ai PhotoFlow was engineered to automate the exhausting sorting, blinking rejection, and color correction 
-          without sacrificing an ounce of artistic quality.
+          From this real studio frontline experience, Anil Sharma engineered <strong>Ai PhotoFlow</strong> — the ultimate 
+          <strong>AI photo editor</strong>, high-speed <strong>AI image editor</strong>, and intelligent 
+          <strong>photo correction app</strong> to eliminate 25+ hours of manual culling and protect authentic 
+          Indian wedding skin tones locally on any PC or Mac.
         </p>
 
-        <div class="founder-stats" style="margin: 1.5rem 0 2rem;">
+        <div class="founder-stats" style="margin: 1.5rem 0 1.75rem;">
           <div class="founder-stat-item">
             <h3>10+ Years</h3>
-            <p>Industry Veteran</p>
+            <p>Filmmaking Experience</p>
           </div>
           <div class="founder-stat-item">
-            <h3>500+</h3>
-            <p>Weddings Filmed</p>
-          </div>
-          <div class="founder-stat-item">
-            <h3>10,000+</h3>
+            <h3>1,800+</h3>
             <p>Students Mentored</p>
+          </div>
+          <div class="founder-stat-item">
+            <h3>100%</h3>
+            <p>Real Client Footage</p>
           </div>
         </div>
 
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <a href="https://wa.me/919939800780" target="_blank" class="btn btn-gold">Chat with Anil Sir on WhatsApp (9939800780) →</a>
-          <a href="https://quickartphotography.in/" target="_blank" class="btn btn-outline">Visit Quick Art Website ↗</a>
+        <!-- Verified Social Links from quickartphotography.in/about-us/ -->
+        <div class="social-pills-row">
+          <a href="https://www.youtube.com/@QuickartPhotographyAcademy/videos" target="_blank" rel="noopener noreferrer" class="social-pill pill-yt">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span>Watch Tutorials on YouTube</span>
+          </a>
+          <a href="https://www.instagram.com/quick.art.photography.academy/" target="_blank" rel="noopener noreferrer" class="social-pill pill-ig">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>Instagram ↗</span>
+          </a>
+          <a href="https://www.facebook.com/Quick.art.Photography.Academy" target="_blank" rel="noopener noreferrer" class="social-pill pill-fb">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span>Facebook ↗</span>
+          </a>
+          <a href="https://wa.me/919939800780" target="_blank" rel="noopener noreferrer" class="social-pill pill-wa">
+            <span>💬 WhatsApp (+91 9939800780)</span>
+          </a>
+          <a href="https://quickartphotography.in/" target="_blank" rel="noopener noreferrer" class="social-pill pill-web">
+            <span>🌐 quickartphotography.in ↗</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- The Origin Story -->
+  <!-- PURPOSE & VISION (From Quick Art Photography About Page) -->
+  <section style="padding: 5rem 0; background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-secondary) 50%, var(--bg-black) 100%);">
+    <div class="container">
+      <div class="section-header" style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <span class="badge badge-gold">Purpose & Vision</span>
+        <h2 class="section-title">Why Quick Art Academy Was Built</h2>
+        <p class="section-subtitle">
+          Bridging the gap between raw creative passion and sustainable high-income careers in Bihar and across India.
+        </p>
+      </div>
+
+      <div class="vision-grid">
+        <!-- Mission -->
+        <div class="vision-card mission">
+          <div class="pillar-num">01</div>
+          <h3>Our Mission</h3>
+          <p>
+            To democratize world-class wedding filmmaking, editing, and album design education. We remove outdated 
+            academic filler and teach real-world studio techniques, cutting-edge AI pipelines, and storytelling instincts 
+            through dedicated 1-on-1 mentorship.
+          </p>
+          <ul class="vision-list">
+            <li>
+              <span>✓</span>
+              <span>100% practical, project-based offline & online studio pedagogy</span>
+            </li>
+            <li>
+              <span>✓</span>
+              <span>Real-world client multi-cam footage & realistic turnaround training</span>
+            </li>
+            <li>
+              <span>✓</span>
+              <span>Lifetime community access, preset vaults & project referral network</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Vision -->
+        <div class="vision-card vision">
+          <div class="pillar-num">02</div>
+          <h3>Our Vision</h3>
+          <p>
+            To establish Siwan and Eastern India as a premier creative center for visual media. We envision a future 
+            where aspiring videographers, editors, and album designers don't have to leave home and incur massive 
+            metropolitan living costs to receive world-class training.
+          </p>
+          <ul class="vision-list">
+            <li>
+              <span>✓</span>
+              <span>State-of-the-art offline production campus right in Siwan, Bihar</span>
+            </li>
+            <li>
+              <span>✓</span>
+              <span>Free verified hostel & accommodation support for outstation students</span>
+            </li>
+            <li>
+              <span>✓</span>
+              <span>Creating high-earning independent studio owners and creative freelancers</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE QUICK ART DIFFERENCE: Built on Four Uncompromising Pillars -->
+  <section class="container" style="padding: 5rem 0;">
+    <div class="section-header" style="text-align: center; max-width: 800px; margin: 0 auto;">
+      <span class="badge badge-cyan">The Quick Art Difference</span>
+      <h2 class="section-title">Built on Four Uncompromising Pillars</h2>
+      <p class="section-subtitle">
+        How our studio curriculum transforms ambitious newcomers into confident creative professionals.
+      </p>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-num">01</div>
+        <h3>Real Client Footage</h3>
+        <p>
+          Zero fake stock footage. You cut multi-camera 4K wedding shoots, bridal entries, and raw audio recorded at live ceremonies.
+        </p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-num">02</div>
+        <h3>1-on-1 Daily Feedback</h3>
+        <p>
+          Anil Sir reviews your timeline frame-by-frame. We dissect pacing, match-cuts, color grading scopes, and music drops until perfection.
+        </p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-num">03</div>
+        <h3>Complete Workflow</h3>
+        <p>
+          From camera settings and gimbal moves to Adobe Premiere Pro, DaVinci Resolve, EDIUS, Photoshop, and Ai PhotoFlow plugins.
+        </p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-num">04</div>
+        <h3>Business & Pricing</h3>
+        <p>
+          Learn how to quote wedding packages, draft professional agreements, build your showreel, and pitch clients with confidence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Origin Story of Ai PhotoFlow -->
   <section style="padding: 5rem 0; background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-secondary) 50%, var(--bg-black) 100%);">
     <div class="container" style="max-width: 900px;">
-      <div class="section-header">
-        <span class="badge">The Creation Story</span>
+      <div class="section-header" style="text-align: center;">
+        <span class="badge badge-emerald">Engineering Innovation</span>
         <h2 class="section-title">The Problem With Western AI on Indian Weddings</h2>
       </div>
 
@@ -207,7 +482,7 @@
           which burst frame is sharpest, and correcting awful yellow halogen stage lighting.
         </p>
 
-        <div style="background: rgba(10, 13, 20, 0.85); border-left: 4px solid var(--accent-gold); padding: 1.5rem; border-radius: var(--radius-sm); color: #f1f5f9;">
+        <div class="quote-box" style="margin: 0.5rem 0;">
           "Foreign software from the US or Europe is trained on pastel western daylight portraits. When you import Indian wedding photos with dark crimson bridal lehengas, gold zardozi jewelry, and warm mandap fire, their algorithms oversaturate reds into blown-out neon blobs and turn our clients' skin tones burnt orange. On top of that, they force you to upload 150 GB of RAW files over slow studio internet."
         </div>
 
@@ -240,7 +515,7 @@
 
   <!-- Creator Timeline -->
   <section class="container" style="padding: 5rem 0;">
-    <div class="section-header">
+    <div class="section-header" style="text-align: center;">
       <span class="badge badge-gold">Legacy & Milestones</span>
       <h2 class="section-title">A Decade in Wedding Filmmaking & Innovation</h2>
     </div>
@@ -272,38 +547,42 @@
     </div>
   </section>
 
-  <!-- Academy Facilities & Mentor Photo -->
+  <!-- Academy Facilities & Campus Contact -->
   <section style="padding: 5rem 0; background: var(--bg-card); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
     <div class="container">
       <div class="feature-split">
         <div>
-          <span class="badge badge-emerald">Academy Campus</span>
-          <h2 style="font-size: 2.2rem; margin: 0.75rem 0 1rem;">Quick Art Photography Academy HQ</h2>
+          <span class="badge badge-emerald">Campus & Infrastructure</span>
+          <h2 style="font-size: 2.2rem; margin: 0.75rem 0 1rem;">A Production Studio Built for Focused Practice</h2>
           <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
-            Located near Lalit Bus Stand in Siwan, Bihar, our offline campus houses GPU-accelerated editing suites, 
-            calibrated color grading monitors, studio lighting gear, and wedding cameras to give students and professionals true industry mastery.
+            Located near Lalit Bus Stand in Siwan, Bihar, our offline academy is equipped with high-spec 
+            post-production workstations, calibrated color monitors, studio lighting gear, and wedding cameras to give 
+            students and editors true industry experience.
           </p>
 
           <div style="background: rgba(10, 13, 20, 0.85); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
-            <h4 style="color: #fff; margin-bottom: 0.5rem;">Siwan Campus Contact Details:</h4>
-            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
-              <strong>Address:</strong> Ayodhya Puri, Near Lalit Bus Stand, Siwan, Bihar 841226<br>
-              <strong>Direct WhatsApp / Call:</strong> <a href="tel:+919939800780" style="color: var(--accent-cyan); font-weight: 700;">+91 9939800780</a><br>
-              <strong>Support Email:</strong> <a href="mailto:support@quickartphotography.in" style="color: var(--accent-cyan);">support@quickartphotography.in</a><br>
-              <strong>Official Website:</strong> <a href="https://quickartphotography.in/" target="_blank" style="color: #fbbf24;">quickartphotography.in ↗</a>
+            <h4 style="color: #fff; margin-bottom: 0.75rem;">Siwan Campus Contact Details:</h4>
+            <div style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7;">
+              <strong>📍 Campus Address:</strong> Ayodhya Puri, Near Lalit Bus Stand, Siwan, Bihar - 841226, India<br>
+              <strong>📞 Direct Call / WhatsApp:</strong> <a href="https://wa.me/919939800780" style="color: var(--accent-cyan); font-weight: 700;">+91 9939800780</a><br>
+              <strong>✉️ Support Email:</strong> <a href="mailto:support@quickartphotography.in" style="color: var(--accent-cyan);">support@quickartphotography.in</a><br>
+              <strong>🕒 Working Hours:</strong> Mon – Sat: 9:00 AM – 7:00 PM (Sunday by appointment)<br>
+              <strong>🌐 Official Academy Website:</strong> <a href="https://quickartphotography.in/" target="_blank" style="color: #fbbf24;">quickartphotography.in ↗</a>
             </div>
           </div>
 
           <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="https://wa.me/919939800780" target="_blank" class="btn btn-gold">Contact Anil Sir (9939800780)</a>
-            <a href="download.html" class="btn btn-primary">Download Ai PhotoFlow →</a>
+            <a href="https://wa.me/919939800780" target="_blank" class="btn btn-gold">Chat with Anil Sir on WhatsApp</a>
+            <a href="https://maps.app.goo.gl/eRkAc7kia1D1s1zQ7" target="_blank" class="btn btn-outline">
+              <span>📍 View Campus on Google Maps ↗</span>
+            </a>
           </div>
         </div>
 
         <div>
-          <img src="assets/images/anil-mentor-official.jpg" alt="Anil Sharma Mentoring Students" style="border-radius: var(--radius-md); border: 1px solid var(--border-gold); box-shadow: var(--shadow-lg);">
+          <img src="assets/images/anil-mentor-official.jpg" alt="Anil Sharma Mentoring Students at Quick Art Academy" style="border-radius: var(--radius-md); border: 1px solid var(--border-gold); box-shadow: var(--shadow-lg);">
           <div style="text-align: center; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-muted);">
-            Anil Sharma leading a live wedding post-production masterclass.
+            Anil Sharma leading a live wedding post-production masterclass in Siwan, Bihar.
           </div>
         </div>
       </div>
@@ -322,6 +601,20 @@
           <p>
             The world's fastest AI post-production desktop software engineered specifically for Indian and South-Asian wedding photography.
           </p>
+          <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <a href="https://www.youtube.com/@QuickartPhotographyAcademy/videos" target="_blank" rel="noopener noreferrer" style="color: #f87171;" title="YouTube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/quick.art.photography.academy/" target="_blank" rel="noopener noreferrer" style="color: #f472b6;" title="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/Quick.art.Photography.Academy" target="_blank" rel="noopener noreferrer" style="color: #60a5fa;" title="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://wa.me/919939800780" target="_blank" rel="noopener noreferrer" style="color: #4ade80;" title="WhatsApp">
+              <span style="font-size: 1.1rem;">💬</span>
+            </a>
+          </div>
         </div>
 
         <div class="footer-col">
