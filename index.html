@@ -276,17 +276,15 @@
           </div>
         </div>
 
-        <div class="comparison-wrapper">
-          <!-- Base Image (Unedited RAW) -->
-          <img src="assets/images/Bride_CloseUp_RAW_Before.jpg" alt="Unedited Bridal Close-Up Photo" class="comparison-image">
+        <div class="comparison-wrapper" id="comparison-slider-container">
+          <!-- Base Image (AFTER: Smooth & Blemish Free, Visible on RIGHT) -->
+          <img src="assets/images/Bride_CloseUp_Ai_Edited.jpg" alt="Ai PhotoFlow Edited Bridal Photo" class="comparison-image-base" id="comparison-base-img">
           
-          <!-- Overlay Image (AI PhotoFlow Edited) -->
-          <div class="comparison-overlay">
-            <img src="assets/images/Bride_CloseUp_Ai_Edited.jpg" alt="Ai PhotoFlow Edited Bridal Photo">
-          </div>
+          <!-- Overlay Image (BEFORE: Pimples & Raw Cast, Visible on LEFT via clip-path) -->
+          <img src="assets/images/Bride_CloseUp_RAW_Before.jpg" alt="Unedited Bridal Close-Up Photo with Pimples" class="comparison-image-overlay" id="comparison-overlay-img">
 
-          <!-- Interactive Handle -->
-          <div class="slider-handle">
+          <!-- Interactive Handle with glowing line -->
+          <div class="slider-handle" id="slider-handle-bar">
             <div class="slider-handle-button">⇄</div>
           </div>
 

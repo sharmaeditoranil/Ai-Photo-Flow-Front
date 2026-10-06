@@ -50,56 +50,80 @@ function initNavbar() {
 }
 
 /* ==========================================================================
-   2. INTERACTIVE BEFORE / AFTER SLIDER
+   2. INTERACTIVE BEFORE / AFTER SLIDER (CLIP-PATH PIXEL-PERFECT ENGINE)
    ========================================================================== */
 function initBeforeAfterSlider() {
-  const container = document.querySelector('.comparison-wrapper');
-  const overlay = document.querySelector('.comparison-overlay');
-  const overlayImg = document.querySelector('.comparison-overlay img');
-  const baseImg = document.querySelector('.comparison-image');
-  const handle = document.querySelector('.slider-handle');
+  const container = document.getElementById('comparison-slider-container') || document.querySelector('.comparison-wrapper');
+  const baseImg = document.getElementById('comparison-base-img') || document.querySelector('.comparison-image-base') || document.querySelector('.comparison-image');
+  const overlayImg = document.getElementById('comparison-overlay-img') || document.querySelector('.comparison-image-overlay') || document.querySelector('.comparison-overlay img');
+  const handle = document.getElementById('slider-handle-bar') || document.querySelector('.slider-handle');
   const sceneTabs = document.querySelectorAll('.scene-tab');
+  const labelBeforeEl = document.getElementById('comparison-label-before');
+  const labelAfterEl = document.getElementById('comparison-label-after');
 
-  if (!container || !overlay || !handle) return;
+  if (!container || !handle) return;
 
   let isDragging = false;
 
-  function updateSliderPosition(x) {
-    const rect = container.getBoundingClientRect();
-    let pos = (x - rect.left) / rect.width;
-    if (pos < 0.02) pos = 0.02;
-    if (pos > 0.98) pos = 0.98;
-
-    const percentage = pos * 100;
-    overlay.style.width = `${percentage}%`;
+  function setSliderPosition(percentage) {
+    if (percentage < 2) percentage = 2;
+    if (percentage > 98) percentage = 98;
+    container.style.setProperty('--slider-pos', `${percentage}%`);
     handle.style.left = `${percentage}%`;
-    if (overlayImg) {
-      overlayImg.style.width = `${rect.width}px`;
-    }
   }
 
-  // Window resize sync
-  window.addEventListener('resize', () => {
+  function handleMove(clientX) {
     const rect = container.getBoundingClientRect();
-    if (overlayImg) overlayImg.style.width = `${rect.width}px`;
+    const x = clientX - rect.left;
+    const percentage = (x / rect.width) * 100;
+    setSliderPosition(percentage);
+  }
+
+  // Initialize at exactly 50%
+  setSliderPosition(50);
+
+  // Mouse drag & click support
+  handle.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    e.preventDefault();
   });
 
-  handle.addEventListener('mousedown', () => (isDragging = true));
-  window.addEventListener('mouseup', () => (isDragging = false));
+  container.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    handleMove(e.clientX);
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+
   window.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
-    updateSliderPosition(e.clientX);
+    handleMove(e.clientX);
   });
 
-  // Touch Support
-  handle.addEventListener('touchstart', () => (isDragging = true));
-  window.addEventListener('touchend', () => (isDragging = false));
-  window.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    updateSliderPosition(e.touches[0].clientX);
+  // Touch support for Mobile / Tablets
+  handle.addEventListener('touchstart', () => {
+    isDragging = true;
+  }, { passive: true });
+
+  container.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX);
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    isDragging = false;
   });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!isDragging || !e.touches || !e.touches[0]) return;
+    handleMove(e.touches[0].clientX);
+  }, { passive: true });
 
   // Scene Switching
+  // LEFT (overlayImg) = Before (Pimples / RAW)
+  // RIGHT (baseImg) = After (Flawless / Clean Retouch)
   const scenes = {
     bridal: {
       before: 'assets/images/Bride_CloseUp_RAW_Before.jpg',
@@ -136,19 +160,20 @@ function initBeforeAfterSlider() {
     }
   };
 
-  const labelBeforeEl = document.getElementById('comparison-label-before');
-  const labelAfterEl = document.getElementById('comparison-label-after');
-
   sceneTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       sceneTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       const sceneKey = tab.dataset.scene;
       const data = scenes[sceneKey];
-      if (data && baseImg && overlayImg) {
-        baseImg.src = data.before;
-        overlayImg.src = data.after;
+      if (data) {
+        // Left side is Before (overlay), Right side is After (base)
+        if (overlayImg) overlayImg.src = data.before;
+        if (baseImg) baseImg.src = data.after;
         
+        // Reset slider to center
+        setSliderPosition(50);
+
         // Update Labels
         if (labelBeforeEl && data.labelBefore) labelBeforeEl.textContent = data.labelBefore;
         if (labelAfterEl && data.labelAfter) labelAfterEl.textContent = data.labelAfter;
