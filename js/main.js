@@ -104,15 +104,19 @@ function initBeforeAfterSlider() {
     bridal: {
       before: 'assets/images/Bride_CloseUp_RAW_Before.jpg',
       after: 'assets/images/Bride_CloseUp_Ai_Edited.jpg',
-      sharpness: '98.4 (Macro Focus)',
-      eyes: '0.42 (Pin-Sharp Eyelashes)',
-      skin: 'YCrCb Skin Protected',
+      labelBefore: 'ORIGINAL RAW (Pimples & Tungsten Cast)',
+      labelAfter: 'AI PHOTOFLOW (Blemish Removal + Smooth Glow)',
+      sharpness: '99.4 (Macro 85mm Focus)',
+      eyes: '0.44 (Catchlight & Lash Detail)',
+      skin: 'Pimple Removed + Gentle Smoothness',
       vibrance: '+5.0% Bridal Red Pop',
-      cast: '0.0% Cast (Neutral White)'
+      cast: '0.0% Cast (Neutral Skin Tone)'
     },
     couple: {
       before: 'assets/images/Couple_CloseUp_RAW_Before.jpg',
       after: 'assets/images/Couple_CloseUp_Ai_Edited.jpg',
+      labelBefore: 'ORIGINAL RAW (Tungsten Cast)',
+      labelAfter: 'AI PHOTOFLOW (+5% Vibrance & Skin Lock)',
       sharpness: '97.6 (Ring & Mehendi Focus)',
       eyes: '0.40 (Tender Intimacy)',
       skin: 'Warm Complexion Protected',
@@ -122,6 +126,8 @@ function initBeforeAfterSlider() {
     garden: {
       before: 'assets/images/Outdoor_Garden_Portrait_01.jpg',
       after: 'assets/images/Outdoor_Garden_Portrait_01_edited.jpg',
+      labelBefore: 'ORIGINAL RAW (Flat Daylight)',
+      labelAfter: 'AI PHOTOFLOW (Natural Dynamic Range)',
       sharpness: '98.2 (Outdoor Gajra & Jewelry)',
       eyes: '0.44 (Natural Daylight Catchlight)',
       skin: 'Natural Sunlit Tone Locked',
@@ -129,6 +135,9 @@ function initBeforeAfterSlider() {
       cast: '0.0% Foliage Color Balanced'
     }
   };
+
+  const labelBeforeEl = document.getElementById('comparison-label-before');
+  const labelAfterEl = document.getElementById('comparison-label-after');
 
   sceneTabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -140,6 +149,10 @@ function initBeforeAfterSlider() {
         baseImg.src = data.before;
         overlayImg.src = data.after;
         
+        // Update Labels
+        if (labelBeforeEl && data.labelBefore) labelBeforeEl.textContent = data.labelBefore;
+        if (labelAfterEl && data.labelAfter) labelAfterEl.textContent = data.labelAfter;
+
         // Update HUD
         const valSharpness = document.getElementById('hud-sharpness');
         const valEyes = document.getElementById('hud-eyes');
