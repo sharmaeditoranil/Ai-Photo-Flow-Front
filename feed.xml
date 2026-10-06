@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ai Photoflow — Software Updates, AI Photo Editor & Studio Guides</title>
+    <link>https://photoflow.quickartphotography.in/</link>
+    <description>Official updates, AI post-production benchmarks, and wedding photo editing masterclasses from creator Anil Sharma and Quick Art Photography Academy.</description>
+    <language>en-in</language>
+    <lastBuildDate>Tue, 06 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://photoflow.quickartphotography.in/feed.xml" rel="self" type="application/rss+xml" />
+
+    <item>
+      <title>Ai PhotoFlow Enterprise v1.0.0 Released: 10,000 RAW Culling in 15 Minutes</title>
+      <link>https://photoflow.quickartphotography.in/download.html</link>
+      <guid>https://photoflow.quickartphotography.in/download.html#v1-0-0</guid>
+      <pubDate>Tue, 06 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Ai PhotoFlow launches native desktop editions for macOS (Apple Silicon M1/M2/M3) and Windows 10/11. Features LibRaw 0.21 decoding, AI Blink Scoring, and Indian YCrCb skin tone protection.</description>
+    </item>
+
+    <item>
+      <title>Solving Post-Wedding Fatigue: Dedicated Solutions for 6 Photography Verticals</title>
+      <link>https://photoflow.quickartphotography.in/solutions.html</link>
+      <guid>https://photoflow.quickartphotography.in/solutions.html#overview</guid>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Discover specialized workflows for Wedding Studios, Pre-Wedding/Portrait Photographers, Event Shooters, Album Designers, Freelancers, and Academies.</description>
+    </item>
+
+    <item>
+      <title>Inside the YCrCb Color Science: Preserving Real South-Asian Skin Tones</title>
+      <link>https://photoflow.quickartphotography.in/features.html#skin-engine</link>
+      <guid>https://photoflow.quickartphotography.in/features.html#skin-engine</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <description>How Ai PhotoFlow separates luminance from chrominance to prevent bridal orange cast under tungsten lights while preserving royal lehenga reds and gold jewelry.</description>
+    </item>
+  </channel>
+</rss>

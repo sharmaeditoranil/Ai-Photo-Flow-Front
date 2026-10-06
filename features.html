@@ -24,22 +24,48 @@
   <meta name="twitter:description" content="LibRaw 0.21 decoding, Blink AI, YCrCb skin science, and offline privacy.">
   <meta name="twitter:image" content="assets/images/app-icon.png">
 
-  <!-- Schema.org JSON-LD TechArticle -->
+  <!-- Schema.org JSON-LD TechArticle & BreadcrumbList -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "Ai Photoflow Technical Architecture and AI Post-Production Engine",
-    "description": "Technical documentation of LibRaw ingestion, computer vision blink scoring, and offline GPU acceleration.",
-    "author": {
-      "@type": "Person",
-      "name": "Anil Sharma"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Ai Photoflow",
-      "url": "https://photoflow.quickartphotography.in/"
-    }
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "Ai Photoflow Technical Architecture and AI Post-Production Engine",
+        "description": "Technical documentation of LibRaw ingestion, computer vision blink scoring, and offline GPU acceleration.",
+        "author": {
+          "@type": "Person",
+          "name": "Anil Sharma"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Ai Photoflow",
+          "url": "https://photoflow.quickartphotography.in/",
+          "sameAs": [
+            "https://www.youtube.com/@QuickartPhotographyAcademy",
+            "https://www.instagram.com/quick.art.photography.academy/",
+            "https://www.facebook.com/Quick.art.Photography.Academy"
+          ]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://photoflow.quickartphotography.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Features",
+            "item": "https://photoflow.quickartphotography.in/features.html"
+          }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -343,7 +369,10 @@
         <div class="hero-badge-wrap">
           <span class="badge badge-gold">The Technical Blueprint</span>
         </div>
-        <h1 class="hero-title">10 Production Modules.<br><span class="text-gradient">Zero Shortcuts.</span></h1>
+        <h1 class="hero-title">
+          Ai Photoflow Architecture & Features<br>
+          <span class="text-gradient">10 High-Precision AI Photo Editor Modules</span>
+        </h1>
         <p class="hero-subtitle">
           Discover why <strong>Ai Photoflow</strong> is redefining the landscape of modern <strong>photo editing apps</strong>. Built as an advanced <strong>AI photo editor</strong>, high-performance <strong>AI image editor</strong>, and intelligent <strong>photo correction app</strong>, our engine delivers all the power of an expert <strong>AI Photoshop editor</strong> with zero cloud latency and 100% offline local GPU execution across 10 post-production modules.
         </p>
@@ -535,7 +564,7 @@
         </div>
 
         <div>
-          <img src="assets/images/Bride_Solo_Makeup_01.jpg" alt="Bridal Skin Tone" style="border-radius: var(--radius-md); border: 1px solid var(--border-glow); box-shadow: var(--shadow-md);">
+          <img src="assets/images/Bride_Solo_Makeup_01.jpg" alt="Bridal Skin Tone" style="border-radius: var(--radius-md); border: 1px solid var(--border-glow); box-shadow: var(--shadow-md);" loading="lazy" decoding="async">
           <div style="margin-top: 0.75rem; font-size: 0.82rem; color: var(--text-muted); text-align: center;">
             Figure 5.1: Real-time skin chrominance isolation during high-key bridal preparation.
           </div>
