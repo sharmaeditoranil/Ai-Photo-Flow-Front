@@ -191,6 +191,7 @@ code, kbd, pre {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   padding: 0.5rem 1rem;
   font-size: 0.84rem;
+  line-height: 1.45;
   text-align: center;
   color: #e2e8f0;
   display: flex;
@@ -208,7 +209,7 @@ code, kbd, pre {
 .top-bar-cta {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
-  padding: 0.2rem 0.65rem;
+  padding: 0.25rem 0.75rem;
   border-radius: var(--radius-full);
   font-weight: 600;
   font-size: 0.76rem;
@@ -216,6 +217,8 @@ code, kbd, pre {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .top-bar-cta:hover {
