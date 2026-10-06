@@ -869,8 +869,33 @@ code, kbd, pre {
   transform: translateY(-2px);
 }
 
+.nav-demo-btn,
 .nav-mobile-demo-btn {
-  display: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 1.15rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #000;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  box-shadow: 0 3px 12px rgba(245, 158, 11, 0.25);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-demo-btn:hover,
+.nav-demo-btn:active,
+.nav-mobile-demo-btn:hover,
+.nav-mobile-demo-btn:active {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #000;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(245, 158, 11, 0.35);
 }
 
 .mobile-toggle {
@@ -1047,13 +1072,14 @@ code, kbd, pre {
   justify-content: center;
   gap: 0.45rem;
   min-width: 0;
+  width: 100%;
 }
 
 .hook-badge-row {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .hook-metric-tag {
@@ -1068,7 +1094,7 @@ code, kbd, pre {
   align-items: center;
   gap: 0.35rem;
   white-space: nowrap;
-  flex-shrink: 0;
+  max-width: 100%;
 }
 
 .hook-tag-sub {
@@ -3301,14 +3327,18 @@ code, kbd, pre {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
   }
-  .nav-links:not(.mobile-active), .nav-actions .btn-outline {
-    display: none;
+  .nav-links:not(.mobile-active),
+  .nav-actions .btn-outline,
+  #nav-signin-btn,
+  .mobile-drawer-cta .auth-trigger {
+    display: none !important;
   }
 
   .nav-desktop-download {
     display: none !important;
   }
 
+  .nav-demo-btn,
   .nav-mobile-demo-btn {
     display: inline-flex !important;
     align-items: center !important;
@@ -3328,6 +3358,8 @@ code, kbd, pre {
     transition: all 0.2s ease !important;
   }
 
+  .nav-demo-btn:hover,
+  .nav-demo-btn:active,
   .nav-mobile-demo-btn:hover,
   .nav-mobile-demo-btn:active {
     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
@@ -4115,30 +4147,85 @@ code, kbd, pre {
   /* Hook Callout Strip */
   .hook-callout-strip {
     grid-template-columns: 1fr;
-    padding: 1.25rem 1rem;
-    border-radius: 12px;
-    gap: 1.25rem;
+    padding: 1.25rem 0.85rem;
+    border-radius: 14px;
+    gap: 1.15rem;
     margin: 1.5rem 0;
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   .hook-comparison-capsule {
     flex-direction: column;
     width: 100%;
     gap: 0.6rem;
+    box-sizing: border-box;
   }
 
   .hook-pill {
     width: 100%;
-    justify-content: space-between;
+    box-sizing: border-box;
   }
 
   .hook-vs-badge {
     margin: 0.15rem auto;
   }
 
+  .hook-content-body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hook-badge-row {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hook-metric-tag {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .hook-tag-sub {
+    font-size: 0.72rem;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .hook-explainer {
+    font-size: 0.86rem;
+    line-height: 1.5;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
   .hook-action-box {
     width: 100%;
     max-width: 100%;
+  }
+
+  .hook-action-box .btn {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    white-space: normal;
   }
 
   /* Aftershoot-Style 4-Pillar Workflow Suite */
@@ -4581,6 +4668,7 @@ code, kbd, pre {
 
   .nav-actions .btn-primary,
   .nav-actions .btn-download-trigger,
+  .nav-demo-btn,
   .nav-mobile-demo-btn {
     height: 34px !important;
     min-height: 34px !important;
@@ -4645,6 +4733,16 @@ code, kbd, pre {
   .roi-label {
     font-size: 0.64rem !important;
   }
+
+  .hook-callout-strip {
+    padding: 1rem 0.65rem !important;
+  }
+  .hook-metric-tag {
+    font-size: 0.74rem !important;
+  }
+  .hook-explainer {
+    font-size: 0.82rem !important;
+  }
 }
 
 @media (max-width: 380px) {
@@ -4670,6 +4768,7 @@ code, kbd, pre {
 
   .nav-actions .btn-primary,
   .nav-actions .btn-download-trigger,
+  .nav-demo-btn,
   .nav-mobile-demo-btn {
     height: 32px !important;
     min-height: 32px !important;
