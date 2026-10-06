@@ -1207,11 +1207,13 @@ code, kbd, pre {
   position: relative;
   margin: 3.5rem auto 1rem;
   max-width: 1040px;
+  width: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border-glow);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
   box-shadow: var(--shadow-lg), 0 0 50px rgba(0, 194, 255, 0.15);
+  overflow: hidden;
 }
 
 .showcase-header {
@@ -1223,6 +1225,7 @@ code, kbd, pre {
   margin-bottom: 1.25rem;
   flex-wrap: wrap;
   gap: 1rem;
+  width: 100%;
 }
 
 .showcase-title-block {
@@ -1230,11 +1233,18 @@ code, kbd, pre {
   align-items: center;
   gap: 0.75rem;
   text-align: left;
+  min-width: 0;
+}
+
+.showcase-title-block .badge {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .showcase-title-block h3 {
   font-size: 1.15rem;
   font-weight: 700;
+  margin-bottom: 0.2rem;
 }
 
 .showcase-title-block p {
@@ -3704,6 +3714,9 @@ code, kbd, pre {
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 @media (max-width: 900px) {
@@ -3718,6 +3731,8 @@ code, kbd, pre {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .roi-slider {
@@ -3742,8 +3757,10 @@ code, kbd, pre {
 
 .roi-results-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .roi-result-card {
@@ -3752,15 +3769,21 @@ code, kbd, pre {
   border-radius: var(--radius-md);
   padding: 1.25rem;
   text-align: center;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .roi-num {
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
   font-weight: 800;
   font-family: var(--font-mono);
   color: var(--accent-cyan);
   line-height: 1.1;
   margin-bottom: 0.35rem;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .roi-num.gold {
@@ -4201,16 +4224,50 @@ code, kbd, pre {
 
   /* Interactive Before/After Split Screen Slider */
   .interactive-showcase {
-    padding: 1.25rem 1rem;
+    padding: 1.15rem 0.95rem;
     border-radius: 14px;
     margin-top: 1.75rem;
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
   }
 
   .showcase-header {
     flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.85rem;
+    width: 100%;
+  }
+
+  .showcase-title-block {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .showcase-title-block .badge {
+    align-self: flex-start;
+    white-space: nowrap;
+    font-size: 0.72rem;
+    padding: 0.28rem 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .showcase-title-block h3 {
+    font-size: clamp(1.02rem, 4.2vw, 1.22rem);
+    line-height: 1.35;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .showcase-title-block p {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+    margin: 0;
   }
 
   .showcase-controls {
@@ -4219,8 +4276,9 @@ code, kbd, pre {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: 0.5rem;
+    gap: 0.45rem;
     padding-bottom: 4px;
+    width: 100%;
   }
 
   .showcase-controls::-webkit-scrollbar {
@@ -4229,8 +4287,8 @@ code, kbd, pre {
 
   .scene-tab {
     flex: 0 0 auto;
-    padding: 0.5rem 0.85rem;
-    font-size: 0.78rem;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.76rem;
     border-radius: 9999px;
   }
 
@@ -4258,25 +4316,43 @@ code, kbd, pre {
   }
 
   .showcase-hud {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.55rem;
-    margin-top: 1rem;
+    margin-top: 0.85rem;
+    width: 100%;
   }
 
   .hud-card {
-    padding: 0.7rem;
+    min-width: 0;
+    padding: 0.65rem 0.55rem;
+    border-radius: 8px;
+    gap: 0.5rem;
   }
 
   .hud-icon {
-    font-size: 1rem;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 0.95rem;
+  }
+
+  .hud-info {
+    min-width: 0;
+    overflow: hidden;
   }
 
   .hud-label {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .hud-value {
     font-size: 0.82rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* AI Culling Simulator */
@@ -4338,18 +4414,63 @@ code, kbd, pre {
     justify-content: center;
   }
 
-  /* ROI Calculator */
+  /* ROI Studio Calculator & Results Grid */
+  .roi-box,
   .roi-calculator-box {
-    padding: 1.35rem 1rem;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 1.25rem 1rem !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-top: 1.5rem !important;
   }
 
-  .roi-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .roi-slider-group {
+    width: 100% !important;
+    gap: 0.75rem !important;
   }
 
-  .roi-results-pane {
-    padding: 1.25rem 1rem;
+  #roi-weddings-display {
+    font-size: 1.35rem !important;
+  }
+
+  .roi-results-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .roi-result-card {
+    min-width: 0 !important;
+    padding: 0.85rem 0.5rem !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    overflow: hidden !important;
+  }
+
+  .roi-num {
+    font-size: clamp(1.15rem, 4.6vw, 1.55rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    margin-bottom: 0.25rem !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .roi-label {
+    font-size: 0.68rem !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.03em !important;
   }
 
   /* Testimonials */
@@ -4484,6 +4605,46 @@ code, kbd, pre {
   .showcase-hud {
     grid-template-columns: 1fr;
   }
+
+  .interactive-showcase {
+    padding: 0.95rem 0.75rem !important;
+    border-radius: 12px !important;
+  }
+
+  .showcase-title-block h3 {
+    font-size: 1.05rem !important;
+  }
+
+  .showcase-title-block p {
+    font-size: 0.78rem !important;
+  }
+
+  .scene-tab {
+    padding: 0.4rem 0.7rem !important;
+    font-size: 0.74rem !important;
+  }
+
+  .roi-box,
+  .roi-calculator-box {
+    padding: 1rem 0.75rem !important;
+    gap: 1.25rem !important;
+  }
+
+  .roi-results-grid {
+    gap: 0.5rem !important;
+  }
+
+  .roi-result-card {
+    padding: 0.75rem 0.4rem !important;
+  }
+
+  .roi-num {
+    font-size: clamp(1.05rem, 4.4vw, 1.35rem) !important;
+  }
+
+  .roi-label {
+    font-size: 0.64rem !important;
+  }
 }
 
 @media (max-width: 380px) {
@@ -4522,6 +4683,31 @@ code, kbd, pre {
     height: 34px;
     min-width: 34px;
     font-size: 1.1rem;
+  }
+
+  .interactive-showcase {
+    padding: 0.85rem 0.6rem !important;
+  }
+
+  .roi-box,
+  .roi-calculator-box {
+    padding: 0.85rem 0.6rem !important;
+  }
+
+  .roi-results-grid {
+    gap: 0.4rem !important;
+  }
+
+  .roi-result-card {
+    padding: 0.65rem 0.35rem !important;
+  }
+
+  .roi-num {
+    font-size: 1.02rem !important;
+  }
+
+  .roi-label {
+    font-size: 0.6rem !important;
   }
 }
 
