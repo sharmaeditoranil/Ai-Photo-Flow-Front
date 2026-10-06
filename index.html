@@ -533,6 +533,73 @@
         </div>
       </div>
 
+      <!-- Interactive Before / After Split Screen Slider (Live Color Engine) -->
+      <div id="demo" class="interactive-showcase">
+        <div class="showcase-header">
+          <div class="showcase-title-block">
+            <div class="badge badge-gold">Live Color Engine</div>
+            <div>
+              <h3>AI Color Engine, Blemish Removal & Skin Retouching</h3>
+              <p>Drag the slider to compare unedited RAW (Pimples & Cast) vs. Ai PhotoFlow (Blemish Removal + Natural Smooth Glow & +5% Vibrance)</p>
+            </div>
+          </div>
+
+          <div class="showcase-controls">
+            <button class="scene-tab active" data-scene="bridal">Bridal Macro Retouch (Pimple & Skin)</button>
+            <button class="scene-tab" data-scene="couple">Mandap Couple Ring Close-Up</button>
+            <button class="scene-tab" data-scene="garden">Outdoor Garden Natural Light</button>
+          </div>
+        </div>
+
+        <div class="comparison-wrapper" id="comparison-slider-container">
+          <!-- Base Image (AFTER: Smooth & Blemish Free, Visible on RIGHT) -->
+          <img src="assets/images/Bride_CloseUp_Ai_Edited.jpg" alt="Ai PhotoFlow Edited Bridal Photo" class="comparison-image-base" id="comparison-base-img" loading="lazy" decoding="async">
+          
+          <!-- Overlay Image (BEFORE: Pimples & Raw Cast, Visible on LEFT via clip-path) -->
+          <img src="assets/images/Bride_CloseUp_RAW_Before.jpg" alt="Unedited Bridal Close-Up Photo with Pimples" class="comparison-image-overlay" id="comparison-overlay-img" loading="lazy" decoding="async">
+
+          <!-- Interactive Handle with glowing line -->
+          <div class="slider-handle" id="slider-handle-bar">
+            <div class="slider-handle-button">⇄</div>
+          </div>
+
+          <span class="image-label before" id="comparison-label-before">ORIGINAL RAW (Pimples & Tungsten Cast)</span>
+          <span class="image-label after" id="comparison-label-after">AI PHOTOFLOW (Blemish Removal + Smooth Glow)</span>
+        </div>
+
+        <!-- Telemetry HUD -->
+        <div class="showcase-hud">
+          <div class="hud-card">
+            <div class="hud-icon">⚡</div>
+            <div class="hud-info">
+              <div class="hud-label">Sharpness Score</div>
+              <div class="hud-value" id="hud-sharpness">94.2 (Pin-Sharp)</div>
+            </div>
+          </div>
+          <div class="hud-card">
+            <div class="hud-icon">👁️</div>
+            <div class="hud-info">
+              <div class="hud-label">Eye Aspect Ratio (EAR)</div>
+              <div class="hud-value" id="hud-eyes">0.38 (Eyes Open)</div>
+            </div>
+          </div>
+          <div class="hud-card emerald">
+            <div class="hud-icon">🛡️</div>
+            <div class="hud-info">
+              <div class="hud-label">Skin Complexion (YCrCb)</div>
+              <div class="hud-value" id="hud-skin">YCrCb Protected</div>
+            </div>
+          </div>
+          <div class="hud-card gold">
+            <div class="hud-icon">✨</div>
+            <div class="hud-info">
+              <div class="hud-label">Calibrated Vibrance</div>
+              <div class="hud-value" id="hud-vibrance">+5.0% Calibrated</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- =========================================================================
            AFTERSHOOT-STYLE 4-PILLAR WORKFLOW SUITE (CULL, EDIT, RETOUCH, DELIVER)
            ========================================================================= -->
@@ -764,73 +831,6 @@
                 <span class="workflow-meta-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> High-Speed Multi-Device Proofing</span>
               </div>
               <a href="pricing.html" class="btn btn-primary btn-sm">See Plan Pricing →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Interactive Before / After Split Screen Slider -->
-      <div id="demo" class="interactive-showcase">
-        <div class="showcase-header">
-          <div class="showcase-title-block">
-            <div class="badge badge-gold">Live Color Engine</div>
-            <div>
-              <h3>AI Color Engine, Blemish Removal & Skin Retouching</h3>
-              <p>Drag the slider to compare unedited RAW (Pimples & Cast) vs. Ai PhotoFlow (Blemish Removal + Natural Smooth Glow & +5% Vibrance)</p>
-            </div>
-          </div>
-
-          <div class="showcase-controls">
-            <button class="scene-tab active" data-scene="bridal">Bridal Macro Retouch (Pimple & Skin)</button>
-            <button class="scene-tab" data-scene="couple">Mandap Couple Ring Close-Up</button>
-            <button class="scene-tab" data-scene="garden">Outdoor Garden Natural Light</button>
-          </div>
-        </div>
-
-        <div class="comparison-wrapper" id="comparison-slider-container">
-          <!-- Base Image (AFTER: Smooth & Blemish Free, Visible on RIGHT) -->
-          <img src="assets/images/Bride_CloseUp_Ai_Edited.jpg" alt="Ai PhotoFlow Edited Bridal Photo" class="comparison-image-base" id="comparison-base-img" loading="lazy" decoding="async">
-          
-          <!-- Overlay Image (BEFORE: Pimples & Raw Cast, Visible on LEFT via clip-path) -->
-          <img src="assets/images/Bride_CloseUp_RAW_Before.jpg" alt="Unedited Bridal Close-Up Photo with Pimples" class="comparison-image-overlay" id="comparison-overlay-img" loading="lazy" decoding="async">
-
-          <!-- Interactive Handle with glowing line -->
-          <div class="slider-handle" id="slider-handle-bar">
-            <div class="slider-handle-button">⇄</div>
-          </div>
-
-          <span class="image-label before" id="comparison-label-before">ORIGINAL RAW (Pimples & Tungsten Cast)</span>
-          <span class="image-label after" id="comparison-label-after">AI PHOTOFLOW (Blemish Removal + Smooth Glow)</span>
-        </div>
-
-        <!-- Telemetry HUD -->
-        <div class="showcase-hud">
-          <div class="hud-card">
-            <div class="hud-icon">⚡</div>
-            <div class="hud-info">
-              <div class="hud-label">Sharpness Score</div>
-              <div class="hud-value" id="hud-sharpness">94.2 (Pin-Sharp)</div>
-            </div>
-          </div>
-          <div class="hud-card">
-            <div class="hud-icon">👁️</div>
-            <div class="hud-info">
-              <div class="hud-label">Eye Aspect Ratio (EAR)</div>
-              <div class="hud-value" id="hud-eyes">0.38 (Eyes Open)</div>
-            </div>
-          </div>
-          <div class="hud-card emerald">
-            <div class="hud-icon">🛡️</div>
-            <div class="hud-info">
-              <div class="hud-label">Skin Complexion (YCrCb)</div>
-              <div class="hud-value" id="hud-skin">YCrCb Protected</div>
-            </div>
-          </div>
-          <div class="hud-card gold">
-            <div class="hud-icon">✨</div>
-            <div class="hud-info">
-              <div class="hud-label">Calibrated Vibrance</div>
-              <div class="hud-value" id="hud-vibrance">+5.0% Calibrated</div>
             </div>
           </div>
         </div>
