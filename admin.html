@@ -153,6 +153,43 @@
       </table>
     </div>
 
+    <!-- Section 2: Marketing Agent & Referral Partner Applications (Up to 40%) -->
+    <div style="margin-top: 3.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="badge badge-gold">🤝 Marketing Agent Network (Up to 40%)</span>
+          <h2 style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-top: 0.4rem;">
+            Affiliate Partners & Referral Agents
+          </h2>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            Photographers, Lab Owners, and Tech Resellers registered to earn up to 40% recurring commission.
+          </p>
+        </div>
+        <button id="admin-export-agents-btn" class="btn btn-outline btn-sm" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);">
+          📥 Export Agents CSV
+        </button>
+      </div>
+
+      <div class="leads-table-wrap">
+        <table class="leads-table">
+          <thead>
+            <tr>
+              <th>Agent ID</th>
+              <th>Partner Name & Profile</th>
+              <th>City / Location</th>
+              <th>WhatsApp Contact</th>
+              <th>Expected Volume / Tier</th>
+              <th>UPI Payout ID</th>
+              <th>Status / Link</th>
+            </tr>
+          </thead>
+          <tbody id="admin-agents-tbody">
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- Data Destination & Google Sheets Integration Guide -->
     <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; margin-top: 3rem;">
       <h3 style="color: #fff; font-size: 1.25rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">

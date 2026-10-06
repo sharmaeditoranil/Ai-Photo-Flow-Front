@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initDownloadFlow();
   initAdminPortal();
   initRoiCalculator();
+  initAffiliateCalculator();
+  initAffiliateForm();
 });
 
 /* ==========================================================================
@@ -1326,6 +1328,90 @@ function initAdminPortal() {
       showToast('Leads reset.', 'info');
     }
   });
+
+  // Marketing Agents Rendering
+  const agentsTableBody = document.getElementById('admin-agents-tbody');
+  const btnExportAgents = document.getElementById('admin-export-agents-btn');
+
+  if (agentsTableBody) {
+    let agentLeads = [];
+    try {
+      agentLeads = JSON.parse(localStorage.getItem('photoFlowAgentLeads')) || [];
+    } catch (e) {
+      agentLeads = [];
+    }
+
+    if (agentLeads.length === 0) {
+      agentLeads = [
+        {
+          id: 'PF-ANIL-4001',
+          name: 'Anil Sharma (Mentor)',
+          role: 'Quick Art Photography Academy',
+          city: 'Siwan, Bihar',
+          phone: '9939800780',
+          expectedLeads: '31+ Studios (Platinum Tier - 40%)',
+          payoutUpi: '9939800780@ybl',
+          referralLink: 'https://photoflow.quickartphotography.in/?ref=PF-ANIL-4001',
+          status: 'Founding Partner (40%)'
+        },
+        {
+          id: 'PF-RAVI-4022',
+          name: 'Ravi Teja Color Lab',
+          role: 'Photo Lab & Album Hub Owner',
+          city: 'Hyderabad, TS',
+          phone: '9849012345',
+          expectedLeads: '16 to 30+ Studios (Gold Tier - 30%)',
+          payoutUpi: 'ravilab@oksbi',
+          referralLink: 'https://photoflow.quickartphotography.in/?ref=PF-RAVI-4022',
+          status: 'Active Partner (30%)'
+        }
+      ];
+      localStorage.setItem('photoFlowAgentLeads', JSON.stringify(agentLeads));
+    }
+
+    function renderAgentsTable() {
+      agentsTableBody.innerHTML = '';
+      agentLeads.forEach(agent => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-family: var(--font-mono); font-weight: 700; color: #fbbf24;">${agent.id}</td>
+          <td>
+            <strong style="color: #fff;">${agent.name}</strong>
+            <div style="font-size: 0.76rem; color: var(--text-muted);">${agent.role || 'Partner'}</div>
+          </td>
+          <td><span style="color: var(--text-secondary); font-size: 0.85rem;">${agent.city || 'India'}</span></td>
+          <td>
+            <a href="https://wa.me/91${(agent.phone || '').replace(/[^0-9]/g, '')}" target="_blank" style="color: #25d366; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;">
+              <span>💬 ${agent.phone || 'N/A'}</span>
+            </a>
+          </td>
+          <td><span class="badge badge-gold" style="font-size: 0.72rem;">${agent.expectedLeads || 'Gold Partner'}</span></td>
+          <td style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent-cyan);">${agent.payoutUpi || 'Pending UPI'}</td>
+          <td>
+            <span class="badge badge-emerald" style="font-size: 0.72rem;">Active (40%)</span>
+          </td>
+        `;
+        agentsTableBody.appendChild(tr);
+      });
+    }
+
+    renderAgentsTable();
+
+    btnExportAgents?.addEventListener('click', () => {
+      let csv = 'data:text/csv;charset=utf-8,Agent ID,Name,Role,City,Phone,Volume Tier,UPI ID,Referral URL\n';
+      agentLeads.forEach(a => {
+        csv += `"${a.id}","${a.name}","${a.role || ''}","${a.city || ''}","${a.phone || ''}","${a.expectedLeads || ''}","${a.payoutUpi || ''}","${a.referralLink || ''}"\n`;
+      });
+      const encoded = encodeURI(csv);
+      const link = document.createElement('a');
+      link.setAttribute('href', encoded);
+      link.setAttribute('download', `Ai_PhotoFlow_Marketing_Agents_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Marketing Agents list exported to CSV!', 'success');
+    });
+  }
 }
 
 /* ==========================================================================
@@ -1389,3 +1475,148 @@ function initRoiCalculator() {
   slider.addEventListener('input', updateRoi);
   updateRoi();
 }
+
+/* ==========================================================================
+   11. MARKETING AGENT & REFERRAL CALCULATOR & APPLICATION ENGINE (40%)
+   ========================================================================== */
+function initAffiliateCalculator() {
+  const slider = document.getElementById('aff-studios-range');
+  const studiosVal = document.getElementById('aff-studios-val');
+  const planButtons = document.querySelectorAll('.calc-plan-btn');
+  const monthlyResult = document.getElementById('aff-monthly-result');
+  const yearlyResult = document.getElementById('aff-yearly-result');
+  const tierBadge = document.getElementById('aff-tier-badge');
+  const tierTitle = document.getElementById('aff-tier-title');
+
+  if (!slider || !monthlyResult) return;
+
+  let activePlanPrice = 1499;
+
+  function calculateAffiliateCommission() {
+    const count = parseInt(slider.value, 10);
+    if (studiosVal) studiosVal.textContent = `${count} Studios`;
+
+    // Tier determination
+    let rate = 0.20;
+    let badgeText = '🥉 Silver Agent (20% Share)';
+    let badgeColor = 'rgba(148, 163, 184, 0.2)';
+    let badgeBorder = 'rgba(148, 163, 184, 0.4)';
+    let textColor = '#cbd5e1';
+
+    if (count > 30) {
+      rate = 0.40;
+      badgeText = '🥇 Platinum Elite (40% Share)';
+      badgeColor = 'rgba(0, 194, 255, 0.2)';
+      badgeBorder = 'rgba(0, 194, 255, 0.5)';
+      textColor = '#38bdf8';
+    } else if (count > 10) {
+      rate = 0.30;
+      badgeText = '🥈 Gold Partner (30% Share)';
+      badgeColor = 'rgba(245, 158, 11, 0.2)';
+      badgeBorder = 'rgba(245, 158, 11, 0.5)';
+      textColor = '#fbbf24';
+    }
+
+    const monthlyTotal = Math.round(count * activePlanPrice * rate);
+    const yearlyTotal = monthlyTotal * 12;
+
+    if (monthlyResult) monthlyResult.textContent = `₹${monthlyTotal.toLocaleString('en-IN')}`;
+    if (yearlyResult) yearlyResult.textContent = `₹${yearlyTotal.toLocaleString('en-IN')} / year`;
+    if (tierTitle) tierTitle.textContent = badgeText;
+    if (tierBadge) {
+      tierBadge.style.background = badgeColor;
+      tierBadge.style.borderColor = badgeBorder;
+      tierBadge.style.color = textColor;
+    }
+  }
+
+  slider.addEventListener('input', calculateAffiliateCommission);
+
+  planButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      planButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activePlanPrice = parseInt(btn.dataset.price, 10) || 1499;
+      calculateAffiliateCommission();
+    });
+  });
+
+  calculateAffiliateCommission();
+}
+
+function initAffiliateForm() {
+  const form = document.getElementById('affiliate-application-form');
+  const successBox = document.getElementById('agent-success-box');
+  const displayLink = document.getElementById('agent-display-link');
+  const copyBtn = document.getElementById('agent-copy-btn');
+  const waShareBtn = document.getElementById('agent-whatsapp-share-btn');
+
+  if (!form || !successBox) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('agent-name')?.value.trim();
+    const phone = document.getElementById('agent-phone')?.value.trim();
+    const email = document.getElementById('agent-email')?.value.trim();
+    const city = document.getElementById('agent-city')?.value.trim();
+    const role = document.getElementById('agent-role')?.value;
+    const leadsExp = document.getElementById('agent-expected-leads')?.value;
+    const upi = document.getElementById('agent-payout-upi')?.value.trim();
+
+    if (!name || !phone) return;
+
+    // Generate Unique Agent Ref Code
+    const cleanName = name.replace(/[^a-zA-Z]/g, '').slice(0, 4).toUpperCase() || 'AGT';
+    const randNum = Math.floor(1000 + Math.random() * 9000);
+    const agentCode = `PF-${cleanName}-${randNum}`;
+    const referralLink = `https://photoflow.quickartphotography.in/?ref=${agentCode}`;
+
+    const agentRecord = {
+      id: agentCode,
+      name,
+      phone,
+      email,
+      city,
+      role,
+      expectedLeads: leadsExp,
+      payoutUpi: upi,
+      referralLink,
+      registeredAt: new Date().toLocaleString('en-IN'),
+      status: 'Active Marketing Partner (Up to 40%)'
+    };
+
+    // Save to localStorage
+    try {
+      const existing = JSON.parse(localStorage.getItem('photoFlowAgentLeads')) || [];
+      existing.unshift(agentRecord);
+      localStorage.setItem('photoFlowAgentLeads', JSON.stringify(existing));
+    } catch (err) {
+      console.warn('Storage failed', err);
+    }
+
+    // Display Result Box
+    if (displayLink) displayLink.textContent = referralLink;
+    if (waShareBtn) {
+      const waText = encodeURIComponent(
+        `Hi! I have started using Ai PhotoFlow — India's fastest AI post-production desktop software for wedding photographers. It culls 10,000 RAW photos in 15 mins with Indian skin tone protection. Use my partner link to get a 14-day free pass + 10% OFF: ${referralLink}`
+      );
+      waShareBtn.href = `https://wa.me/?text=${waText}`;
+    }
+
+    form.style.display = 'none';
+    successBox.style.display = 'block';
+    successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  if (copyBtn && displayLink) {
+    copyBtn.addEventListener('click', () => {
+      const text = displayLink.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = copyBtn.textContent;
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => copyBtn.textContent = orig, 2500);
+      });
+    });
+  }
+}
+

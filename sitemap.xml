@@ -68,4 +68,20 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Marketing Agent & Referral Partner Program (40%) -->
+  <url>
+    <loc>https://photoflow.quickartphotography.in/affiliate.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Login & Studio Client Portal -->
+  <url>
+    <loc>https://photoflow.quickartphotography.in/login.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
