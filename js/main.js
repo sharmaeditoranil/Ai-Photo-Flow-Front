@@ -46,7 +46,9 @@ function initNavbar() {
       navLinks.classList.remove('mobile-active');
       mobileToggle.classList.remove('is-active');
       mobileToggle.setAttribute('aria-expanded', 'false');
-      mobileToggle.innerHTML = '☰';
+      if (!mobileToggle.querySelector('svg')) {
+        mobileToggle.innerHTML = '☰';
+      }
       document.body.classList.remove('mobile-menu-locked');
       document.querySelectorAll('.nav-item.is-open').forEach(el => el.classList.remove('is-open'));
     }
@@ -56,7 +58,9 @@ function initNavbar() {
       const isOpen = navLinks.classList.toggle('mobile-active');
       mobileToggle.classList.toggle('is-active', isOpen);
       mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      mobileToggle.innerHTML = isOpen ? '✕' : '☰';
+      if (!mobileToggle.querySelector('svg')) {
+        mobileToggle.innerHTML = isOpen ? '✕' : '☰';
+      }
       document.body.classList.toggle('mobile-menu-locked', isOpen);
     });
 
