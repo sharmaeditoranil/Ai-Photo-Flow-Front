@@ -226,6 +226,18 @@ code, kbd, pre {
   color: #000;
 }
 
+@media (max-width: 640px) {
+  .top-bar {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.5rem;
+    gap: 0.4rem;
+  }
+  .top-bar-cta {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
 .site-header {
   position: sticky;
   top: 0;
