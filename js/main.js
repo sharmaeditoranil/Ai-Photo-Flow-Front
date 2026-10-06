@@ -838,6 +838,7 @@ function initPricingToggle() {
 
   // Price Display Elements
   const elPriceStarter = document.getElementById('card-price-starter');
+  const elPeriodStarter = document.getElementById('card-period-starter');
   const elPricePro = document.getElementById('card-price-pro');
   const elPeriodPro = document.getElementById('card-period-pro');
   const elPriceStudio = document.getElementById('card-price-studio');
@@ -869,45 +870,58 @@ function initPricingToggle() {
   let currentPeriod = 'monthly'; // 'monthly' | 'yearly'
   let currentCurrency = 'INR';    // 'INR' | 'USD'
   let appliedDiscount = 0;        // 0 or 50 (%)
-  let activeSelectedPlan = 'pro'; // 'pro' | 'studio'
+  let activeSelectedPlan = 'pro'; // 'starter' | 'pro' | 'yearly'
 
-  // Pricing Matrix (From User Screenshots)
+  // Pricing Matrix (₹799, ₹1,499, ₹5,999 / USD $9.99, $18.99, $69.99)
   const priceData = {
     INR: {
       symbol: '₹',
-      starter: { monthly: '₹0', yearly: '₹0' },
-      pro: { monthly: 1499, yearly: 11999 },
-      studio: { monthly: 2999, yearly: 23999 }
+      starter: { monthly: 799, yearly: 3199 },
+      pro: { monthly: 1499, yearly: 5999 },
+      yearly: { monthly: 5999, yearly: 5999 },
+      studio: { monthly: 5999, yearly: 5999 }
     },
     USD: {
       symbol: '$',
-      starter: { monthly: '$0', yearly: '$0' },
-      pro: { monthly: 19, yearly: 149 },
-      studio: { monthly: 39, yearly: 299 }
+      starter: { monthly: 9.99, yearly: 39.99 },
+      pro: { monthly: 18.99, yearly: 69.99 },
+      yearly: { monthly: 69.99, yearly: 69.99 },
+      studio: { monthly: 69.99, yearly: 69.99 }
     }
   };
 
   function updatePriceDisplay() {
-    if (!elPricePro || !elPriceStudio) return;
-
     const sym = priceData[currentCurrency].symbol;
     const isYear = currentPeriod === 'yearly';
 
-    // Pro Price
-    let rawPro = priceData[currentCurrency].pro[currentPeriod];
-    let finalPro = appliedDiscount > 0 ? Math.round(rawPro * (1 - appliedDiscount / 100)) : rawPro;
-    elPricePro.textContent = `${sym}${finalPro.toLocaleString()}`;
-    elPeriodPro.textContent = isYear ? '/ year' : '/ month';
-
-    // Studio Price
-    let rawStudio = priceData[currentCurrency].studio[currentPeriod];
-    let finalStudio = appliedDiscount > 0 ? Math.round(rawStudio * (1 - appliedDiscount / 100)) : rawStudio;
-    elPriceStudio.textContent = `${sym}${finalStudio.toLocaleString()}`;
-    elPeriodStudio.textContent = isYear ? '/ year' : '/ month';
-
-    // Starter Price
+    // 1. Starter Price (₹799 / $9.99)
     if (elPriceStarter) {
-      elPriceStarter.textContent = `${sym}0`;
+      let rawStarter = priceData[currentCurrency].starter[currentPeriod];
+      let finalStarter = appliedDiscount > 0 ? Math.round(rawStarter * (1 - appliedDiscount / 100)) : rawStarter;
+      elPriceStarter.textContent = `${sym}${currentCurrency === 'USD' ? finalStarter.toFixed(2) : finalStarter.toLocaleString()}`;
+    }
+    if (elPeriodStarter) {
+      elPeriodStarter.textContent = isYear ? '/ year' : '/ month';
+    }
+
+    // 2. Pro Price (₹1,499 / $18.99)
+    if (elPricePro) {
+      let rawPro = priceData[currentCurrency].pro[currentPeriod];
+      let finalPro = appliedDiscount > 0 ? Math.round(rawPro * (1 - appliedDiscount / 100)) : rawPro;
+      elPricePro.textContent = `${sym}${currentCurrency === 'USD' ? finalPro.toFixed(2) : finalPro.toLocaleString()}`;
+    }
+    if (elPeriodPro) {
+      elPeriodPro.textContent = isYear ? '/ year' : '/ month';
+    }
+
+    // 3. Yearly Studio Pass Price (₹5,999 / $69.99)
+    if (elPriceStudio) {
+      let rawStudio = priceData[currentCurrency].yearly.yearly;
+      let finalStudio = appliedDiscount > 0 ? Math.round(rawStudio * (1 - appliedDiscount / 100)) : rawStudio;
+      elPriceStudio.textContent = `${sym}${currentCurrency === 'USD' ? finalStudio.toFixed(2) : finalStudio.toLocaleString()}`;
+    }
+    if (elPeriodStudio) {
+      elPeriodStudio.textContent = '/ year';
     }
   }
 
@@ -975,17 +989,22 @@ function initPricingToggle() {
   rzpPayBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       activeSelectedPlan = btn.dataset.plan || 'pro';
-      const isYear = currentPeriod === 'yearly';
+      const isYear = currentPeriod === 'yearly' || activeSelectedPlan === 'yearly';
       const sym = priceData[currentCurrency].symbol;
-      const rawPrice = priceData[currentCurrency][activeSelectedPlan][currentPeriod];
+      const planKey = activeSelectedPlan === 'yearly' ? 'yearly' : activeSelectedPlan;
+      const periodKey = activeSelectedPlan === 'yearly' ? 'yearly' : currentPeriod;
+      const rawPrice = priceData[currentCurrency][planKey] ? priceData[currentCurrency][planKey][periodKey] : 1499;
       const finalPrice = appliedDiscount > 0 ? Math.round(rawPrice * (1 - appliedDiscount / 100)) : rawPrice;
 
-      const planTitle = activeSelectedPlan === 'pro' ? 'Pro Photographer' : 'Studio & Agency';
+      let planTitle = 'Pro Photographer Plan';
+      if (activeSelectedPlan === 'starter') planTitle = 'Starter Creator Plan';
+      if (activeSelectedPlan === 'yearly' || activeSelectedPlan === 'studio') planTitle = 'Yearly Studio Pass (Annual)';
+
       if (rzpSummaryPlan) {
         rzpSummaryPlan.textContent = `${planTitle} (${isYear ? 'Yearly' : 'Monthly'})`;
       }
       if (rzpSummaryAmount) {
-        rzpSummaryAmount.textContent = `${sym}${finalPrice.toLocaleString()}`;
+        rzpSummaryAmount.textContent = `${sym}${currentCurrency === 'USD' ? finalPrice.toFixed(2) : finalPrice.toLocaleString()}`;
       }
       if (rzpDiscountTag) {
         rzpDiscountTag.style.display = appliedDiscount > 0 ? 'block' : 'none';
