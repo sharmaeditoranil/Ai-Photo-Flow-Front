@@ -6,6 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
+  initWorkflowSuite();
   initBeforeAfterSlider();
   initCullingSimulator();
   initAuthAndLeads();
@@ -77,6 +78,42 @@ function initNavbar() {
       });
     });
   }
+}
+
+/* ==========================================================================
+   1.5 AFTERSHOOT-STYLE 4-PILLAR WORKFLOW SUITE (CULL, EDIT, RETOUCH, DELIVER)
+   ========================================================================== */
+function initWorkflowSuite() {
+  const cards = document.querySelectorAll('.workflow-pillar-card');
+  const panes = document.querySelectorAll('.workflow-stage-pane');
+
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    function activateCard() {
+      const stage = card.getAttribute('data-stage');
+      if (!stage) return;
+
+      cards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      panes.forEach(p => {
+        if (p.id === `stage-${stage}`) {
+          p.classList.add('active');
+        } else {
+          p.classList.remove('active');
+        }
+      });
+    }
+
+    card.addEventListener('click', activateCard);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activateCard();
+      }
+    });
+  });
 }
 
 /* ==========================================================================

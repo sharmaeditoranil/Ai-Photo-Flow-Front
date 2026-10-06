@@ -4705,5 +4705,287 @@ img {
   line-height: 1.45;
 }
 
+/* ==========================================================================
+   Aftershoot-Style 4-Pillar Workflow Suite (CULL, EDIT, RETOUCH, DELIVER)
+   ========================================================================== */
+.workflow-suite-section {
+  padding: 3.5rem 0 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.workflow-suite-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 2.25rem;
+}
+
+.workflow-suite-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.workflow-pillar-card {
+  position: relative;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.6rem 1.45rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  user-select: none;
+}
+
+.workflow-pillar-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(14, 20, 34, 0.9);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.workflow-pillar-card.active {
+  border-color: #3b82f6;
+  background: rgba(13, 22, 40, 0.95);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.2), inset 0 0 15px rgba(59, 130, 246, 0.08);
+}
+
+.workflow-pillar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.workflow-pillar-title {
+  font-family: inherit;
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.workflow-pillar-card.active .workflow-pillar-title {
+  color: #ffffff;
+}
+
+/* Gradient-Border "NEW" Pill like in Aftershoot */
+.workflow-pill-new {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5px 9px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  color: #f8fafc;
+  background: transparent;
+  border: 1.5px solid transparent;
+  background-image: linear-gradient(#0a0e17, #0a0e17), linear-gradient(135deg, #ef4444 0%, #eab308 50%, #22c55e 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+}
+
+.workflow-pillar-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #94a3b8;
+  margin: 0;
+  flex: 1;
+}
+
+.workflow-pillar-card.active .workflow-pillar-desc {
+  color: #cbd5e1;
+}
+
+/* Dynamic Interactive Detail Stage Below 4 Cards */
+.workflow-suite-preview {
+  background: rgba(10, 14, 25, 0.9);
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  border-radius: 16px;
+  padding: 2.25rem 2.5rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.workflow-suite-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #10b981);
+}
+
+.workflow-stage-pane {
+  display: none;
+  animation: fadeInStage 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.workflow-stage-pane.active {
+  display: block;
+}
+
+@keyframes fadeInStage {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.workflow-stage-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.workflow-stage-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #60a5fa;
+  margin-bottom: 0.65rem;
+}
+
+.workflow-stage-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.workflow-stage-sub {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin: 0;
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+.workflow-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.workflow-feature-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.workflow-feature-box:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.workflow-feature-icon {
+  font-size: 1.4rem;
+  margin-bottom: 0.65rem;
+}
+
+.workflow-feature-box h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.4rem;
+}
+
+.workflow-feature-box p {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.workflow-stage-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+
+.workflow-stage-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.workflow-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #cbd5e1;
+}
+
+.workflow-meta-item svg {
+  color: #22c55e;
+}
+
+@media (max-width: 1024px) {
+  .workflow-suite-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .workflow-stage-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .workflow-suite-grid {
+    grid-template-columns: 1fr;
+  }
+  .workflow-stage-grid {
+    grid-template-columns: 1fr;
+  }
+  .workflow-suite-preview {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+
 
 
