@@ -4,8 +4,6 @@
    Founder: Anil Sharma • Quick Art Photography
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
 :root {
   /* Color Palette - Obsidian Deep with Radiant Gold & Cyan Accents */
   --bg-black: #05070a;
@@ -3856,5 +3854,45 @@ code, kbd, pre {
 .solution-metric-tag strong {
   color: #fbbf24;
   font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   SUPERFAST ENGINE OPTIMIZATIONS (Core Web Vitals & Rendering Accelerator)
+   ========================================================================== */
+
+/* 1. Skip rendering off-screen DOM until scrolled near viewport */
+.comparison-section,
+.founder-section,
+.tech-spec-section,
+.faq-section,
+.industry-section,
+.benchmarks-section,
+.pricing-section,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 650px;
+}
+
+/* 2. Hardware acceleration for interactive elements */
+.slider-handle,
+.comparison-image-overlay,
+.megamenu-panel,
+.dropdown-panel,
+.modal-container {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* 3. Text rendering optimization */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 4. Instant image decoding rendering */
+img {
+  content-visibility: auto;
 }
 

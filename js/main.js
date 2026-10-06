@@ -21,13 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
    ========================================================================== */
 function initNavbar() {
   const header = document.querySelector('.site-header');
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 20) {
+          header?.classList.add('scrolled');
+        } else {
+          header?.classList.remove('scrolled');
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
-  });
+  }, { passive: true });
 
   const mobileToggle = document.querySelector('.mobile-toggle');
   const navLinks = document.querySelector('.nav-links');
@@ -93,11 +100,15 @@ function initBeforeAfterSlider() {
     handle.style.left = `${percentage}%`;
   }
 
+  let animFrameId = null;
   function handleMove(clientX) {
-    const rect = container.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const percentage = (x / rect.width) * 100;
-    setSliderPosition(percentage);
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    animFrameId = requestAnimationFrame(() => {
+      const rect = container.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const percentage = (x / rect.width) * 100;
+      setSliderPosition(percentage);
+    });
   }
 
   // Initialize at exactly 50%
