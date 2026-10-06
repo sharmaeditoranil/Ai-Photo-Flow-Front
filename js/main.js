@@ -42,14 +42,27 @@ function initNavbar() {
   const mobileToggle = document.querySelector('.mobile-toggle');
   const navLinks = document.querySelector('.nav-links');
   if (mobileToggle && navLinks) {
+    function closeMobileMenu() {
+      navLinks.classList.remove('mobile-active');
+      mobileToggle.classList.remove('is-active');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      mobileToggle.innerHTML = '☰';
+      document.body.classList.remove('mobile-menu-locked');
+      document.querySelectorAll('.nav-item.is-open').forEach(el => el.classList.remove('is-open'));
+    }
+
     mobileToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      navLinks.classList.toggle('mobile-active');
+      const isOpen = navLinks.classList.toggle('mobile-active');
+      mobileToggle.classList.toggle('is-active', isOpen);
+      mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      mobileToggle.innerHTML = isOpen ? '✕' : '☰';
+      document.body.classList.toggle('mobile-menu-locked', isOpen);
     });
+
     document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
-        navLinks.classList.remove('mobile-active');
-        document.querySelectorAll('.nav-item.is-open').forEach(el => el.classList.remove('is-open'));
+      if (navLinks.classList.contains('mobile-active') && !navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
+        closeMobileMenu();
       }
     });
 
@@ -60,10 +73,10 @@ function initNavbar() {
       if (trigger) {
         trigger.addEventListener('click', (e) => {
           if (window.innerWidth <= 1024) {
-            // On mobile, clicking the parent item toggles its sub-panel
-            if (!item.classList.contains('is-open')) {
-              e.preventDefault();
-              navDropdownItems.forEach(i => i.classList.remove('is-open'));
+            e.preventDefault();
+            const wasOpen = item.classList.contains('is-open');
+            navDropdownItems.forEach(i => i.classList.remove('is-open'));
+            if (!wasOpen) {
               item.classList.add('is-open');
             }
           }
@@ -73,8 +86,7 @@ function initNavbar() {
 
     navLinks.querySelectorAll('.megamenu-card-item, .dropdown-panel a, .nav-item:not(.has-dropdown) a').forEach(link => {
       link.addEventListener('click', () => {
-        navLinks.classList.remove('mobile-active');
-        navDropdownItems.forEach(i => i.classList.remove('is-open'));
+        closeMobileMenu();
       });
     });
   }
@@ -183,14 +195,20 @@ function initBeforeAfterSlider() {
     if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX);
   }, { passive: true });
 
+  container.addEventListener('touchmove', (e) => {
+    if (isDragging && e.touches && e.touches[0]) {
+      if (e.cancelable) e.preventDefault();
+      handleMove(e.touches[0].clientX);
+    }
+  }, { passive: false });
+
   window.addEventListener('touchend', () => {
     isDragging = false;
   });
 
-  window.addEventListener('touchmove', (e) => {
-    if (!isDragging || !e.touches || !e.touches[0]) return;
-    handleMove(e.touches[0].clientX);
-  }, { passive: true });
+  window.addEventListener('touchcancel', () => {
+    isDragging = false;
+  });
 
   // Scene Switching
   // LEFT (overlayImg) = Before (Pimples / RAW)
