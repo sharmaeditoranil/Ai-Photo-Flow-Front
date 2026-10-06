@@ -659,10 +659,8 @@ function initAuthAndLeads() {
 
   // Post-Login Download Buttons in login.html
   document.querySelectorAll('.postlogin-dl-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
+    btn.addEventListener('click', () => {
       const os = btn.dataset.os || 'mac';
-      triggerDownload(os);
       showToast(`Downloading Ai PhotoFlow for ${os === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'}...`, 'success');
 
       // Update user platform choice in leads
@@ -910,17 +908,16 @@ function initDownloadFlow() {
     });
   });
 
+  // Handlers for direct download buttons on download.html
   macDownloadBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openGateModal('mac');
+    btn.addEventListener('click', () => {
+      showToast('Starting Ai PhotoFlow for macOS (.dmg) download...', 'success');
     });
   });
 
   winDownloadBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openGateModal('win');
+    btn.addEventListener('click', () => {
+      showToast('Starting Ai PhotoFlow for Windows (.exe) download...', 'success');
     });
   });
 
@@ -945,18 +942,12 @@ function triggerDownload(os) {
 
   showToast(`Starting download: ${fileName}...`, 'info');
 
-  const link = document.createElement('a');
-  link.href = targetPath;
-  link.target = '_blank';
-  link.rel = 'noopener noreferrer';
-  link.download = fileName;
-  document.body.appendChild(link);
-  link.click();
-  setTimeout(() => {
-    if (document.body.contains(link)) {
-      document.body.removeChild(link);
-    }
-  }, 300);
+  // Direct navigation starts native attachment download without triggering popup blocker
+  try {
+    window.location.href = targetPath;
+  } catch (e) {
+    window.open(targetPath, '_blank');
+  }
 }
 
 /* ==========================================================================
