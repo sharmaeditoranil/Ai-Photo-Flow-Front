@@ -865,9 +865,14 @@ function initDownloadFlow() {
       gateSuccessDesc.textContent = `Your Ai PhotoFlow installer for ${chosenOs === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'} is now downloading automatically.`;
     }
 
+    const MAC_DL_URL = 'https://drive.usercontent.google.com/download?id=132d-eGVm673RqYxOfnIugI6BMZnyYCpJ&export=download&authuser=0&confirm=t';
+    const WIN_DL_URL = 'https://drive.usercontent.google.com/download?id=1MWutBvnOpd_QwvLXFNMFOA8Uffgykos_&export=download&authuser=0&confirm=t';
+
     if (gateRedownloadLink) {
+      gateRedownloadLink.href = chosenOs === 'mac' ? MAC_DL_URL : WIN_DL_URL;
+      gateRedownloadLink.target = '_blank';
+      gateRedownloadLink.rel = 'noopener noreferrer';
       gateRedownloadLink.onclick = (ev) => {
-        ev.preventDefault();
         triggerDownload(chosenOs);
       };
     }
@@ -875,8 +880,10 @@ function initDownloadFlow() {
     if (gateAltOsLink) {
       const altOs = chosenOs === 'mac' ? 'win' : 'mac';
       gateAltOsLink.textContent = altOs === 'win' ? 'Download for Windows (.exe)' : 'Download for macOS (.dmg)';
+      gateAltOsLink.href = altOs === 'mac' ? MAC_DL_URL : WIN_DL_URL;
+      gateAltOsLink.target = '_blank';
+      gateAltOsLink.rel = 'noopener noreferrer';
       gateAltOsLink.onclick = (ev) => {
-        ev.preventDefault();
         triggerDownload(altOs);
       };
     }
@@ -930,8 +937,8 @@ function initDownloadFlow() {
 }
 
 function triggerDownload(os) {
-  const macPath = 'https://drive.usercontent.google.com/download?id=132d-eGVm673RqYxOfnIugI6BMZnyYCpJ&export=download&authuser=0';
-  const winPath = 'https://drive.usercontent.google.com/download?id=1MWutBvnOpd_QwvLXFNMFOA8Uffgykos_&export=download&authuser=0';
+  const macPath = 'https://drive.usercontent.google.com/download?id=132d-eGVm673RqYxOfnIugI6BMZnyYCpJ&export=download&authuser=0&confirm=t';
+  const winPath = 'https://drive.usercontent.google.com/download?id=1MWutBvnOpd_QwvLXFNMFOA8Uffgykos_&export=download&authuser=0&confirm=t';
 
   const targetPath = os === 'mac' ? macPath : winPath;
   const fileName = os === 'mac' ? 'Ai PhotoFlow-1.0.0-arm64.dmg' : 'Ai PhotoFlow Setup 1.0.0.exe';
