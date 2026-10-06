@@ -374,17 +374,23 @@ code, kbd, pre {
 
 .nav-chevron {
   display: inline-block;
-  font-size: 0.65rem;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  stroke: currentColor;
   opacity: 0.65;
-  margin-left: 2px;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, stroke 0.2s ease;
+  vertical-align: middle;
+  pointer-events: none;
+  flex-shrink: 0;
 }
 
 .nav-item:hover .nav-chevron,
+.nav-item:focus-within .nav-chevron,
 .nav-item.is-open .nav-chevron {
   transform: rotate(180deg);
   opacity: 1;
-  color: var(--accent-cyan);
+  stroke: var(--accent-cyan);
 }
 
 /* Invisible hover bridge between nav link and megamenu panel */
