@@ -254,25 +254,27 @@
     /* ---------- Founder's note ---------- */
     .note-grid {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 4.5rem;
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
     }
     .note-grid h2 {
       font-size: clamp(1.8rem, 3vw, 2.4rem);
       font-weight: 800;
       line-height: 1.2;
       letter-spacing: -0.02em;
+      margin-bottom: 2rem;
     }
     .pull-quote {
-      position: relative;
-      font-size: clamp(1.2rem, 2vw, 1.45rem);
-      line-height: 1.6;
+      font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+      line-height: 1.7;
       font-weight: 500;
-      color: #f1f5f9;
-      padding-left: 1.75rem;
+      color: #e2e8f0;
+      padding: 1.75rem 1.75rem 1.75rem 2rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
       border-left: 3px solid var(--accent-gold);
-      margin-bottom: 2rem;
+      border-radius: var(--radius-md);
     }
     .note-body p {
       font-size: 1.02rem;
@@ -523,7 +525,13 @@
         grid-template-columns: 1fr;
         gap: 3rem;
       }
-      .portrait-frame { margin: 0 auto; order: -1; }
+      /* Mobile hero order: name & description → portrait → buttons */
+      .about-hero-grid { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+      .about-hero-grid .eyebrow { align-self: flex-start; }
+      .hero-text { display: contents; }
+      .portrait-frame { order: 1; margin: 0.5rem auto 2.75rem; width: 100%; }
+      .hero-cta { order: 2; justify-content: center; }
+      .hero-stats { margin-bottom: 2.5rem; }
       .pillars-grid { grid-template-columns: 1fr 1fr; }
       .pillar:nth-child(3) { border-left: none; }
       .pillar:nth-child(n+3) { border-top: 1px solid var(--border-subtle); }
@@ -540,7 +548,15 @@
       .portrait-badge { left: 0.75rem; bottom: 1rem; }
       .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 0 1rem; }
       .hero-stats strong { font-size: 1.45rem; }
-      .social-icons { margin-left: 0; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { width: 100%; justify-content: center; text-align: center; }
+      .social-icons { margin: 0.5rem 0 0; justify-content: center; }
+      .note-grid { gap: 2.5rem; }
+      .note-grid h2 { margin-bottom: 1.5rem; }
+      .pull-quote { padding: 1.35rem 1.25rem 1.35rem 1.5rem; }
+      .origin-quote { padding: 1.25rem 1.35rem; }
+      .solution-item { padding: 1.2rem; gap: 0.9rem; }
+      .about-section .section-header { margin-bottom: 2.5rem; }
       .pillars-grid { grid-template-columns: 1fr; }
       .pillar + .pillar { border-left: none; border-top: 1px solid var(--border-subtle); }
       .mv-card { padding: 1.85rem; }
@@ -552,8 +568,8 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    <span>🔥 <strong>14-Day Free Trial Live:</strong> Cull & Edit 10,000 RAW Photos in Under 15 Minutes (macOS & Windows Native).</span>
-    <a href="download.html" class="top-bar-cta">Start 14-Day Free Trial →</a>
+    <span class="top-bar-msg"><span class="top-bar-full" aria-hidden="true">🔥 </span><strong>14-Day Free Trial<span class="top-bar-full"> Live:</span></strong><span class="top-bar-full"> Cull & Edit 10,000 RAW Photos in Under 15 Minutes (macOS & Windows Native).</span><span class="top-bar-short"> · Mac &amp; Windows</span></span>
+    <a href="download.html" class="top-bar-cta">Start<span class="top-bar-full"> 14-Day</span> Free Trial →</a>
   </div>
 
   <!-- Ultra-Professional Header -->
@@ -840,7 +856,7 @@
       </nav>
 
       <div class="about-hero-grid">
-        <div>
+        <div class="hero-text">
           <span class="eyebrow">About the Founder</span>
           <h1>
             Anil Sharma
@@ -859,7 +875,7 @@
             <div><strong>100%</strong><span>Real client footage</span></div>
           </div>
 
-          <div class="hero-actions">
+          <div class="hero-actions hero-cta">
             <a href="https://wa.me/919939800780" target="_blank" rel="noopener noreferrer" class="btn btn-gold">Talk to Anil on WhatsApp</a>
             <a href="https://quickartphotography.in/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Visit the Academy ↗</a>
             <div class="social-icons">
@@ -894,13 +910,13 @@
         <div>
           <span class="eyebrow">Our Story</span>
           <h2>Don't just learn the software. Learn to feel the story.</h2>
-        </div>
-        <div class="note-body">
           <blockquote class="pull-quote">
             "Most editing courses only teach software shortcuts. They tell you which button to press, but never
             why to make a cut, how to hold an emotional frame, or how to work with high-value wedding clients.
             At Quick Art, students step into a real production studio from day one."
           </blockquote>
+        </div>
+        <div class="note-body">
           <p>
             Anil started in the editing suite more than ten years ago. After directing and editing hundreds of
             cinematic wedding films, commercials and creative campaigns, he saw a clear gap in conventional
