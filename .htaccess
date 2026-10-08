@@ -46,8 +46,8 @@
   ExpiresByType text/javascript "access plus 1 month"
   ExpiresByType application/javascript "access plus 1 month"
 
-  # HTML & XML - 2 Hours Cache (so updates show quickly)
-  ExpiresByType text/html "access plus 2 hours"
+  # HTML - always revalidate so new deploys show immediately
+  ExpiresByType text/html "access plus 0 seconds"
   ExpiresByType application/xml "access plus 2 hours"
   ExpiresByType text/xml "access plus 2 hours"
 </IfModule>
@@ -62,6 +62,12 @@
   # 30-day cache headers for CSS and JS
   <FilesMatch "\.(css|js)$">
     Header set Cache-Control "max-age=2592000, public"
+  </FilesMatch>
+
+  # HTML pages: browser must check the server for a newer copy on every visit.
+  # CSS/JS are linked with ?v=<version>; bump it on each deploy to bust their cache.
+  <FilesMatch "\.html?$">
+    Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 
   # Security & Performance Headers
