@@ -787,32 +787,21 @@ function initDownloadFlow() {
             </div>
           </form>
         </div>
-        <div id="gate-success-view" style="display: none; text-align: center; padding: 1rem 0.5rem;">
-          <div class="success-icon-wrap" style="width: 64px; height: 64px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+        <div id="gate-success-view" style="display: none; text-align: center; padding: 1.5rem 0.5rem;">
+          <div class="success-icon-wrap" style="width: 68px; height: 68px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
           </div>
           <h3 style="font-size: 1.6rem; color: #fff; margin-bottom: 0.5rem;">Download Started!</h3>
-          <p id="gate-success-desc" style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
-            Your Ai PhotoFlow installer is now downloading. Here is your 1-day offline trial license key:
+          <p id="gate-success-desc" style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.75rem; line-height: 1.5;">
+            Your Ai PhotoFlow installer is now downloading automatically.
           </p>
-          <div class="trial-key-card" style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-glow); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.75rem;">
-            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 1px;">
-              1-Day Trial Activation Key
-            </div>
-            <div id="gate-trial-key-display" style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: 1.5px; margin-bottom: 0.75rem;">
-              APF-TRIAL-8924-2026
-            </div>
-            <button type="button" id="gate-copy-key-btn" class="btn btn-outline btn-sm" style="font-size: 0.8rem;">
-              📋 Copy License Key
-            </button>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.75rem;">
+            <a id="gate-redownload-link" href="#" class="btn btn-primary btn-sm" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">⬇️ Download Again</a>
+            <a id="gate-alt-os-link" href="#" class="btn btn-outline btn-sm" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">Switch OS Download</a>
           </div>
-          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
-            <a id="gate-redownload-link" href="#" class="btn btn-primary btn-sm">⬇️ Download Again</a>
-            <a id="gate-alt-os-link" href="#" class="btn btn-outline btn-sm">Switch OS Download</a>
-          </div>
-          <div style="font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+          <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 1.25rem;">
             Need installation assistance? Direct WhatsApp: <a href="https://wa.me/919939800780" target="_blank" style="color: #25d366; font-weight: 600;">+91 9939800780</a>
           </div>
         </div>
@@ -953,9 +942,6 @@ function initDownloadFlow() {
     if (gateFormView) gateFormView.style.display = 'none';
     if (gateSuccessView) gateSuccessView.style.display = 'block';
 
-    if (gateTrialKeyDisplay) {
-      gateTrialKeyDisplay.textContent = trialKey;
-    }
     if (gateSuccessDesc) {
       gateSuccessDesc.textContent = `Your Ai PhotoFlow installer for ${chosenOs === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'} is now downloading automatically.`;
     }
@@ -978,7 +964,7 @@ function initDownloadFlow() {
       };
     }
 
-    showToast(`✓ Trial Activated! Downloading installer for ${chosenOs === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'}...`, 'success');
+    showToast(`✓ Downloading Ai PhotoFlow for ${chosenOs === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'}...`, 'success');
   });
 
   gateCopyKeyBtn?.addEventListener('click', () => {
