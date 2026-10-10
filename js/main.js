@@ -589,7 +589,7 @@ function initAuthAndLeads() {
       name: userName,
       studio: userStudio,
       trialKey: trialKey,
-      plan: '14-Day Free Trial',
+      plan: '1-Day Free Trial',
       platform: isMac ? 'macOS (Apple Silicon)' : 'Windows (64-bit)',
       date: new Date().toLocaleString()
     };
@@ -604,7 +604,7 @@ function initAuthAndLeads() {
       platform: userData.platform,
       trialKey: trialKey,
       date: userData.date,
-      status: 'Active 14-Day Trial'
+      status: 'Active 1-Day Trial'
     });
 
     // Check if on login.html with download options
@@ -639,7 +639,7 @@ function initAuthAndLeads() {
       platform: isMac ? 'macOS (Apple Silicon)' : 'Windows (64-bit)',
       date: new Date().toLocaleString(),
       trialKey: trialKey,
-      status: 'Active 14-Day Trial'
+      status: 'Active 1-Day Trial'
     };
 
     localStorage.setItem('photoFlowUser', JSON.stringify(leadRecord));
@@ -647,9 +647,9 @@ function initAuthAndLeads() {
 
     if (document.getElementById('login-download-portal')) {
       renderPostLoginPortal(leadRecord);
-      showToast(`Welcome ${name}! 14-Day Trial Activated. Select macOS or Windows below to download.`, 'success');
+      showToast(`Welcome ${name}! 1-Day Trial Activated. Select macOS or Windows below to download.`, 'success');
     } else {
-      showToast(`Welcome ${name}! 14-Day Trial Activated.`, 'success');
+      showToast(`Welcome ${name}! 1-Day Trial Activated.`, 'success');
       closeAuth();
       setTimeout(() => {
         window.location.href = 'download.html?auth=success';
@@ -723,7 +723,7 @@ function initDownloadFlow() {
   const platformBadge = document.getElementById('platform-badge');
 
   if (platformBadge) {
-    platformBadge.textContent = isMac ? 'Apple Silicon Mac Detected • 14-Day Trial' : 'Windows 10/11 64-bit Detected • 14-Day Trial';
+    platformBadge.textContent = isMac ? 'Apple Silicon Mac Detected • 1-Day Trial' : 'Windows 10/11 64-bit Detected • 1-Day Trial';
   }
 
   // --- Mandatory Lead Gate Modal Logic before downloading on Home Page ---
@@ -749,12 +749,12 @@ function initDownloadFlow() {
     if (os === 'mac') {
       gatePillMac?.classList.add('active');
       gatePillWin?.classList.remove('active');
-      if (gateSubmitBtn) gateSubmitBtn.innerHTML = '<span>Start 14-Day Free Trial & Download for macOS (.dmg) →</span>';
+      if (gateSubmitBtn) gateSubmitBtn.innerHTML = '<span>Start 1-Day Free Trial & Download for macOS (.dmg) →</span>';
       if (gateTitle) gateTitle.textContent = 'Download Ai PhotoFlow for macOS';
     } else {
       gatePillWin?.classList.add('active');
       gatePillMac?.classList.remove('active');
-      if (gateSubmitBtn) gateSubmitBtn.innerHTML = '<span>Start 14-Day Free Trial & Download for Windows (.exe) →</span>';
+      if (gateSubmitBtn) gateSubmitBtn.innerHTML = '<span>Start 1-Day Free Trial & Download for Windows (.exe) →</span>';
       if (gateTitle) gateTitle.textContent = 'Download Ai PhotoFlow for Windows';
     }
   }
@@ -830,7 +830,7 @@ function initDownloadFlow() {
       platform: chosenOs === 'mac' ? 'macOS (Apple Silicon)' : 'Windows (64-bit)',
       trialKey,
       date: new Date().toLocaleString(),
-      status: 'Active 14-Day Trial'
+      status: 'Active 1-Day Trial'
     };
 
     // Save lead to CRM and session
@@ -928,7 +928,7 @@ function initDownloadFlow() {
     if (welcomeModal) {
       welcomeModal.classList.add('active');
     } else {
-      showToast('Welcome to Ai PhotoFlow! Your 14-Day Free Trial download is ready below.', 'success');
+      showToast('Welcome to Ai PhotoFlow! Your 1-Day Free Trial download is ready below.', 'success');
     }
   }
 }
@@ -1293,7 +1293,7 @@ function initAdminPortal() {
         platform: 'Windows (64-bit)',
         date: 'Yesterday, 04:30 PM',
         trialKey: 'FLOW-14D-A7B8-99C1',
-        status: 'Active 14-Day Trial'
+        status: 'Active 1-Day Trial'
       },
       {
         id: 'PF-1003',
@@ -1304,7 +1304,7 @@ function initAdminPortal() {
         platform: 'macOS (Apple Silicon)',
         date: '03 Oct 2026',
         trialKey: 'FLOW-14D-55C2-D81A',
-        status: 'Active 14-Day Trial'
+        status: 'Active 1-Day Trial'
       }
     ];
     localStorage.setItem('photoFlowLeads', JSON.stringify(leads));
@@ -1672,7 +1672,7 @@ function initAffiliateForm() {
     if (displayLink) displayLink.textContent = referralLink;
     if (waShareBtn) {
       const waText = encodeURIComponent(
-        `Hi! I have started using Ai PhotoFlow — India's fastest AI post-production desktop software for wedding photographers. It culls 10,000 RAW photos in 15 mins with Indian skin tone protection. Use my partner link to get a 14-day free pass + 10% OFF: ${referralLink}`
+        `Hi! I have started using Ai PhotoFlow — India's fastest AI post-production desktop software for wedding photographers. It culls 10,000 RAW photos in 15 mins with Indian skin tone protection. Use my partner link to get a 1-day free pass + 10% OFF: ${referralLink}`
       );
       waShareBtn.href = `https://wa.me/?text=${waText}`;
     }

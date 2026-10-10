@@ -36,7 +36,7 @@ Quick Art Photography Academy YouTube Channel (@QuickartPhotographyAcademy) aapk
 ### Video Description Template (हर वीडियो के डिस्क्रिप्शन में डालें):
 ```text
 🔥 10,000 RAW Photos Cull & Color Edit करें सिर्फ 15 Minutes में!
-Download Ai PhotoFlow (14-Day Free Trial): https://photoflow.quickartphotography.in/download.html
+Download Ai PhotoFlow (1-Day Free Trial): https://photoflow.quickartphotography.in/download.html
 
 📌 Solutions for Wedding Studios: https://photoflow.quickartphotography.in/solutions.html
 💎 Studio Pricing & Plans: https://photoflow.quickartphotography.in/pricing.html
