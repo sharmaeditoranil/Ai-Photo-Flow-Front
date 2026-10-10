@@ -146,6 +146,31 @@
       </div>
     </div>
 
+    <!-- Real-Time CRM Webhook Integration Card (Ai BotFlow / AiSensy / Zapier / Google Sheets) -->
+    <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(0, 194, 255, 0.05)); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; margin-bottom: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.85rem;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.4rem;">⚡</span>
+          <div>
+            <h3 style="color: #fff; font-size: 1.15rem; margin: 0; font-weight: 700;">Ai BotFlow / CRM Live Webhook Integration</h3>
+            <p style="color: var(--text-secondary); font-size: 0.82rem; margin: 0.2rem 0 0 0;">
+              Website par form submit hote hi har naya lead automatically aapke CRM / WhatsApp Bot (Ai BotFlow / AiSensy / Make / Google Sheets) me chala jayega.
+            </p>
+          </div>
+        </div>
+        <span id="admin-webhook-badge" class="badge" style="background: rgba(100, 116, 139, 0.2); color: var(--text-muted); border: 1px solid var(--border-subtle);">⚪ Webhook Not Configured</span>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+        <input type="url" id="admin-webhook-url" class="form-input" placeholder="https://api.aibotflow.com/v1/webhook/... ya apna CRM Webhook URL dalein" style="flex: 1; min-width: 280px; font-size: 0.88rem;">
+        <button type="button" id="admin-save-webhook-btn" class="btn btn-primary btn-sm" style="white-space: nowrap;">💾 Save Webhook</button>
+        <button type="button" id="admin-test-webhook-btn" class="btn btn-outline btn-sm" style="white-space: nowrap; border-color: rgba(16, 185, 129, 0.5); color: #34d399;">🚀 Send Test Lead</button>
+      </div>
+      <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 0.5rem;">
+        💡 <strong>Live Dispatch:</strong> Webhook URL daal kar 'Save Webhook' dabayein. Har user registration seedha is URL par real-time JSON format me POST ho jayegi.
+      </div>
+    </div>
+
     <!-- Controls & Search Bar -->
     <div class="admin-controls-bar">
       <input type="text" id="admin-search-input" class="admin-search-input" placeholder="🔍 Search by Name, Studio, Phone or Email...">
@@ -164,8 +189,8 @@
             <th>Email Address</th>
             <th>WhatsApp Mobile</th>
             <th>OS Platform</th>
-            <th>Trial Key</th>
             <th>Registered Date</th>
+            <th style="text-align: center;">Action</th>
           </tr>
         </thead>
         <tbody id="admin-leads-tbody">
@@ -202,6 +227,7 @@
               <th>Expected Volume / Tier</th>
               <th>UPI Payout ID</th>
               <th>Status / Link</th>
+              <th style="text-align: center;">Action</th>
             </tr>
           </thead>
           <tbody id="admin-agents-tbody">

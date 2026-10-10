@@ -511,6 +511,40 @@ function initAuthAndLeads() {
   tabSignIn?.addEventListener('click', () => switchTab('signin'));
   tabSignUp?.addEventListener('click', () => switchTab('signup'));
 
+  // Global Real-Time CRM & AiBotFlow Webhook Dispatcher
+  async function dispatchLeadToWebhook(lead) {
+    const webhookUrl = localStorage.getItem('photoFlowCrmWebhookUrl');
+    if (!webhookUrl || !webhookUrl.trim()) return;
+
+    const payload = {
+      source: 'Ai PhotoFlow Official Website',
+      event: 'studio_lead_captured',
+      timestamp: new Date().toISOString(),
+      lead: {
+        id: lead.id || ('PF-' + Math.floor(1000 + Math.random() * 9000)),
+        name: lead.name || '',
+        phone: lead.phone || '',
+        studio: lead.studio || '',
+        email: lead.email || '',
+        platform: lead.platform || '',
+        date: lead.date || new Date().toLocaleString(),
+        status: lead.status || 'Active Lead'
+      }
+    };
+
+    try {
+      await fetch(webhookUrl.trim(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        mode: 'no-cors'
+      });
+      console.log('[AiBotFlow Webhook] Lead payload dispatched to:', webhookUrl.trim());
+    } catch (err) {
+      console.warn('[AiBotFlow Webhook] Dispatch warning:', err);
+    }
+  }
+
   // Save Lead Function
   function saveLeadRecord(lead) {
     let leads = [];
@@ -527,6 +561,9 @@ function initAuthAndLeads() {
       leads.unshift(lead);
     }
     localStorage.setItem('photoFlowLeads', JSON.stringify(leads));
+
+    // Dispatch to CRM Webhook
+    dispatchLeadToWebhook(lead);
   }
 
   // Helper: Escape HTML strings
@@ -934,6 +971,9 @@ function initDownloadFlow() {
     }
     localStorage.setItem('photoFlowLeads', JSON.stringify(leads));
     localStorage.setItem('photoFlowUser', JSON.stringify(leadData));
+
+    // Real-time dispatch to Ai BotFlow / CRM Webhook
+    dispatchLeadToWebhook(leadData);
 
     // Immediately trigger file download after taking inputs
     triggerDownload(chosenOs);
@@ -1344,7 +1384,7 @@ function initFaqAccordion() {
 }
 
 /* ==========================================================================
-   8. ADMIN PORTAL (CRM & Lead Viewer)
+   8. ADMIN PORTAL (CRM, Webhook Manager & Manual Lead Deletion)
    ========================================================================== */
 function initAdminPortal() {
   const leadsTableBody = document.getElementById('admin-leads-tbody');
@@ -1355,7 +1395,86 @@ function initAdminPortal() {
   const btnExportCsv = document.getElementById('admin-export-csv-btn');
   const btnClearLeads = document.getElementById('admin-clear-leads-btn');
 
+  // Webhook Controls
+  const webhookInput = document.getElementById('admin-webhook-url');
+  const btnSaveWebhook = document.getElementById('admin-save-webhook-btn');
+  const btnTestWebhook = document.getElementById('admin-test-webhook-btn');
+  const webhookBadge = document.getElementById('admin-webhook-badge');
+
   if (!leadsTableBody) return;
+
+  // Initialize Webhook UI State
+  function refreshWebhookBadge() {
+    const savedUrl = localStorage.getItem('photoFlowCrmWebhookUrl') || '';
+    if (webhookInput) webhookInput.value = savedUrl;
+    if (webhookBadge) {
+      if (savedUrl) {
+        webhookBadge.textContent = '🟢 Webhook Active (Connected)';
+        webhookBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+        webhookBadge.style.color = '#34d399';
+        webhookBadge.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+      } else {
+        webhookBadge.textContent = '⚪ Webhook Not Configured';
+        webhookBadge.style.background = 'rgba(100, 116, 139, 0.2)';
+        webhookBadge.style.color = 'var(--text-muted)';
+        webhookBadge.style.borderColor = 'var(--border-subtle)';
+      }
+    }
+  }
+
+  refreshWebhookBadge();
+
+  // Save Webhook Button
+  btnSaveWebhook?.addEventListener('click', () => {
+    const url = webhookInput ? webhookInput.value.trim() : '';
+    if (url) {
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        alert('Kripya valid Webhook URL enter karein (https:// se shuru hona chahiye)');
+        return;
+      }
+      localStorage.setItem('photoFlowCrmWebhookUrl', url);
+      showToast('✓ Ai BotFlow / CRM Webhook successfully saved!', 'success');
+    } else {
+      localStorage.removeItem('photoFlowCrmWebhookUrl');
+      showToast('Webhook URL removed.', 'info');
+    }
+    refreshWebhookBadge();
+  });
+
+  // Test Webhook Button
+  btnTestWebhook?.addEventListener('click', async () => {
+    const url = webhookInput ? webhookInput.value.trim() : '';
+    if (!url) {
+      alert('Pehle apna Ai BotFlow / CRM Webhook URL enter karke "Save Webhook" dabayein!');
+      return;
+    }
+    showToast('Sending test ping to CRM Webhook...', 'info');
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'Ai PhotoFlow Website (Admin Test)',
+          event: 'test_webhook_ping',
+          timestamp: new Date().toISOString(),
+          lead: {
+            id: 'TEST-LEAD-001',
+            name: 'Anil Sharma Studio (Test)',
+            phone: '9939800780',
+            studio: 'Quick Art Photography Academy',
+            email: 'support@quickartphotography.in',
+            platform: 'macOS & Windows',
+            date: new Date().toLocaleString(),
+            status: 'Test Connection Successful'
+          }
+        }),
+        mode: 'no-cors'
+      });
+      showToast('✓ Test lead sent! Check your Ai BotFlow / CRM dashboard.', 'success');
+    } catch (err) {
+      alert('Webhook connection test error: ' + err.message);
+    }
+  });
 
   // Default seed leads if empty
   let leads = [];
@@ -1375,7 +1494,6 @@ function initAdminPortal() {
         studio: 'Quick Art Photography',
         platform: 'macOS (Apple Silicon)',
         date: 'Today, 10:15 AM',
-        trialKey: 'FLOW-14D-MASTER-KEY',
         status: 'Founder Studio'
       },
       {
@@ -1386,8 +1504,7 @@ function initAdminPortal() {
         studio: 'Royal Wedding Cinema (Patna)',
         platform: 'Windows (64-bit)',
         date: 'Yesterday, 04:30 PM',
-        trialKey: 'FLOW-14D-A7B8-99C1',
-        status: 'Active 1-Day Trial'
+        status: 'Active Lead'
       },
       {
         id: 'PF-1003',
@@ -1397,8 +1514,7 @@ function initAdminPortal() {
         studio: 'Singh Productions (Varanasi)',
         platform: 'macOS (Apple Silicon)',
         date: '03 Oct 2026',
-        trialKey: 'FLOW-14D-55C2-D81A',
-        status: 'Active 1-Day Trial'
+        status: 'Active Lead'
       }
     ];
     localStorage.setItem('photoFlowLeads', JSON.stringify(leads));
@@ -1438,10 +1554,30 @@ function initAdminPortal() {
           </a>
         </td>
         <td><span class="badge" style="font-size: 0.72rem;">${lead.platform || 'Desktop'}</span></td>
-        <td style="font-family: var(--font-mono); font-size: 0.8rem; color: #fbbf24;">${lead.trialKey || 'FLOW-14D-XXXX'}</td>
         <td style="font-size: 0.8rem; color: var(--text-muted);">${lead.date || 'Recent'}</td>
+        <td style="text-align: center;">
+          <button type="button" class="btn btn-outline btn-sm admin-del-lead-btn" data-id="${lead.id}" title="Delete this lead" style="color: #f43f5e; border-color: rgba(244, 63, 94, 0.4); padding: 0.3rem 0.7rem; font-size: 0.78rem; border-radius: 6px; cursor: pointer;">
+            🗑️ Delete
+          </button>
+        </td>
       `;
       leadsTableBody.appendChild(tr);
+    });
+
+    // Attach Individual Lead Delete Handlers
+    leadsTableBody.querySelectorAll('.admin-del-lead-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-id');
+        const targetLead = leads.find(l => l.id === id);
+        const name = targetLead ? targetLead.name : id;
+        if (confirm(`Kya aap sach me "${name}" (${id}) ki lead delete karna chahte hain?`)) {
+          leads = leads.filter(l => l.id !== id);
+          localStorage.setItem('photoFlowLeads', JSON.stringify(leads));
+          renderLeadsTable();
+          showToast(`✓ Lead "${name}" deleted!`, 'info');
+        }
+      });
     });
   }
 
@@ -1461,7 +1597,7 @@ function initAdminPortal() {
 
   // Export to CSV Function
   btnExportCsv?.addEventListener('click', () => {
-    let csvContent = 'data:text/csv;charset=utf-8,ID,Name,Studio Name,Email,Phone,Platform,License Key,Registration Date,Status\n';
+    let csvContent = 'data:text/csv;charset=utf-8,ID,Name,Studio Name,Email,Phone,Platform,Registration Date,Status\n';
     leads.forEach(l => {
       const row = [
         `"${l.id}"`,
@@ -1470,7 +1606,6 @@ function initAdminPortal() {
         `"${l.email}"`,
         `"${l.phone || ''}"`,
         `"${l.platform || ''}"`,
-        `"${l.trialKey || ''}"`,
         `"${l.date || ''}"`,
         `"${l.status || 'Active'}"`
       ].join(',');
@@ -1558,8 +1693,29 @@ function initAdminPortal() {
           <td>
             <span class="badge badge-emerald" style="font-size: 0.72rem;">Active (30%)</span>
           </td>
+          <td style="text-align: center;">
+            <button type="button" class="btn btn-outline btn-sm admin-del-agent-btn" data-id="${agent.id}" title="Delete this partner" style="color: #f43f5e; border-color: rgba(244, 63, 94, 0.4); padding: 0.3rem 0.7rem; font-size: 0.78rem; border-radius: 6px; cursor: pointer;">
+              🗑️ Delete
+            </button>
+          </td>
         `;
         agentsTableBody.appendChild(tr);
+      });
+
+      // Attach Agent Delete Handlers
+      agentsTableBody.querySelectorAll('.admin-del-agent-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = btn.getAttribute('data-id');
+          const targetAgent = agentLeads.find(a => a.id === id);
+          const name = targetAgent ? targetAgent.name : id;
+          if (confirm(`Kya aap sach me Agent "${name}" (${id}) ko delete karna chahte hain?`)) {
+            agentLeads = agentLeads.filter(a => a.id !== id);
+            localStorage.setItem('photoFlowAgentLeads', JSON.stringify(agentLeads));
+            renderAgentsTable();
+            showToast(`✓ Agent "${name}" deleted!`, 'info');
+          }
+        });
       });
     }
 
