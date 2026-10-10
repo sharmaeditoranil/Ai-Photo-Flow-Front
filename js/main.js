@@ -920,6 +920,12 @@ function initDownloadFlow() {
   // Wire up all .btn-download-trigger elements across the site
   document.querySelectorAll('.btn-download-trigger').forEach(btn => {
     btn.addEventListener('click', (e) => {
+      // If the element is a direct anchor link with a .dmg or .exe URL, allow native download!
+      if (btn.tagName === 'A' && btn.href && (btn.href.includes('.dmg') || btn.href.includes('.exe'))) {
+        const isMacFile = btn.href.includes('.dmg');
+        showToast(`Starting download: Ai PhotoFlow for ${isMacFile ? 'macOS (.dmg)' : 'Windows (.exe)'}...`, 'success');
+        return; // Allow native browser download
+      }
       e.preventDefault();
       const os = btn.dataset.os || (btn.classList.contains('btn-download-win') ? 'win' : (btn.classList.contains('btn-download-mac') ? 'mac' : 'auto'));
       openGateModal(os);
@@ -997,20 +1003,14 @@ function initDownloadFlow() {
     if (gateRedownloadLink) {
       gateRedownloadLink.href = chosenDownloadUrl;
       gateRedownloadLink.setAttribute('download', chosenFileName);
-      gateRedownloadLink.onclick = (ev) => {
-        ev.preventDefault();
-        triggerDownload(chosenOs);
-      };
+      gateRedownloadLink.onclick = null;
     }
 
     if (gateAltOsLink) {
       gateAltOsLink.textContent = altOs === 'win' ? 'Download for Windows (.exe)' : 'Download for macOS (.dmg)';
       gateAltOsLink.href = altDownloadUrl;
       gateAltOsLink.setAttribute('download', altFileName);
-      gateAltOsLink.onclick = (ev) => {
-        ev.preventDefault();
-        triggerDownload(altOs);
-      };
+      gateAltOsLink.onclick = null;
     }
 
     showToast(`✓ Downloading Ai PhotoFlow for ${chosenOs === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'}...`, 'success');
@@ -1038,6 +1038,10 @@ function initDownloadFlow() {
   // Handlers for direct download buttons on download.html
   macDownloadBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
+      if (btn.tagName === 'A' && btn.href && btn.href.includes('.dmg')) {
+        showToast('Starting download: Ai PhotoFlow for macOS (.dmg)...', 'success');
+        return; // Native browser download
+      }
       e.preventDefault();
       openGateModal('mac');
     });
@@ -1045,6 +1049,10 @@ function initDownloadFlow() {
 
   winDownloadBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
+      if (btn.tagName === 'A' && btn.href && btn.href.includes('.exe')) {
+        showToast('Starting download: Ai PhotoFlow for Windows (.exe)...', 'success');
+        return; // Native browser download
+      }
       e.preventDefault();
       openGateModal('win');
     });
@@ -1071,21 +1079,22 @@ function triggerDownload(os) {
 
   showToast(`Starting download: ${fileName}...`, 'info');
 
-  // Use programmatic anchor with download attribute to force file save instead of in-browser text rendering
+  // Trigger programmatic anchor click
   try {
     const link = document.createElement('a');
     link.href = targetPath;
     link.setAttribute('download', fileName);
-    link.setAttribute('target', '_self');
-    link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
     setTimeout(() => {
       if (document.body.contains(link)) document.body.removeChild(link);
-    }, 2000);
-  } catch (e) {
-    window.location.href = targetPath;
-  }
+    }, 1000);
+  } catch (e) {}
+
+  // Fallback direct window location navigation ensuring download starts across all browsers
+  setTimeout(() => {
+    window.location.assign(targetPath);
+  }, 100);
 }
 
 /* ==========================================================================
