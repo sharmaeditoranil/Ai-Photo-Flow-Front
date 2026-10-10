@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin.html
 
 # Sitemap location
-Sitemap: https://photoflow.quickartphotography.in/sitemap.xml
+Sitemap: https://aiphotoflow.in/sitemap.xml

@@ -1028,8 +1028,8 @@ function initDownloadFlow() {
 }
 
 function triggerDownload(os) {
-  const macPath = 'https://drive.usercontent.google.com/download?id=132d-eGVm673RqYxOfnIugI6BMZnyYCpJ&export=download&authuser=0&confirm=t';
-  const winPath = 'https://drive.usercontent.google.com/download?id=1MWutBvnOpd_QwvLXFNMFOA8Uffgykos_&export=download&authuser=0&confirm=t';
+  const macPath = 'https://aiphotoflow.in/downloads/Ai-PhotoFlow-1.0.0-arm64.dmg';
+  const winPath = 'https://aiphotoflow.in/downloads/Ai-PhotoFlow-Setup-1.0.0.exe';
 
   const targetPath = os === 'mac' ? macPath : winPath;
   const fileName = os === 'mac' ? 'Ai PhotoFlow-1.0.0-arm64.dmg' : 'Ai PhotoFlow Setup 1.0.0.exe';
@@ -1524,7 +1524,7 @@ function initAdminPortal() {
           phone: '9939800780',
           expectedLeads: '31+ Studios (Platinum Tier - 30%)',
           payoutUpi: '9939800780@ybl',
-          referralLink: 'https://photoflow.quickartphotography.in/?ref=PF-ANIL-4001',
+          referralLink: 'https://aiphotoflow.in/?ref=PF-ANIL-4001',
           status: 'Founding Partner (30%)'
         },
         {
@@ -1535,7 +1535,7 @@ function initAdminPortal() {
           phone: '9849012345',
           expectedLeads: '16 to 30+ Studios (Gold Tier - 25%)',
           payoutUpi: 'ravilab@oksbi',
-          referralLink: 'https://photoflow.quickartphotography.in/?ref=PF-RAVI-4022',
+          referralLink: 'https://aiphotoflow.in/?ref=PF-RAVI-4022',
           status: 'Active Partner (25%)'
         }
       ];
@@ -1742,7 +1742,7 @@ function initAffiliateForm() {
     const cleanName = name.replace(/[^a-zA-Z]/g, '').slice(0, 4).toUpperCase() || 'AGT';
     const randNum = Math.floor(1000 + Math.random() * 9000);
     const agentCode = `PF-${cleanName}-${randNum}`;
-    const referralLink = `https://photoflow.quickartphotography.in/?ref=${agentCode}`;
+    const referralLink = `https://aiphotoflow.in/?ref=${agentCode}`;
 
     const agentRecord = {
       id: agentCode,
