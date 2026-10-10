@@ -1032,15 +1032,24 @@ function triggerDownload(os) {
   const winPath = 'https://aiphotoflow.in/downloads/Ai-PhotoFlow-Setup-1.0.0.exe';
 
   const targetPath = os === 'mac' ? macPath : winPath;
-  const fileName = os === 'mac' ? 'Ai PhotoFlow-1.0.0-arm64.dmg' : 'Ai PhotoFlow Setup 1.0.0.exe';
+  const fileName = os === 'mac' ? 'Ai-PhotoFlow-1.0.0-arm64.dmg' : 'Ai-PhotoFlow-Setup-1.0.0.exe';
 
   showToast(`Starting download: ${fileName}...`, 'info');
 
-  // Direct navigation starts native attachment download without triggering popup blocker
+  // Use programmatic anchor with download attribute to force file save instead of in-browser text rendering
   try {
-    window.location.href = targetPath;
+    const link = document.createElement('a');
+    link.href = targetPath;
+    link.setAttribute('download', fileName);
+    link.setAttribute('target', '_self');
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      if (document.body.contains(link)) document.body.removeChild(link);
+    }, 2000);
   } catch (e) {
-    window.open(targetPath, '_blank');
+    window.location.href = targetPath;
   }
 }
 

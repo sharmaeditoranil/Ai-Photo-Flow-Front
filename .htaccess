@@ -76,5 +76,21 @@
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# 4. UTF-8 Default Encoding
+# 4. Force Direct File Download for App Installers (.dmg, .exe, .zip)
+<IfModule mod_mime.c>
+  AddType application/octet-stream .dmg
+  AddType application/x-apple-diskimage .dmg
+  AddType application/octet-stream .exe
+  AddType application/x-msdownload .exe
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(dmg|exe|zip|pkg|iso)$">
+    ForceType application/octet-stream
+    Header set Content-Disposition "attachment"
+    Header set X-Content-Type-Options "nosniff"
+  </FilesMatch>
+</IfModule>
+
+# 5. UTF-8 Default Encoding
 AddDefaultCharset UTF-8
