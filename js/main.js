@@ -19,6 +19,40 @@ document.addEventListener('DOMContentLoaded', () => {
   initAffiliateForm();
 });
 
+// Global Real-Time CRM & AiBotFlow Webhook Dispatcher
+async function dispatchLeadToWebhook(lead) {
+  try {
+    const webhookUrl = localStorage.getItem('photoFlowCrmWebhookUrl');
+    if (!webhookUrl || !webhookUrl.trim()) return;
+
+    const payload = {
+      source: 'Ai PhotoFlow Official Website',
+      event: 'studio_lead_captured',
+      timestamp: new Date().toISOString(),
+      lead: {
+        id: lead.id || ('PF-' + Math.floor(1000 + Math.random() * 9000)),
+        name: lead.name || '',
+        phone: lead.phone || '',
+        studio: lead.studio || '',
+        email: lead.email || '',
+        platform: lead.platform || '',
+        date: lead.date || new Date().toLocaleString(),
+        status: lead.status || 'Active Lead'
+      }
+    };
+
+    fetch(webhookUrl.trim(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    }).catch(err => console.warn('[AiBotFlow Webhook] Warning:', err));
+  } catch (err) {
+    console.warn('[AiBotFlow Webhook] Error:', err);
+  }
+}
+window.dispatchLeadToWebhook = dispatchLeadToWebhook;
+
 /* ==========================================================================
    1. NAVBAR & HEADER STATE
    ========================================================================== */
@@ -511,40 +545,6 @@ function initAuthAndLeads() {
   tabSignIn?.addEventListener('click', () => switchTab('signin'));
   tabSignUp?.addEventListener('click', () => switchTab('signup'));
 
-  // Global Real-Time CRM & AiBotFlow Webhook Dispatcher
-  async function dispatchLeadToWebhook(lead) {
-    const webhookUrl = localStorage.getItem('photoFlowCrmWebhookUrl');
-    if (!webhookUrl || !webhookUrl.trim()) return;
-
-    const payload = {
-      source: 'Ai PhotoFlow Official Website',
-      event: 'studio_lead_captured',
-      timestamp: new Date().toISOString(),
-      lead: {
-        id: lead.id || ('PF-' + Math.floor(1000 + Math.random() * 9000)),
-        name: lead.name || '',
-        phone: lead.phone || '',
-        studio: lead.studio || '',
-        email: lead.email || '',
-        platform: lead.platform || '',
-        date: lead.date || new Date().toLocaleString(),
-        status: lead.status || 'Active Lead'
-      }
-    };
-
-    try {
-      await fetch(webhookUrl.trim(), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        mode: 'no-cors'
-      });
-      console.log('[AiBotFlow Webhook] Lead payload dispatched to:', webhookUrl.trim());
-    } catch (err) {
-      console.warn('[AiBotFlow Webhook] Dispatch warning:', err);
-    }
-  }
-
   // Save Lead Function
   function saveLeadRecord(lead) {
     let leads = [];
@@ -937,11 +937,16 @@ function initDownloadFlow() {
   // Handle Gate Form Submission
   gateForm?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = document.getElementById('gate-name').value.trim();
-    const phone = document.getElementById('gate-phone').value.trim();
-    const studio = document.getElementById('gate-studio').value.trim();
-    const email = document.getElementById('gate-email').value.trim();
-    const chosenOs = activeGateOs;
+    const nameEl = document.getElementById('gate-name');
+    const phoneEl = document.getElementById('gate-phone');
+    const studioEl = document.getElementById('gate-studio');
+    const emailEl = document.getElementById('gate-email');
+
+    const name = nameEl ? nameEl.value.trim() : '';
+    const phone = phoneEl ? phoneEl.value.trim() : '';
+    const studio = studioEl ? studioEl.value.trim() : '';
+    const email = emailEl ? emailEl.value.trim() : '';
+    const chosenOs = activeGateOs || 'mac';
     const trialKey = 'APF-TRIAL-' + Math.floor(1000 + Math.random() * 9000) + '-2026';
 
     const leadData = {
@@ -956,29 +961,31 @@ function initDownloadFlow() {
       status: 'Active 1-Day Trial'
     };
 
-    // Save lead to CRM and session
-    let leads = [];
+    // 1. Save lead to CRM and session
     try {
-      leads = JSON.parse(localStorage.getItem('photoFlowLeads')) || [];
+      let leads = JSON.parse(localStorage.getItem('photoFlowLeads')) || [];
+      const existingIndex = leads.findIndex(l => l.email === leadData.email);
+      if (existingIndex >= 0) {
+        leads[existingIndex] = { ...leads[existingIndex], ...leadData, lastActive: new Date().toISOString() };
+      } else {
+        leads.unshift(leadData);
+      }
+      localStorage.setItem('photoFlowLeads', JSON.stringify(leads));
+      localStorage.setItem('photoFlowUser', JSON.stringify(leadData));
     } catch (err) {
-      leads = [];
+      console.warn('LocalStorage save warning:', err);
     }
-    const existingIndex = leads.findIndex(l => l.email === leadData.email);
-    if (existingIndex >= 0) {
-      leads[existingIndex] = { ...leads[existingIndex], ...leadData, lastActive: new Date().toISOString() };
-    } else {
-      leads.unshift(leadData);
+
+    // 2. Real-time dispatch to Ai BotFlow / CRM Webhook (safe, non-blocking)
+    try {
+      if (typeof dispatchLeadToWebhook === 'function') {
+        dispatchLeadToWebhook(leadData);
+      }
+    } catch (err) {
+      console.warn('Webhook dispatch warning:', err);
     }
-    localStorage.setItem('photoFlowLeads', JSON.stringify(leads));
-    localStorage.setItem('photoFlowUser', JSON.stringify(leadData));
 
-    // Real-time dispatch to Ai BotFlow / CRM Webhook
-    dispatchLeadToWebhook(leadData);
-
-    // Immediately trigger file download after taking inputs
-    triggerDownload(chosenOs);
-
-    // Switch to success view inside modal
+    // 3. Switch to success view inside modal
     if (gateFormView) gateFormView.style.display = 'none';
     if (gateSuccessView) gateSuccessView.style.display = 'block';
 
@@ -1006,6 +1013,9 @@ function initDownloadFlow() {
       gateAltOsLink.setAttribute('download', altFileName);
       gateAltOsLink.onclick = null;
     }
+
+    // 4. Immediately trigger file download!
+    triggerDownload(chosenOs);
 
     showToast(`✓ Downloading Ai PhotoFlow for ${chosenOs === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'}...`, 'success');
   });
