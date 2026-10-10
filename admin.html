@@ -162,10 +162,11 @@
       </div>
 
       <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
-        <input type="url" id="admin-webhook-url" class="form-input" placeholder="https://api.aibotflow.com/v1/webhook/... ya apna CRM Webhook URL dalein" style="flex: 1; min-width: 280px; font-size: 0.88rem;">
-        <button type="button" id="admin-save-webhook-btn" class="btn btn-primary btn-sm" style="white-space: nowrap;">💾 Save Webhook</button>
-        <button type="button" id="admin-test-webhook-btn" class="btn btn-outline btn-sm" style="white-space: nowrap; border-color: rgba(16, 185, 129, 0.5); color: #34d399;">🚀 Send Test Lead</button>
+        <input type="text" id="admin-webhook-url" class="form-input" placeholder="https://api.aibotflow.com/v1/webhook/... ya apna CRM Webhook URL dalein" style="flex: 1; min-width: 280px; font-size: 0.88rem;">
+        <button type="button" id="admin-save-webhook-btn" class="btn btn-primary btn-sm" style="white-space: nowrap; cursor: pointer;">💾 Save Webhook</button>
+        <button type="button" id="admin-test-webhook-btn" class="btn btn-outline btn-sm" style="white-space: nowrap; border-color: rgba(16, 185, 129, 0.5); color: #34d399; cursor: pointer;">🚀 Send Test Lead</button>
       </div>
+      <div id="admin-webhook-feedback" style="display: none; font-size: 0.85rem; font-weight: 600; padding: 0.5rem 0.75rem; border-radius: 6px; margin-top: 0.6rem;"></div>
       <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 0.5rem;">
         💡 <strong>Live Dispatch:</strong> Webhook URL daal kar 'Save Webhook' dabayein. Har user registration seedha is URL par real-time JSON format me POST ho jayegi.
       </div>
@@ -266,28 +267,162 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20261010b" defer></script>
+  <script src="js/main.js?v=20261010c" defer></script>
   <script>
     // Password Gate Check
     const gate = document.getElementById('admin-gate');
     const gateForm = document.getElementById('admin-gate-form');
     const passInput = document.getElementById('admin-pass');
 
-    // Check if already authenticated this session
     if (sessionStorage.getItem('adminAuthed') === 'true') {
-      gate.style.display = 'none';
+      if (gate) gate.style.display = 'none';
     }
 
     gateForm?.addEventListener('submit', (e) => {
       e.preventDefault();
       if (passInput.value === 'quickart2026' || passInput.value === 'anil2026') {
         sessionStorage.setItem('adminAuthed', 'true');
-        gate.style.display = 'none';
-        showToast('Admin Portal Unlocked!', 'success');
+        if (gate) gate.style.display = 'none';
+        if (typeof showToast === 'function') showToast('Admin Portal Unlocked!', 'success');
       } else {
         alert('Incorrect Master Password. Try: quickart2026');
       }
     });
+
+    // Dedicated Direct Webhook Manager (Self-Contained & Instant)
+    (function initDirectWebhook() {
+      const webhookInput = document.getElementById('admin-webhook-url');
+      const btnSave = document.getElementById('admin-save-webhook-btn');
+      const btnTest = document.getElementById('admin-test-webhook-btn');
+      const badge = document.getElementById('admin-webhook-badge');
+      const feedback = document.getElementById('admin-webhook-feedback');
+
+      function showFeedback(msg, isSuccess) {
+        if (!feedback) return;
+        feedback.style.display = 'block';
+        feedback.style.background = isSuccess ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)';
+        feedback.style.border = isSuccess ? '1px solid #10b981' : '1px solid #ef4444';
+        feedback.style.color = isSuccess ? '#34d399' : '#f87171';
+        feedback.textContent = msg;
+      }
+
+      function updateBadge() {
+        const saved = (localStorage.getItem('photoFlowCrmWebhookUrl') || '').trim();
+        if (webhookInput && saved) webhookInput.value = saved;
+        if (badge) {
+          if (saved) {
+            badge.textContent = '🟢 Webhook Active (Connected)';
+            badge.style.background = 'rgba(16, 185, 129, 0.2)';
+            badge.style.color = '#34d399';
+            badge.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+          } else {
+            badge.textContent = '⚪ Webhook Not Configured';
+            badge.style.background = 'rgba(100, 116, 139, 0.2)';
+            badge.style.color = 'var(--text-muted)';
+            badge.style.borderColor = 'var(--border-subtle)';
+          }
+        }
+      }
+
+      updateBadge();
+
+      // Save Webhook
+      btnSave?.addEventListener('click', (e) => {
+        e.preventDefault();
+        let url = (webhookInput ? webhookInput.value : '').trim();
+        if (!url) {
+          localStorage.removeItem('photoFlowCrmWebhookUrl');
+          updateBadge();
+          showFeedback('ℹ️ Webhook URL has been cleared.', false);
+          return;
+        }
+
+        // Auto-fix URL scheme if missing
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          url = 'https://' + url;
+          if (webhookInput) webhookInput.value = url;
+        }
+
+        localStorage.setItem('photoFlowCrmWebhookUrl', url);
+        updateBadge();
+        btnSave.textContent = '✅ Saved!';
+        btnSave.style.background = '#10b981';
+        setTimeout(() => {
+          btnSave.textContent = '💾 Save Webhook';
+          btnSave.style.background = '';
+        }, 2500);
+
+        showFeedback('✅ Webhook saved successfully! All new registrations will be sent to this endpoint.', true);
+        if (typeof showToast === 'function') showToast('✓ Ai BotFlow Webhook Saved!', 'success');
+      });
+
+      // Send Test Lead
+      btnTest?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        let url = (webhookInput ? webhookInput.value : '').trim();
+        if (!url) {
+          url = (localStorage.getItem('photoFlowCrmWebhookUrl') || '').trim();
+        }
+
+        if (!url) {
+          showFeedback('⚠️ Pehle upar apna Ai BotFlow / CRM Webhook URL dalein aur Save karein!', false);
+          alert('Pehle apna Ai BotFlow / CRM Webhook URL enter karein!');
+          return;
+        }
+
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          url = 'https://' + url;
+          if (webhookInput) webhookInput.value = url;
+        }
+
+        btnTest.disabled = true;
+        btnTest.textContent = '⏳ Sending Ping...';
+        showFeedback('⏳ Sending sample test lead to your CRM...', true);
+
+        const testPayload = {
+          source: 'Ai PhotoFlow Website (Admin Test)',
+          event: 'test_lead_ping',
+          timestamp: new Date().toISOString(),
+          lead: {
+            id: 'TEST-LEAD-' + Math.floor(1000 + Math.random() * 9000),
+            name: 'Anil Sharma Studio (Test Connection)',
+            phone: '9939800780',
+            studio: 'Quick Art Photography Academy',
+            email: 'support@quickartphotography.in',
+            platform: 'macOS & Windows',
+            date: new Date().toLocaleString(),
+            status: 'Webhook Ping Successful'
+          }
+        };
+
+        try {
+          await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(testPayload),
+            mode: 'no-cors'
+          });
+
+          btnTest.textContent = '✅ Sent!';
+          btnTest.style.borderColor = '#10b981';
+          btnTest.style.color = '#10b981';
+          setTimeout(() => {
+            btnTest.disabled = false;
+            btnTest.textContent = '🚀 Send Test Lead';
+            btnTest.style.borderColor = '';
+            btnTest.style.color = '';
+          }, 3000);
+
+          showFeedback('✅ Test lead payload successfully dispatched! Check your Ai BotFlow / CRM webhook log.', true);
+          if (typeof showToast === 'function') showToast('✓ Test lead sent to CRM!', 'success');
+        } catch (err) {
+          btnTest.disabled = false;
+          btnTest.textContent = '🚀 Send Test Lead';
+          showFeedback('❌ Webhook error: ' + (err.message || 'Failed to dispatch'), false);
+          alert('Webhook error: ' + err.message);
+        }
+      });
+    })();
   </script>
 </body>
 </html>
