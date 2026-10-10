@@ -1416,10 +1416,10 @@ function initAdminPortal() {
           role: 'Quick Art Photography Academy',
           city: 'Siwan, Bihar',
           phone: '9939800780',
-          expectedLeads: '31+ Studios (Platinum Tier - 40%)',
+          expectedLeads: '31+ Studios (Platinum Tier - 30%)',
           payoutUpi: '9939800780@ybl',
           referralLink: 'https://photoflow.quickartphotography.in/?ref=PF-ANIL-4001',
-          status: 'Founding Partner (40%)'
+          status: 'Founding Partner (30%)'
         },
         {
           id: 'PF-RAVI-4022',
@@ -1427,10 +1427,10 @@ function initAdminPortal() {
           role: 'Photo Lab & Album Hub Owner',
           city: 'Hyderabad, TS',
           phone: '9849012345',
-          expectedLeads: '16 to 30+ Studios (Gold Tier - 30%)',
+          expectedLeads: '16 to 30+ Studios (Gold Tier - 25%)',
           payoutUpi: 'ravilab@oksbi',
           referralLink: 'https://photoflow.quickartphotography.in/?ref=PF-RAVI-4022',
-          status: 'Active Partner (30%)'
+          status: 'Active Partner (25%)'
         }
       ];
       localStorage.setItem('photoFlowAgentLeads', JSON.stringify(agentLeads));
@@ -1455,7 +1455,7 @@ function initAdminPortal() {
           <td><span class="badge badge-gold" style="font-size: 0.72rem;">${agent.expectedLeads || 'Gold Partner'}</span></td>
           <td style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent-cyan);">${agent.payoutUpi || 'Pending UPI'}</td>
           <td>
-            <span class="badge badge-emerald" style="font-size: 0.72rem;">Active (40%)</span>
+            <span class="badge badge-emerald" style="font-size: 0.72rem;">Active (30%)</span>
           </td>
         `;
         agentsTableBody.appendChild(tr);
@@ -1544,7 +1544,7 @@ function initRoiCalculator() {
 }
 
 /* ==========================================================================
-   11. MARKETING AGENT & REFERRAL CALCULATOR & APPLICATION ENGINE (40%)
+   11. MARKETING AGENT & REFERRAL CALCULATOR & APPLICATION ENGINE (30%)
    ========================================================================== */
 function initAffiliateCalculator() {
   const slider = document.getElementById('aff-studios-range');
@@ -1563,7 +1563,7 @@ function initAffiliateCalculator() {
     const count = parseInt(slider.value, 10);
     if (studiosVal) studiosVal.textContent = `${count} Studios`;
 
-    // Tier determination
+    // Tier determination (Silver: 20%, Gold: 25%, Platinum: 30%)
     let rate = 0.20;
     let badgeText = '🥉 Silver Agent (20% Share)';
     let badgeColor = 'rgba(148, 163, 184, 0.2)';
@@ -1571,14 +1571,14 @@ function initAffiliateCalculator() {
     let textColor = '#cbd5e1';
 
     if (count > 30) {
-      rate = 0.40;
-      badgeText = '🥇 Platinum Elite (40% Share)';
+      rate = 0.30;
+      badgeText = '🥇 Platinum Elite (30% Share)';
       badgeColor = 'rgba(0, 194, 255, 0.2)';
       badgeBorder = 'rgba(0, 194, 255, 0.5)';
       textColor = '#38bdf8';
     } else if (count > 10) {
-      rate = 0.30;
-      badgeText = '🥈 Gold Partner (30% Share)';
+      rate = 0.25;
+      badgeText = '🥈 Gold Partner (25% Share)';
       badgeColor = 'rgba(245, 158, 11, 0.2)';
       badgeBorder = 'rgba(245, 158, 11, 0.5)';
       textColor = '#fbbf24';
@@ -1649,7 +1649,7 @@ function initAffiliateForm() {
       payoutUpi: upi,
       referralLink,
       registeredAt: new Date().toLocaleString('en-IN'),
-      status: 'Active Marketing Partner (Up to 40%)'
+      status: 'Active Marketing Partner (Up to 30%)'
     };
 
     // Save to localStorage
