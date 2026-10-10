@@ -835,8 +835,8 @@ function initDownloadFlow() {
             Your Ai PhotoFlow installer is now downloading automatically.
           </p>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.75rem;">
-            <a id="gate-redownload-link" href="#" class="btn btn-primary btn-sm" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">⬇️ Download Again</a>
-            <a id="gate-alt-os-link" href="#" class="btn btn-outline btn-sm" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">Switch OS Download</a>
+            <a id="gate-redownload-link" href="https://aiphotoflow.in/downloads/Ai-PhotoFlow-1.0.0-arm64.dmg" download class="btn btn-primary btn-sm" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">⬇️ Download Again</a>
+            <a id="gate-alt-os-link" href="https://aiphotoflow.in/downloads/Ai-PhotoFlow-Setup-1.0.0.exe" download class="btn btn-outline btn-sm" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">Switch OS Download</a>
           </div>
           <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 1.25rem;">
             Need installation assistance? Direct WhatsApp: <a href="https://wa.me/919939800780" target="_blank" style="color: #25d366; font-weight: 600;">+91 9939800780</a>
@@ -986,8 +986,17 @@ function initDownloadFlow() {
       gateSuccessDesc.textContent = `Your Ai PhotoFlow installer for ${chosenOs === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'} is now downloading automatically.`;
     }
 
+    const macDownloadUrl = 'https://aiphotoflow.in/downloads/Ai-PhotoFlow-1.0.0-arm64.dmg';
+    const winDownloadUrl = 'https://aiphotoflow.in/downloads/Ai-PhotoFlow-Setup-1.0.0.exe';
+    const chosenDownloadUrl = chosenOs === 'mac' ? macDownloadUrl : winDownloadUrl;
+    const chosenFileName = chosenOs === 'mac' ? 'Ai-PhotoFlow-1.0.0-arm64.dmg' : 'Ai-PhotoFlow-Setup-1.0.0.exe';
+    const altOs = chosenOs === 'mac' ? 'win' : 'mac';
+    const altDownloadUrl = altOs === 'mac' ? macDownloadUrl : winDownloadUrl;
+    const altFileName = altOs === 'mac' ? 'Ai-PhotoFlow-1.0.0-arm64.dmg' : 'Ai-PhotoFlow-Setup-1.0.0.exe';
+
     if (gateRedownloadLink) {
-      gateRedownloadLink.href = '#';
+      gateRedownloadLink.href = chosenDownloadUrl;
+      gateRedownloadLink.setAttribute('download', chosenFileName);
       gateRedownloadLink.onclick = (ev) => {
         ev.preventDefault();
         triggerDownload(chosenOs);
@@ -995,9 +1004,9 @@ function initDownloadFlow() {
     }
 
     if (gateAltOsLink) {
-      const altOs = chosenOs === 'mac' ? 'win' : 'mac';
       gateAltOsLink.textContent = altOs === 'win' ? 'Download for Windows (.exe)' : 'Download for macOS (.dmg)';
-      gateAltOsLink.href = '#';
+      gateAltOsLink.href = altDownloadUrl;
+      gateAltOsLink.setAttribute('download', altFileName);
       gateAltOsLink.onclick = (ev) => {
         ev.preventDefault();
         triggerDownload(altOs);
