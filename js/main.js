@@ -1665,7 +1665,7 @@ function initAffiliateForm() {
     if (displayLink) displayLink.textContent = referralLink;
     if (waShareBtn) {
       const waText = encodeURIComponent(
-        `Hi! I have started using Ai PhotoFlow — India's fastest AI post-production desktop software for wedding photographers. It culls 10,000 RAW photos in 15 mins with Indian skin tone protection. Use my partner link to get a 1-day free pass + 10% OFF: ${referralLink}`
+        `Hi! I have started using Ai PhotoFlow — India's fastest AI post-production desktop software for wedding photographers. It culls & edits 2,000 RAW photos in 15 mins with Indian skin tone protection. Use my partner link to get a 1-day free pass + 10% OFF: ${referralLink}`
       );
       waShareBtn.href = `https://wa.me/?text=${waText}`;
     }
