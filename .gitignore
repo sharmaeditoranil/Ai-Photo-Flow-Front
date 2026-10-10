@@ -9,3 +9,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.zip
+downloads/
+*.dmg
+*.exe

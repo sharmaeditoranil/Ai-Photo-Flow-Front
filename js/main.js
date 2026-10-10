@@ -726,7 +726,102 @@ function initDownloadFlow() {
     platformBadge.textContent = isMac ? 'Apple Silicon Mac Detected • 1-Day Trial' : 'Windows 10/11 64-bit Detected • 1-Day Trial';
   }
 
-  // --- Mandatory Lead Gate Modal Logic before downloading on Home Page ---
+  // Inject modal dynamically if absent on this page
+  if (!document.getElementById('download-gate-modal')) {
+    const modalDiv = document.createElement('div');
+    modalDiv.id = 'download-gate-modal';
+    modalDiv.className = 'modal-overlay';
+    modalDiv.innerHTML = `
+      <div class="modal-container download-gate-container">
+        <button class="modal-close-btn" id="gate-modal-close-btn" aria-label="Close dialog">✕</button>
+        <div id="gate-form-view">
+          <div class="modal-header" style="text-align: center; margin-bottom: 1.5rem;">
+            <img src="assets/images/app-icon.png" alt="Ai PhotoFlow Logo" style="width: 52px; height: 52px; border-radius: 12px; margin: 0 auto 0.75rem;">
+            <h3 id="gate-modal-title" style="font-size: 1.5rem; margin-bottom: 0.35rem; color: #fff;">Download Ai PhotoFlow</h3>
+            <p id="gate-modal-subtitle" style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+              Enter your studio details below to activate your <strong>1-Day Free Trial</strong> and start your download immediately.
+            </p>
+            <div class="gate-os-toggle">
+              <button type="button" class="gate-os-pill active" id="gate-pill-mac" data-target-os="mac">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.65-.98 1.7-.86 2.73 1.01.08 2.04-.52 2.57-1.23z" />
+                </svg>
+                <span>macOS (.dmg)</span>
+              </button>
+              <button type="button" class="gate-os-pill" id="gate-pill-win" data-target-os="win">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.751" />
+                </svg>
+                <span>Windows (.exe)</span>
+              </button>
+            </div>
+          </div>
+          <form id="download-gate-form">
+            <div class="form-row-dual">
+              <div class="form-group">
+                <label class="form-label" for="gate-name">Full Name *</label>
+                <input type="text" id="gate-name" class="form-input" placeholder="e.g. Anil Sharma" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="gate-phone">WhatsApp Number *</label>
+                <input type="tel" id="gate-phone" class="form-input" placeholder="e.g. 9939800780" required>
+              </div>
+            </div>
+            <div class="form-row-dual">
+              <div class="form-group">
+                <label class="form-label" for="gate-studio">Studio / Firm Name *</label>
+                <input type="text" id="gate-studio" class="form-input" placeholder="e.g. Quick Art Photography" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="gate-email">Email Address *</label>
+                <input type="email" id="gate-email" class="form-input" placeholder="e.g. studio@quickart.in" required>
+              </div>
+            </div>
+            <button type="submit" id="gate-submit-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.75rem;">
+              <span>Start 1-Day Free Trial & Download (.dmg) →</span>
+            </button>
+            <div class="gate-trust-strip">
+              <span>🔒 100% Free 1-Day Trial</span>
+              <span>⚡ Instant Direct Download</span>
+              <span>🚫 No Credit Card Needed</span>
+            </div>
+          </form>
+        </div>
+        <div id="gate-success-view" style="display: none; text-align: center; padding: 1rem 0.5rem;">
+          <div class="success-icon-wrap" style="width: 64px; height: 64px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h3 style="font-size: 1.6rem; color: #fff; margin-bottom: 0.5rem;">Download Started!</h3>
+          <p id="gate-success-desc" style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+            Your Ai PhotoFlow installer is now downloading. Here is your 1-day offline trial license key:
+          </p>
+          <div class="trial-key-card" style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-glow); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.75rem;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 1px;">
+              1-Day Trial Activation Key
+            </div>
+            <div id="gate-trial-key-display" style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: 1.5px; margin-bottom: 0.75rem;">
+              APF-TRIAL-8924-2026
+            </div>
+            <button type="button" id="gate-copy-key-btn" class="btn btn-outline btn-sm" style="font-size: 0.8rem;">
+              📋 Copy License Key
+            </button>
+          </div>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <a id="gate-redownload-link" href="#" class="btn btn-primary btn-sm">⬇️ Download Again</a>
+            <a id="gate-alt-os-link" href="#" class="btn btn-outline btn-sm">Switch OS Download</a>
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+            Need installation assistance? Direct WhatsApp: <a href="https://wa.me/919939800780" target="_blank" style="color: #25d366; font-weight: 600;">+91 9939800780</a>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modalDiv);
+  }
+
+  // --- Mandatory Lead Gate Modal Logic before downloading on Any Page ---
   const gateModal = document.getElementById('download-gate-modal');
   const gateFormView = document.getElementById('gate-form-view');
   const gateSuccessView = document.getElementById('gate-success-view');
@@ -763,12 +858,7 @@ function initDownloadFlow() {
   gatePillWin?.addEventListener('click', () => setGateOs('win'));
 
   function openGateModal(targetOs) {
-    if (!gateModal) {
-      // Fallback: direct download if gate modal element absent on this page
-      triggerDownload(targetOs === 'auto' ? (isMac ? 'mac' : 'win') : targetOs);
-      return;
-    }
-    const os = targetOs === 'auto' ? (isMac ? 'mac' : 'win') : targetOs;
+    const os = (!targetOs || targetOs === 'auto') ? (isMac ? 'mac' : 'win') : targetOs;
     setGateOs(os);
 
     if (gateFormView) gateFormView.style.display = 'block';
@@ -789,7 +879,7 @@ function initDownloadFlow() {
       }
     } catch (e) {}
 
-    gateModal.classList.add('active');
+    gateModal?.classList.add('active');
   }
 
   function closeGateModal() {
@@ -801,13 +891,20 @@ function initDownloadFlow() {
     if (e.target === gateModal) closeGateModal();
   });
 
-  // Wire up all .btn-download-trigger elements on Home Page & Navbar
-  const downloadTriggers = document.querySelectorAll('.btn-download-trigger');
-  downloadTriggers.forEach(btn => {
+  // Wire up all .btn-download-trigger elements across the site
+  document.querySelectorAll('.btn-download-trigger').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const os = btn.dataset.os || (btn.classList.contains('btn-download-win') ? 'win' : 'mac');
+      const os = btn.dataset.os || (btn.classList.contains('btn-download-win') ? 'win' : (btn.classList.contains('btn-download-mac') ? 'mac' : 'auto'));
       openGateModal(os);
+    });
+  });
+
+  // Wire up Top Bar CTA buttons on every page
+  document.querySelectorAll('.top-bar-cta').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openGateModal('auto');
     });
   });
 
@@ -849,7 +946,7 @@ function initDownloadFlow() {
     localStorage.setItem('photoFlowLeads', JSON.stringify(leads));
     localStorage.setItem('photoFlowUser', JSON.stringify(leadData));
 
-    // Immediately trigger file download
+    // Immediately trigger file download after taking inputs
     triggerDownload(chosenOs);
 
     // Switch to success view inside modal
@@ -863,14 +960,10 @@ function initDownloadFlow() {
       gateSuccessDesc.textContent = `Your Ai PhotoFlow installer for ${chosenOs === 'mac' ? 'macOS (.dmg)' : 'Windows (.exe)'} is now downloading automatically.`;
     }
 
-    const MAC_DL_URL = 'https://drive.usercontent.google.com/download?id=132d-eGVm673RqYxOfnIugI6BMZnyYCpJ&export=download&authuser=0&confirm=t';
-    const WIN_DL_URL = 'https://drive.usercontent.google.com/download?id=1MWutBvnOpd_QwvLXFNMFOA8Uffgykos_&export=download&authuser=0&confirm=t';
-
     if (gateRedownloadLink) {
-      gateRedownloadLink.href = chosenOs === 'mac' ? MAC_DL_URL : WIN_DL_URL;
-      gateRedownloadLink.target = '_blank';
-      gateRedownloadLink.rel = 'noopener noreferrer';
+      gateRedownloadLink.href = '#';
       gateRedownloadLink.onclick = (ev) => {
+        ev.preventDefault();
         triggerDownload(chosenOs);
       };
     }
@@ -878,10 +971,9 @@ function initDownloadFlow() {
     if (gateAltOsLink) {
       const altOs = chosenOs === 'mac' ? 'win' : 'mac';
       gateAltOsLink.textContent = altOs === 'win' ? 'Download for Windows (.exe)' : 'Download for macOS (.dmg)';
-      gateAltOsLink.href = altOs === 'mac' ? MAC_DL_URL : WIN_DL_URL;
-      gateAltOsLink.target = '_blank';
-      gateAltOsLink.rel = 'noopener noreferrer';
+      gateAltOsLink.href = '#';
       gateAltOsLink.onclick = (ev) => {
+        ev.preventDefault();
         triggerDownload(altOs);
       };
     }
@@ -910,14 +1002,16 @@ function initDownloadFlow() {
 
   // Handlers for direct download buttons on download.html
   macDownloadBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      showToast('Starting Ai PhotoFlow for macOS (.dmg) download...', 'success');
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openGateModal('mac');
     });
   });
 
   winDownloadBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      showToast('Starting Ai PhotoFlow for Windows (.exe) download...', 'success');
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openGateModal('win');
     });
   });
 
@@ -1196,7 +1290,19 @@ function initPricingToggle() {
       }
 
       showToast('🎉 Payment Confirmed! License Issued.', 'success');
+
+      // Automatically trigger app download after capturing paid lead details
+      const userPlatform = (navigator.platform.toUpperCase().includes('MAC') || navigator.userAgent.includes('Mac')) ? 'mac' : 'win';
+      setTimeout(() => {
+        triggerDownload(userPlatform);
+      }, 600);
     }, 1200);
+  });
+
+  // Direct Download Button on Razorpay Success Screen
+  document.getElementById('rzp-direct-dl-btn')?.addEventListener('click', () => {
+    const userPlatform = (navigator.platform.toUpperCase().includes('MAC') || navigator.userAgent.includes('Mac')) ? 'mac' : 'win';
+    triggerDownload(userPlatform);
   });
 
   // Copy License Key Button
