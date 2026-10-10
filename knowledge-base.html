@@ -492,212 +492,290 @@
         </div>
         <ul class="kb-nav-list">
           <li><a href="#quickstart" class="kb-nav-link active">1. Quickstart & Installation</a></li>
-          <li><a href="#raw-ingestion" class="kb-nav-link">2. RAW Decoding & Ingestion</a></li>
-          <li><a href="#culling-engine" class="kb-nav-link">3. AI Culling & Blinks</a></li>
-          <li><a href="#duplicate-burst" class="kb-nav-link">4. Duplicate Winner Selection</a></li>
-          <li><a href="#color-engine" class="kb-nav-link">5. Color Engine & Vibrance</a></li>
-          <li><a href="#batch-export" class="kb-nav-link">6. Multi-Layer Export</a></li>
-          <li><a href="#licensing" class="kb-nav-link">7. Cryptographic Licensing</a></li>
-          <li><a href="#shortcuts" class="kb-nav-link">8. Keyboard Shortcuts</a></li>
-          <li><a href="#troubleshooting" class="kb-nav-link">9. Troubleshooting & FAQ</a></li>
+          <li><a href="#architecture" class="kb-nav-link">2. System Architecture & Privacy</a></li>
+          <li><a href="#raw-ingestion" class="kb-nav-link">3. 16-Bit RAW Engine</a></li>
+          <li><a href="#culling-engine" class="kb-nav-link">4. AI Culling & Categories</a></li>
+          <li><a href="#auto-edit" class="kb-nav-link">5. Auto Edit & Pure Light</a></li>
+          <li><a href="#skin-engine" class="kb-nav-link">6. Skin Colour Lock & Glow</a></li>
+          <li><a href="#viewer-healing" class="kb-nav-link">7. Fullscreen Before/After & Heal</a></li>
+          <li><a href="#client-proofing" class="kb-nav-link">8. Client Albums & Auto-Clean</a></li>
+          <li><a href="#album-reattach" class="kb-nav-link">9. Re-attaching Removed Albums</a></li>
+          <li><a href="#licensing" class="kb-nav-link">10. Ed25519 Offline Licensing</a></li>
+          <li><a href="#shortcuts" class="kb-nav-link">11. Keyboard Shortcuts</a></li>
+          <li><a href="#troubleshooting" class="kb-nav-link">12. Troubleshooting & Diagnostics</a></li>
         </ul>
       </aside>
 
       <!-- Main Content -->
       <main>
-        <!-- 1. Quickstart -->
+        <!-- 1. Quickstart & Installation -->
         <article id="quickstart" class="kb-content-card">
           <h2>1. Quickstart & Installation Guide</h2>
           <p>
-            Ai PhotoFlow is engineered as a standalone native desktop application with bundled local Python multiprocessing 
-            runtimes, OpenCV, and LibRaw binaries. No external Python installation is required.
+            Ai PhotoFlow is a high-performance native desktop application engineered with bundled local Python multiprocessing runtimes, LibRaw 16-bit decoding, and OpenCV. It operates 100% locally on your machine's hardware with no external environment setup needed.
           </p>
 
           <h3>macOS Setup (Apple Silicon M1 / M2 / M3 / M4)</h3>
           <p>
             1. Download <code>Ai PhotoFlow-1.0.0-arm64.dmg</code>.<br>
             2. Double-click the DMG and drag <strong>Ai PhotoFlow</strong> into your <code>/Applications</code> folder.<br>
-            3. On first launch, if prompted by macOS Gatekeeper: Right-click &gt; Open, or allow in <em>System Settings &gt; Privacy & Security</em>.<br>
-            4. Launch the app and grant Read/Write disk permissions to your external editing SSDs.
+            3. On first launch, if prompted by macOS Gatekeeper: Right-click &gt; Open, or click "Open Anyway" in <em>System Settings &gt; Privacy & Security</em>.<br>
+            4. Launch the app and grant Full Disk Access to your external editing SSDs.<br>
+            5. Starts automatically with a <strong>1-Day Unrestricted Free Trial</strong> (1 machine per customer).
           </p>
 
           <h3>Windows Setup (Windows 10 / 11 64-bit)</h3>
           <p>
             1. Download <code>Ai PhotoFlow Setup 1.0.0.exe</code>.<br>
-            2. Run the installer and choose your installation directory.<br>
+            2. Run the installer and choose your installation path (bundled with embedded Python 3.10).<br>
             3. If Windows SmartScreen displays "Windows protected your PC", click <em>More Info &gt; Run Anyway</em>.<br>
             4. Launch Ai PhotoFlow from the desktop shortcut.
           </p>
         </article>
 
-        <!-- 2. RAW Ingestion -->
-        <article id="raw-ingestion" class="kb-content-card">
-          <h2>2. RAW Camera Ingestion & Tiered Previews</h2>
+        <!-- 2. System Architecture & Privacy -->
+        <article id="architecture" class="kb-content-card">
+          <h2>2. System Architecture & 100% Offline Privacy</h2>
           <p>
-            Ai PhotoFlow reads high-bitdepth RAW sensor data non-destructively. Your original camera files are NEVER modified, overwritten, or moved.
+            Ai PhotoFlow follows an uncompromising offline-first philosophy: <strong>your client photos never leave your computer</strong>. All computer vision models, LibRaw debayering, skin masking, and color calibrations execute on your local CPU & GPU.
           </p>
+          <pre>
+Photographer's Computer (Mac / Windows)               Hostinger Cloud Server (license.aiphotoflow.in)
+┌──────────────────────────────────────────┐  HTTPS  ┌──────────────────────────────────────────┐
+│ Electron Desktop App (React UI)          │ ──────▶ │ License Server (PHP + SQLite)            │
+│   └─ Local Backend (Python FastAPI)      │         │   Ed25519 Token Signing · Razorpay Orders│
+│       Culling · Editing · RAW · Export   │         │   Data safely outside public_html        │
+│       Data: ~/.photoflow/photoflow.db    │  Token  ├──────────────────────────────────────────┤
+│       Original files NEVER modified      │ ──────▶ │ Client Album Server (/album/)            │
+└──────────────────────────────────────────┘         │   Watermarked previews · Auto-cleans 7d  │
+                                                     └──────────────────────────────────────────┘
+          </pre>
+          <h3>App Data Locations:</h3>
+          <p>
+            • <strong>macOS:</strong> <code>~/.photoflow/</code> (stores <code>photoflow.db</code>, <code>cache/</code>, <code>backend.log</code>)<br>
+            • <strong>Windows:</strong> <code>C:\Users\&lt;username&gt;\.photoflow\</code><br>
+            • <strong>Original Photos:</strong> Kept 100% read-only. Edits are recorded non-destructively in SQLite.
+          </p>
+        </article>
 
+        <!-- 3. RAW Camera Ingestion -->
+        <article id="raw-ingestion" class="kb-content-card">
+          <h2>3. 16-Bit RAW Engine & Format Support</h2>
+          <p>
+            Equipped with native LibRaw debayering, Ai PhotoFlow reads 14-bit and 16-bit camera sensor data without compression artifacts or cloud conversion delay.
+          </p>
           <h3>Supported Camera Formats</h3>
           <p>
-            • <strong>Sony:</strong> .ARW, .SR2 (A7IV, A7RV, A1, A9III, FX3, A7SIII)<br>
-            • <strong>Canon:</strong> .CR2, .CR3 (EOS R5, R6 Mark II, R3, 5D Mark IV, 1DX)<br>
-            • <strong>Nikon:</strong> .NEF, .NRW (Z8, Z9, Z6III, D850)<br>
-            • <strong>Fujifilm:</strong> .RAF (X-T5, X-H2S, GFX 100II)<br>
-            • <strong>Adobe:</strong> .DNG (Leica, Drone, and converted files)<br>
+            • <strong>Sony:</strong> .ARW, .SR2 (A7IV, A7RV, A1, A9III, FX3, A7SIII, A7C II)<br>
+            • <strong>Canon:</strong> .CR2, .CR3 (EOS R5, R5 Mark II, R6 II, R3, 5D Mark IV, 1DX Mark III)<br>
+            • <strong>Nikon:</strong> .NEF, .NRW (Z8, Z9, Z6III, Zf, D850)<br>
+            • <strong>Fujifilm:</strong> .RAF (X-T5, X-H2S, GFX 100 II)<br>
+            • <strong>Adobe:</strong> .DNG (Leica, Hasselblad, DJI Drones, converted RAWs)<br>
             • <strong>Standard:</strong> .JPG, .JPEG, .PNG, .TIFF, .WEBP
           </p>
-
-          <h3>Two-Tier Preview Pipeline</h3>
-          <pre>
-1. Tier 1 (EXIF Buffer Extract): Sub-15ms generation for instant 10,000 photo grid scrolling.
-2. Tier 2 (Linear Proxy Cache): Half-sized linear proxies stored in .photoflow_cache/ for 100% pixel loupe inspection.
-          </pre>
+          <h3>Highlight Roll-Off & Exposure Matching</h3>
+          <p>
+            Raw sensor inputs are matched to camera embedded preview profiles with highlight roll-off protection, ensuring delicate bridal lehenga embroidery, silk textures, and stage lighting details remain preserved.
+          </p>
         </article>
 
-        <!-- 3. Culling Engine -->
+        <!-- 4. AI Culling Categories -->
         <article id="culling-engine" class="kb-content-card">
-          <h2>3. AI Culling & Micro-Expression Detection</h2>
+          <h2>4. AI Culling Categories & Micro-Expression Detection</h2>
           <p>
-            The culling engine evaluates each frame through a 4-tier computer vision pipeline:
+            Unlike generic photo managers that score on a single blurry slider, Ai PhotoFlow separates photos into 5 actionable studio categories:
           </p>
-          <pre>
-[RAW / JPG Image]
-       │
-       ▼
- [1. Sharpness & Motion Blur Analysis (Laplacian Variance + High-Freq Gradient)]
-       │
-       ▼
- [2. Facial Recognition & Micro-Expression (Haar + Dlib Landmarks)]
-       │  ├── Eyes Open / Closed Ratio
-       │  └── Blinking & Squint Detection
-       ▼
- [3. Dynamic Range & Exposure Clipping]
-       │  ├── Highlight Burn Check (Bridal Jewelry / Silk Whites)
-       │  └── Shadow Crush Check (Groom Tuxedo / Sherwani Blacks)
-       ▼
- [Composite Quality Score: 0.0 - 100.0] ──> BEST / PICK / REVIEW / REJECT
-          </pre>
-
-          <h3>Eye Aspect Ratio (EAR) Thresholds</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+            <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 1.25rem;">
+              <h4 style="color: #34d399; margin-bottom: 0.35rem;">1. AI Best</h4>
+              <p style="font-size: 0.85rem; color: #cbd5e1; margin: 0;">Every sharp, high-scoring photo plus the single top winner of each burst cluster.</p>
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 8px; padding: 1.25rem;">
+              <h4 style="color: #fbbf24; margin-bottom: 0.35rem;">2. Review</h4>
+              <p style="font-size: 0.85rem; color: #cbd5e1; margin: 0;">Borderline focus, ambiguous emotional expressions, or extreme backlight contrast requiring human judgment.</p>
+            </div>
+            <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 8px; padding: 1.25rem;">
+              <h4 style="color: #f87171; margin-bottom: 0.35rem;">3. Rejected</h4>
+              <p style="font-size: 0.85rem; color: #cbd5e1; margin: 0;">Clearly unusable frames: camera shake, subject motion blur, misfires, or black/white test shots.</p>
+            </div>
+            <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 8px; padding: 1.25rem;">
+              <h4 style="color: #38bdf8; margin-bottom: 0.35rem;">4. Similar Groups</h4>
+              <p style="font-size: 0.85rem; color: #cbd5e1; margin: 0;">Burst alternates and near-duplicate frames. The winner is shown in AI Best, alternates kept here.</p>
+            </div>
+            <div style="background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: 8px; padding: 1.25rem;">
+              <h4 style="color: #c084fc; margin-bottom: 0.35rem;">5. Customer Selected</h4>
+              <p style="font-size: 0.85rem; color: #cbd5e1; margin: 0;">Photos marked as favorites by clients in their online proofing album.</p>
+            </div>
+          </div>
+          <h3>Album-Size Face Focus Metric</h3>
           <p>
-            • <strong>EAR ≥ 0.25:</strong> Eyes Wide Open (High confidence)<br>
-            • <strong>0.18 ≤ EAR &lt; 0.25:</strong> Micro-squint or candid emotional moment (Review)<br>
-            • <strong>EAR &lt; 0.18:</strong> Closed Eyes / Flash Blinking (Auto-downgraded to Reject)
-          </p>
-        </article>
-
-        <!-- 4. Duplicate Burst Selection -->
-        <article id="duplicate-burst" class="kb-content-card">
-          <h2>4. Duplicate Burst Clustering & Winner Selector</h2>
-          <p>
-            When photographers capture rapid sequences of 3 to 10 frames, Ai PhotoFlow clusters them using a 3-layer perceptual similarity algorithm:
+            Sharpness is computed on full-resolution files at album scale (256px re-blur metric, independent of skin texture). In group portraits, focus is evaluated on the 2nd-best face so one lucky individual cannot pass a shaken family group.
           </p>
           <p>
-            1. <strong>Temporal Delta:</strong> Δt ≤ 3.5 seconds based on camera EXIF timestamp.<br>
-            2. <strong>Structural Gradients:</strong> 64-bit dHash and pHash difference vectors.<br>
-            3. <strong>Color Consistency:</strong> Normalized HSV histogram intersection (Threshold T ≥ 0.90).
-          </p>
-          <p>
-            Within each burst cluster, the algorithm compares facial sharpness, smile confidence, and open eyes to select the <strong>Rank 1 Winner</strong>. In the <em>AI Best</em> view, only the winner appears, eliminating 70% of visual clutter.
+            <strong>Candid Emotion Protection:</strong> Closed eyes during intense candid moments (tears during Vidai, devotional prayer, joyful bridal laughter) are recognized by our facial expression engine and maintained in <em>AI Best</em> rather than dropped to Rejected.
           </p>
         </article>
 
-        <!-- 5. Color Engine -->
-        <article id="color-engine" class="kb-content-card">
-          <h2>5. AI Color Engine & +5% Vibrance Boost</h2>
+        <!-- 5. Auto Edit Pipeline -->
+        <article id="auto-edit" class="kb-content-card">
+          <h2>5. Auto Edit Pipeline & "Pure Light" Color Science</h2>
           <p>
-            Engineered by Anil Sharma specifically to overcome the challenges of Indian wedding lighting:
+            The Auto Edit engine (default style <strong>"Pure Light"</strong>) executes a calibrated closed-loop adjustment pipeline designed specifically for mixed Indian banquet lighting:
           </p>
-          <h3>YCrCb Chrominance Isolation</h3>
           <p>
-            Human skin pixels fall within the distinct chrominance coordinates: <code>Cr ∈ [133, 173]</code> and <code>Cb ∈ [77, 127]</code>. 
-            Ai PhotoFlow constructs a real-time mask around these pixels, locking original complexions before auto-color curves are applied.
+            1. <strong>AI Skin Retouch:</strong> Heals blemishes, smooths harsh textures, and applies mattifier strictly on camera pixels gated by a per-person skin mask (eyes, lips, jewellery, and hair remain razor-sharp).<br>
+            2. <strong>AI White Balance:</strong> Grey-pixel, grey-edge, and white-patch multi-pass calibration.<br>
+            3. <strong>Clean Colour Closed-Loop:</strong> Neutral whites and greys finish slightly cool (<code>b* ≈ -1.5</code>, "halka blue"), eliminating the dirty yellow cast of tungsten banquet halogens while locking skin hue <code>≤ 50°</code>.<br>
+            4. <strong>Subject Light Balancing:</strong> Flash-burned faces are gently lowered to ~160 neutral brightness without dulling background depth.<br>
+            5. <strong>Auto Straighten:</strong> Detects dominant architecture verticals and stage horizontals, applying max 3° correction with crop-to-fill (no mirrored borders).
           </p>
-          <h3>Universal +5% Vibrance Boost</h3>
-          <pre>Vibrance_applied = clip(Vibrance_calculated + 5.0, 5.0, 35.0)</pre>
+          <h3>Built-in Signature Presets</h3>
           <p>
-            Boosts undersaturated background hues (mandap flowers, stage lighting, gold ornaments) by an extra 5% while preventing skin from turning orange or red.
-          </p>
-        </article>
-
-        <!-- 6. Batch Export -->
-        <article id="batch-export" class="kb-content-card">
-          <h2>6. Batch Multi-Layer Watermarking & Export</h2>
-          <p>
-            All exports preserve original camera files in read-only mode and output into organized directories:
-          </p>
-          <pre>
-[User Export Directory]
- ├── /AI-Selected/    <-- Best photos (original resolution or resized)
- ├── /AI-Edited/      <-- Non-destructively color-corrected and tuned
- └── /Rejected/       <-- Optional archive for record verification
-          </pre>
-          <h3>Watermark Options</h3>
-          <p>
-            • Custom PNG logos with alpha transparency or typography text.<br>
-            • 9 anchor positions: Top-Left, Center, Bottom-Right, etc.<br>
-            • Anti-theft diagonal proofing watermark for client selection galleries.
+            • <strong>Pure Light (Default):</strong> Clean Indian wedding standard with pristine whites.<br>
+            • <strong>Royal Cool Blue:</strong> High-key modern cocktail & sangeet aesthetic.<br>
+            • <strong>Warm Golden Amber:</strong> Traditional Haldi, Mehendi, and morning Phere warmth.<br>
+            • <strong>Vibrant Royal Wedding:</strong> Rich saturated reds, emeralds, and velvet tones.<br>
+            • <strong>Soft Pastel & Airy:</strong> Delicate morning portraits and outdoor pre-weddings.<br>
+            • <strong>Moody Cinematic Film:</strong> Deep contrast shadows with vintage film tone curves.<br>
+            • <strong>Clean Ivory Neutral:</strong> Minimalist editorial museum style.
           </p>
         </article>
 
-        <!-- 7. Licensing -->
+        <!-- 6. Skin Colour Lock & Glow -->
+        <article id="skin-engine" class="kb-content-card">
+          <h2>6. Skin Colour Lock & Per-Face Fill Light</h2>
+          <p>
+            Two breakthrough innovations engineered by Anil Sharma solve the biggest headaches in Indian wedding editing:
+          </p>
+          <h3>Skin Colour Lock</h3>
+          <p>
+            When cold white balance is applied to fix yellow banquets, skin complexions often turn grey, ashy, or lifeless. Ai PhotoFlow’s <strong>Skin Colour Lock</strong> isolates human skin tones (hue <code>34°–50°</code>, chroma <code>×1.04</code>) and restores rich, natural Indian complexions after the background has been cooled.
+          </p>
+          <h3>Skin Glow & Per-Face Fill Light</h3>
+          <p>
+            The <strong>Skin Glow slider (default 65 "Natural")</strong> delivers soft micro-radiance on skin highlights (+2 avg / +5 specular) combined with an intelligent <strong>fill light engine</strong> that operates only on faces cast in shade (up to +5 L*), while perfectly exposed faces remain untouched.
+          </p>
+        </article>
+
+        <!-- 7. Fullscreen Viewer & Heal -->
+        <article id="viewer-healing" class="kb-content-card">
+          <h2>7. Fullscreen Before / After Split & Heal Brush</h2>
+          <p>
+            Double-click any photo in the grid to open the fullscreen loupe inspector:
+          </p>
+          <p>
+            • <strong>Interactive Split Slider:</strong> Drag the vertical split handle (Left = Camera Original RAW, Right = AI Edited) to inspect color grading in real time. Toggle on/off via the toolbar button or backslash (<code>\</code>) key.<br>
+            • <strong>Blemish Heal Brush:</strong> Click anywhere on a subject's skin to heal acne, dark spots, or stray dust particles using localized Poisson seamless cloning.<br>
+            • <strong>Star Ratings:</strong> Assign 1 to 5 stars instantly using number keys <code>1</code> through <code>5</code>.
+          </p>
+        </article>
+
+        <!-- 8. Client Proofing Links -->
+        <article id="client-proofing" class="kb-content-card">
+          <h2>8. Client Proofing Links & 7-Day Auto-Clean Server</h2>
+          <p>
+            Eliminate sending pen drives or Google Drive folders to clients. Create instant online photo selection galleries with two clicks:
+          </p>
+          <p>
+            1. Open project &gt; Click <strong>Client Link</strong> in top bar.<br>
+            2. Choose photos, set 4-digit PIN (or Auto-Unlock Link), and enable proofing watermark.<br>
+            3. The desktop app renders lightweight watermarked proxies and uploads them securely to <code>https://license.aiphotoflow.in/album/</code>.<br>
+            4. Share the gallery link with the bride/groom. They select or reject photos directly on their iPhone, Android, or PC browser and click <strong>Submit</strong>.<br>
+            5. In the desktop app, click <strong>Sync Selections</strong>: all client picks immediately appear under the <strong>Customer Selected</strong> category.<br>
+            6. <strong>Privacy & Storage Optimization:</strong> Preview photos are automatically purged from the server <strong>7 days after the client submits</strong>, keeping server storage lightweight while your local selections remain permanent.
+          </p>
+        </article>
+
+        <!-- 9. Album Re-Attach -->
+        <article id="album-reattach" class="kb-content-card">
+          <h2>9. Auto Re-Attaching Removed Albums</h2>
+          <p>
+            If you ever delete or remove a project from your app to free up local disk space, your client proofing albums are NOT lost:
+          </p>
+          <p>
+            When you re-import the same photos (either from the original folder path or when ≥60% of file names match), Ai PhotoFlow automatically re-attaches the existing online album, restores the client link and PIN, and synchronizes any selections submitted by the client while the project was absent.
+          </p>
+        </article>
+
+        <!-- 10. Licensing & Offline Grace -->
         <article id="licensing" class="kb-content-card">
-          <h2>7. Cryptographic Licensing & Hardware Binding</h2>
+          <h2>10. Cryptographic Ed25519 Offline Licensing</h2>
           <p>
-            Licenses operate using cryptographic HMAC-SHA256 tokens bound to your machine's hardware fingerprint:
+            Ai PhotoFlow uses modern asymmetric Ed25519 cryptographic signatures for offline machine binding.
           </p>
           <p>
-            • <strong>License Format:</strong> <code>FLOW-XXXX-XXXX-XXXX-XXXX</code><br>
-            • <strong>Offline Verification:</strong> Completely valid in remote wedding venues without internet.<br>
-            • <strong>Anti-Clock Rollback:</strong> Protects trial and subscription validity against manual system clock changes.
+            • <strong>30-Day Offline Grace:</strong> After online activation, your desktop app operates 100% offline in remote venues, banquets, or hill stations for up to 30 days without an internet connection.<br>
+            • <strong>Background Heartbeat:</strong> When connected, the app refreshes its token every 12 hours silently in the background.<br>
+            • <strong>Server Outage Resilience:</strong> If the license server is temporarily down for maintenance, the app never locks your workspace.<br>
+            • <strong>Hardware Machine ID:</strong> Each computer generates a unique SHA256 hardware identifier. Reinstalling the app reuses the same seat.
+          </p>
+          <h3>Commercial License Plans:</h3>
+          <p>
+            • <strong>Starter Trial:</strong> ₹0 / 1 Day (Full 10-module access, 1 PC seat)<br>
+            • <strong>Pro Photographer:</strong> ₹499 / month (or ₹3,499 / year) — 1 Mac or Windows PC<br>
+            • <strong>Studio & Agency:</strong> ₹999 / month (or ₹6,999 / year) — 3 Simultaneous Mac/PC Seats
           </p>
         </article>
 
-        <!-- 8. Keyboard Shortcuts -->
+        <!-- 11. Keyboard Shortcuts -->
         <article id="shortcuts" class="kb-content-card">
-          <h2>8. Single-Hand Ergonomic Shortcuts</h2>
+          <h2>11. Single-Hand Ergonomic Keyboard Shortcuts</h2>
           <div class="shortcut-card-grid">
             <div class="shortcut-item">
-              <div><strong style="color: #fff;">Pick Active Photo</strong></div>
-              <span class="shortcut-key">P</span>
+              <div><strong style="color: #fff;">Pick / AI Best</strong></div>
+              <span class="shortcut-key">B / P</span>
             </div>
             <div class="shortcut-item">
-              <div><strong style="color: #fff;">Reject Active Photo</strong></div>
+              <div><strong style="color: #fff;">Move to Review</strong></div>
+              <span class="shortcut-key">R</span>
+            </div>
+            <div class="shortcut-item">
+              <div><strong style="color: #fff;">Reject Frame</strong></div>
               <span class="shortcut-key">X</span>
             </div>
             <div class="shortcut-item">
-              <div><strong style="color: #fff;">Unflag / Reset</strong></div>
+              <div><strong style="color: #fff;">Reset / Unflag</strong></div>
               <span class="shortcut-key">U</span>
             </div>
             <div class="shortcut-item">
-              <div><strong style="color: #fff;">Assign 1-5 Stars</strong></div>
+              <div><strong style="color: #fff;">Assign Star Rating</strong></div>
               <span class="shortcut-key">1 – 5</span>
             </div>
             <div class="shortcut-item">
-              <div><strong style="color: #fff;">Before / After Split</strong></div>
-              <span class="shortcut-key">Space</span>
+              <div><strong style="color: #fff;">Before / After Split Toggle</strong></div>
+              <span class="shortcut-key">Space / \</span>
             </div>
             <div class="shortcut-item">
-              <div><strong style="color: #fff;">100% Loupe Zoom</strong></div>
-              <span class="shortcut-key">Z</span>
+              <div><strong style="color: #fff;">Next / Previous Photo</strong></div>
+              <span class="shortcut-key">← / →</span>
+            </div>
+            <div class="shortcut-item">
+              <div><strong style="color: #fff;">Close Fullscreen Viewer</strong></div>
+              <span class="shortcut-key">Esc</span>
             </div>
           </div>
         </article>
 
-        <!-- 9. Troubleshooting -->
+        <!-- 12. Troubleshooting & Diagnostics -->
         <article id="troubleshooting" class="kb-content-card">
-          <h2>9. Troubleshooting Common Issues</h2>
-          <h3>1. "File Format Not Recognized"</h3>
+          <h2>12. Troubleshooting & Diagnostics</h2>
+          <h3>1. "Domain upload fail hua … needs an active license" (HTTP 401)</h3>
           <p>
-            Verify that your camera uses standard uncompressed or lossless compressed RAW. High-efficiency Sony Lossless and Canon CR3 formats are fully supported in v1.0.0.
+            This indicates that your 1-Day Trial has expired or your machine license token has not been activated. Open <em>Pricing</em> in the app, confirm your active plan badge, and click <strong>Retry Upload</strong>.
           </p>
-          <h3>2. "Insufficient GPU Memory for Batch Export"</h3>
+          <h3>2. Windows Face Detection Performance</h3>
           <p>
-            If your machine has less than 8GB of VRAM, navigate to <em>Settings &gt; Performance</em> and set Concurrent Worker Threads to <strong>2</strong> instead of Auto.
+            On Windows, Ai PhotoFlow loads the YuNet neural face model directly from RAM to prevent path encoding issues with special characters. Open <code>C:\Users\&lt;username&gt;\.photoflow\backend.log</code> and verify that <em>"YuNet face model loaded"</em> is logged.
           </p>
-          <h3>3. Need Priority Support?</h3>
+          <h3>3. Transferring a License to a New Computer</h3>
           <p>
-            Direct telephone and WhatsApp support available from Quick Art Academy team: <strong>📞 +91 9939800780</strong>.
+            If you upgrade your studio PC or switch from Mac to Windows, your license seat can be migrated seamlessly. WhatsApp your registered mobile number to <strong>+91 9939800780</strong> and our admin desk will release the old machine ID instantly.
+          </p>
+          <h3>4. Priority Technical Support</h3>
+          <p>
+            Direct telephone and WhatsApp support available from mentor Anil Sharma & the Quick Art Academy technical team:<br>
+            <strong>📞 Call/WhatsApp:</strong> +91 9939800780<br>
+            <strong>✉️ Email:</strong> support@quickartphotography.in
           </p>
         </article>
       </main>
@@ -785,12 +863,16 @@
         <div>
           © 2026 Ai PhotoFlow Enterprise (v1.0.0). Created by Anil Sharma • Quick Art Photography & Academy.
         </div>
-        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+        <div style="display: flex; gap: 1.25rem; flex-wrap: wrap;">
           <a href="index.html">Home</a>
           <a href="solutions.html">Solutions</a>
           <a href="features.html">Features</a>
           <a href="pricing.html">Pricing</a>
-          <a href="affiliate.html" style="color: #fbbf24; font-weight: 600;">Reseller Program</a>
+          <a href="affiliate.html" style="color: #fbbf24; font-weight: 600;">Reseller Program (30%)</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms & Conditions</a>
+          <a href="refund.html">Refund Policy</a>
+          <a href="shipping.html">Shipping Policy</a>
           <a href="about.html">About Founder</a>
           <a href="contact.html">Contact Us</a>
         </div>
