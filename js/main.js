@@ -1005,21 +1005,19 @@ function initPricingToggle() {
   let appliedDiscount = 0;        // 0 or 50 (%)
   let activeSelectedPlan = 'pro'; // 'starter' | 'pro' | 'yearly'
 
-  // Pricing Matrix (₹799, ₹1,499, ₹5,999 / USD $9.99, $18.99, $69.99)
+  // Pricing Matrix (Starter Trial: ₹0 / $0, Pro: ₹499 / $7, Studio: ₹999 / $14 | Yearly: Pro ₹3,499 / $45, Studio ₹6,999 / $89)
   const priceData = {
     INR: {
       symbol: '₹',
-      starter: { monthly: 799, yearly: 3199 },
-      pro: { monthly: 1499, yearly: 5999 },
-      yearly: { monthly: 5999, yearly: 5999 },
-      studio: { monthly: 5999, yearly: 5999 }
+      starter: { monthly: 0, yearly: 0 },
+      pro: { monthly: 499, yearly: 3499 },
+      studio: { monthly: 999, yearly: 6999 }
     },
     USD: {
       symbol: '$',
-      starter: { monthly: 9.99, yearly: 39.99 },
-      pro: { monthly: 18.99, yearly: 69.99 },
-      yearly: { monthly: 69.99, yearly: 69.99 },
-      studio: { monthly: 69.99, yearly: 69.99 }
+      starter: { monthly: 0, yearly: 0 },
+      pro: { monthly: 7, yearly: 45 },
+      studio: { monthly: 14, yearly: 89 }
     }
   };
 
@@ -1027,34 +1025,32 @@ function initPricingToggle() {
     const sym = priceData[currentCurrency].symbol;
     const isYear = currentPeriod === 'yearly';
 
-    // 1. Starter Price (₹799 / $9.99)
+    // 1. Starter Trial Price (Always ₹0 / $0 and / 1 Day)
     if (elPriceStarter) {
-      let rawStarter = priceData[currentCurrency].starter[currentPeriod];
-      let finalStarter = appliedDiscount > 0 ? Math.round(rawStarter * (1 - appliedDiscount / 100)) : rawStarter;
-      elPriceStarter.textContent = `${sym}${currentCurrency === 'USD' ? finalStarter.toFixed(2) : finalStarter.toLocaleString()}`;
+      elPriceStarter.textContent = `${sym}0`;
     }
     if (elPeriodStarter) {
-      elPeriodStarter.textContent = isYear ? '/ year' : '/ month';
+      elPeriodStarter.textContent = '/ 1 Day';
     }
 
-    // 2. Pro Price (₹1,499 / $18.99)
+    // 2. Pro Photographer Price (₹499 / $7 monthly, ₹3,499 / $45 yearly)
     if (elPricePro) {
       let rawPro = priceData[currentCurrency].pro[currentPeriod];
       let finalPro = appliedDiscount > 0 ? Math.round(rawPro * (1 - appliedDiscount / 100)) : rawPro;
-      elPricePro.textContent = `${sym}${currentCurrency === 'USD' ? finalPro.toFixed(2) : finalPro.toLocaleString()}`;
+      elPricePro.textContent = `${sym}${finalPro.toLocaleString()}`;
     }
     if (elPeriodPro) {
       elPeriodPro.textContent = isYear ? '/ year' : '/ month';
     }
 
-    // 3. Yearly Studio Pass Price (₹5,999 / $69.99)
+    // 3. Studio & Agency Price (₹999 / $14 monthly, ₹6,999 / $89 yearly)
     if (elPriceStudio) {
-      let rawStudio = priceData[currentCurrency].yearly.yearly;
+      let rawStudio = priceData[currentCurrency].studio[currentPeriod];
       let finalStudio = appliedDiscount > 0 ? Math.round(rawStudio * (1 - appliedDiscount / 100)) : rawStudio;
-      elPriceStudio.textContent = `${sym}${currentCurrency === 'USD' ? finalStudio.toFixed(2) : finalStudio.toLocaleString()}`;
+      elPriceStudio.textContent = `${sym}${finalStudio.toLocaleString()}`;
     }
     if (elPeriodStudio) {
-      elPeriodStudio.textContent = '/ year';
+      elPeriodStudio.textContent = isYear ? '/ year' : '/ month';
     }
   }
 
@@ -1122,22 +1118,19 @@ function initPricingToggle() {
   rzpPayBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       activeSelectedPlan = btn.dataset.plan || 'pro';
-      const isYear = currentPeriod === 'yearly' || activeSelectedPlan === 'yearly';
+      const isYear = currentPeriod === 'yearly';
       const sym = priceData[currentCurrency].symbol;
-      const planKey = activeSelectedPlan === 'yearly' ? 'yearly' : activeSelectedPlan;
-      const periodKey = activeSelectedPlan === 'yearly' ? 'yearly' : currentPeriod;
-      const rawPrice = priceData[currentCurrency][planKey] ? priceData[currentCurrency][planKey][periodKey] : 1499;
+      const rawPrice = priceData[currentCurrency][activeSelectedPlan] ? priceData[currentCurrency][activeSelectedPlan][currentPeriod] : 499;
       const finalPrice = appliedDiscount > 0 ? Math.round(rawPrice * (1 - appliedDiscount / 100)) : rawPrice;
 
       let planTitle = 'Pro Photographer Plan';
-      if (activeSelectedPlan === 'starter') planTitle = 'Starter Creator Plan';
-      if (activeSelectedPlan === 'yearly' || activeSelectedPlan === 'studio') planTitle = 'Yearly Studio Pass (Annual)';
+      if (activeSelectedPlan === 'studio') planTitle = 'Studio & Agency Plan';
 
       if (rzpSummaryPlan) {
         rzpSummaryPlan.textContent = `${planTitle} (${isYear ? 'Yearly' : 'Monthly'})`;
       }
       if (rzpSummaryAmount) {
-        rzpSummaryAmount.textContent = `${sym}${currentCurrency === 'USD' ? finalPrice.toFixed(2) : finalPrice.toLocaleString()}`;
+        rzpSummaryAmount.textContent = `${sym}${finalPrice.toLocaleString()}`;
       }
       if (rzpDiscountTag) {
         rzpDiscountTag.style.display = appliedDiscount > 0 ? 'block' : 'none';
@@ -1564,7 +1557,7 @@ function initAffiliateCalculator() {
 
   if (!slider || !monthlyResult) return;
 
-  let activePlanPrice = 1499;
+  let activePlanPrice = 999;
 
   function calculateAffiliateCommission() {
     const count = parseInt(slider.value, 10);
@@ -1610,7 +1603,7 @@ function initAffiliateCalculator() {
     btn.addEventListener('click', () => {
       planButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      activePlanPrice = parseInt(btn.dataset.price, 10) || 1499;
+      activePlanPrice = parseInt(btn.dataset.price, 10) || 999;
       calculateAffiliateCommission();
     });
   });
